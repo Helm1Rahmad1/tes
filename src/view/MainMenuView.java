@@ -13,6 +13,7 @@ import view.components.ui.UltraModernScrollBarUI;
 import view.components.ui.UltraModernTableRenderer;
 import view.components.panels.GlassmorphismCard;
 import view.components.panels.TransparentPanel;
+import view.constants.ButtonStyle;
 import view.constants.ColorConstants;
 import view.constants.FontConstants;
 import view.constants.UIConstants;
@@ -29,9 +30,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.sound.sampled.*;
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import utils.AssetLoader;
 
 /**
  * MainMenuView - Ultra Modern Game Menu Interface
@@ -101,11 +103,12 @@ public class MainMenuView extends JFrame {
      * Load resources with fallback system
      */
     private void loadResources() {
-        try {
-            backgroundImage = ImageIO.read(getClass().getResource("/assets/images/Background/BackgroundMenu.png"));
+        backgroundImage = AssetLoader.loadImage(AssetLoader.BG_MENU_IMAGE);
+        
+        if (backgroundImage != null) {
             System.out.println("✨ Background image loaded successfully");
-        } catch (Exception e) {
-            System.err.println("⚠ Creating fallback background: " + e.getMessage()); // Ini pesan yang muncul
+        } else {
+            System.err.println("⚠ Creating fallback background: Failed to load background image.");
             backgroundImage = createUltraModernBackground();
         }
     }
@@ -199,9 +202,6 @@ public class MainMenuView extends JFrame {
         scoreTable.setShowGrid(false);
         scoreTable.setIntercellSpacing(new Dimension(0, 0));
 
-        
-
-
         // Ultra-modern table styling
         scoreTable.setBackground(new Color(0, 0, 0, 0));
         scoreTable.setOpaque(false);
@@ -212,8 +212,7 @@ public class MainMenuView extends JFrame {
 
         // MODIFIKASI INI UNTUK MEMASTIKAN PERATAAN DATA SEL
         // Setel UltraModernTableRenderer untuk setiap kolom secara eksplisit.
-        // Ini adalah cara terkuat untuk menimpa renderer bawaan JTable untuk tipe data tertentu.
-        for (int i = 0; i < columnHeaders.length; i++) { // Gunakan columnHeaders.length untuk jumlah kolom
+        for (int i = 0; i < columnHeaders.length; i++) {
             scoreTable.getColumnModel().getColumn(i).setCellRenderer(new UltraModernTableRenderer());
         }
 
@@ -235,16 +234,6 @@ public class MainMenuView extends JFrame {
         scoreTable.getColumnModel().getColumn(1).setPreferredWidth(250);
         scoreTable.getColumnModel().getColumn(2).setPreferredWidth(200);
 
-        // Enhanced interaction
-        scoreTable.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                int row = scoreTable.rowAtPoint(e.getPoint());
-                if (row >= 0 && row != scoreTable.getSelectedRow()) {
-                    scoreTable.setRowSelectionInterval(row, row);
-                }
-            }
-        });
     }
 
     /**
@@ -434,13 +423,32 @@ public class MainMenuView extends JFrame {
             }
         });
 
+        // Tetap pertahankan listener ini. Ini akan dipicu ketika seleksi diatur oleh klik satu kali.
         scoreTable.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int selectedRow = scoreTable.getSelectedRow();
                 if (selectedRow >= 0) {
                     String username = (String) tableModel.getValueAt(selectedRow, 0);
+                    // Hapus karakter medal emoji sebelum mengatur teks
                     username = username.replaceAll("[^\\p{L}\\p{N}\\s]", "").trim();
                     usernameField.setText(username);
+                    // Tambahkan notifikasi jika ingin memberitahu user pemain telah dipilih
+                    // NotificationDialog.showModernNotification(MainMenuView.this, "Player selected: " + usernameField.getCleanText(), NotificationDialog.NotificationType.SUCCESS);
+                }
+            }
+        });
+
+        // TAMBAHKAN BLOK KODE INI UNTUK MENDUKUNG KLIK SATU KALI
+        scoreTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Pastikan itu adalah klik kiri dan klik satu kali
+                if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 1) {
+                    int row = scoreTable.rowAtPoint(e.getPoint());
+                    if (row >= 0) {
+                        scoreTable.setRowSelectionInterval(row, row); // Atur seleksi baris secara eksplisit
+                        // ListSelectionListener di atas akan menangani pembaruan usernameField
+                    }
                 }
             }
         });
@@ -579,12 +587,16 @@ public class MainMenuView extends JFrame {
      */
     private void playBackgroundMusic() {
         try {
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(
-                getClass().getResource("/assets/sounds/menu_music.wav"));
-            backgroundMusic = AudioSystem.getClip();
-            backgroundMusic.open(audioStream);
-            backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
-            System.out.println("🎵 Background music started");
+            AudioInputStream audioStream = AssetLoader.loadAudio(AssetLoader.AUDIO_MENU_MUSIC);
+            
+            if (audioStream != null) {
+                backgroundMusic = AudioSystem.getClip();
+                backgroundMusic.open(audioStream);
+                backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+                System.out.println("🎵 Background music started");
+            } else {
+                System.err.println("🔇 Background music unavailable: Audio stream is null.");
+            }
         } catch (Exception e) {
             System.err.println("🔇 Background music unavailable: " + e.getMessage());
         }

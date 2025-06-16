@@ -4,13 +4,15 @@ import view.MainMenuView;
 import model.Database;
 
 /**
- * Saya Rosa mengerjakan evaluasi Tugas Masa Depan dalam mata kuliah
- * Desain dan Pemrograman Berorientasi Objek untuk keberkahanNya maka saya
- * tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
- * 
+ *  Saya Muhammad Helmi Rahmadi mengerjakan evaluasi Tugas Masa Depan dalam mata kuliah
+    Desain dan Pemrograman Berorientasi Objek untuk keberkahanNya maka saya
+    tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
+ *
+  
  * Main class - Entry point aplikasi Collect The Skill Balls
  * Menggunakan konsep MVVM (Model-View-ViewModel)
  */
+
 public class Main {
     public static void main(String[] args) {
         try {

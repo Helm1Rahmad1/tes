@@ -1,7 +1,7 @@
 package view.components.ui;
 
 
-import view.ButtonStyle;
+import view.constants.ButtonStyle;
 import view.constants.ColorConstants;
 import view.constants.FontConstants;
 

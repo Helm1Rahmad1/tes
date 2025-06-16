@@ -8,10 +8,9 @@ import java.awt.AlphaComposite;
 import java.awt.RadialGradientPaint;
 import java.awt.MultipleGradientPaint;
 import java.awt.geom.Point2D;
-import java.io.IOException;
 import java.util.Random;
-import javax.imageio.ImageIO;
-import utils.GameConstants; // Pastikan ini mengarah ke utils.GameConstants
+import utils.GameConstants;
+import utils.AssetLoader;
 
 /**
  * Ball - Komponen visual untuk bola dalam game dengan tema sihir
@@ -37,20 +36,21 @@ public class Ball {
     private float pulseScale = 1.0f;
     private boolean pulseIncreasing = true;
 
-    private static BufferedImage gemEmas, gemBiru, gemHijau, gemHijauTosca, gemMerah, gemOranye, gemUngu, bom;
+    private static BufferedImage goldenGem, frostGem, purpleGem, rubyGem, cyanGem, sapphireGem, emeraldGem, orangeGem, bomb;
 
     static {
-        try {
-            gemEmas = ImageIO.read(Ball.class.getResource("/assets/images/Gems/gem_emas.png"));
-            gemBiru = ImageIO.read(Ball.class.getResource("/assets/images/Gems/gem_biru.png"));
-            gemHijau = ImageIO.read(Ball.class.getResource("/assets/images/Gems/gem_hijau.png"));
-            gemHijauTosca = ImageIO.read(Ball.class.getResource("/assets/images/Gems/gem_hijautosca.png"));
-            gemMerah = ImageIO.read(Ball.class.getResource("/assets/images/Gems/gem_merah.png"));
-            gemOranye = ImageIO.read(Ball.class.getResource("/assets/images/Gems/gem_oren.png"));
-            gemUngu = ImageIO.read(Ball.class.getResource("/assets/images/Gems/gem_ungu.png"));
-            bom = ImageIO.read(Ball.class.getResource("/assets/images/Gems/bom.png"));
-        } catch (IOException e) {
-            System.err.println("Error loading gem images: " + e.getMessage());
+        goldenGem = AssetLoader.loadImage(AssetLoader.GOLDEN_GEM);
+        frostGem = AssetLoader.loadImage(AssetLoader.FROST_GEM);
+        purpleGem = AssetLoader.loadImage(AssetLoader.PURPLE_GEM);
+        rubyGem = AssetLoader.loadImage(AssetLoader.RUBY_GEM);
+        cyanGem = AssetLoader.loadImage(AssetLoader.CYAN_GEM);
+        sapphireGem = AssetLoader.loadImage(AssetLoader.SAPPHIRE_GEM);
+        emeraldGem = AssetLoader.loadImage(AssetLoader.EMERALD_GEM);
+        orangeGem = AssetLoader.loadImage(AssetLoader.ORANGE_GEM);
+        bomb = AssetLoader.loadImage(AssetLoader.BLACK_GEM);
+
+        if (goldenGem == null || bomb == null) {
+            System.err.println("Warning: Some essential gem images failed to load!");
         }
     }
 
@@ -67,27 +67,29 @@ public class Ball {
 
     private Color generateColorByValue(int value) {
         switch (value) {
-            case 10: return new Color(30, 30, 30); // Dark for bomb
+            case 10: return new Color(255, 165, 0); // Orange for 10 points (bomb) - PERUBAHAN
             case 20: return new Color(50, 200, 50); // Magical green
-            case 30: return new Color(50, 200, 200); // Magical cyan
-            case 50: return new Color(50, 100, 255); // Magical blue
+            case 30: return new Color(50, 100, 255); // Magical blue for 30 points - PERUBAHAN
+            case 50: return new Color(50, 200, 200); // Magical cyan for 50 points - PERUBAHAN (swap dengan 30)
             case 70: return new Color(255, 50, 100); // Magical red
             case 90: return new Color(200, 50, 255); // Magical purple
             case 100: return new Color(255, 215, 0); // Golden
-            default: return new Color(255, 165, 0); // Orange
+            default: return Color.WHITE; // Fallback to white for undefined values - PERUBAHAN
         }
     }
 
     private BufferedImage getGemImageByValue(int value) {
         switch (value) {
-            case 10: return bom; // Bomb
-            case 20: return gemHijau; // Green gem
-            case 30: return gemOranye; // Orange gem
-            case 50: return gemHijauTosca; // Cyan gem
-            case 70: return gemMerah; // Red gem
-            case 90: return gemUngu; // Purple gem
-            case 100: return gemEmas; // Golden gem
-            default: return gemBiru; // Blue gem
+            case 10: return bomb; // Orange gem for 10 points
+            case 20: return orangeGem; // Green gem
+            case 30: return emeraldGem; // Blue gem
+            case 40: return sapphireGem; // Cyan gem
+            case 50: return cyanGem; // Red gem
+            case 60: return rubyGem; // Frost gem
+            case 70: return purpleGem; // Golden gem
+            case 80: return frostGem; // Magical green gem
+            case 90: return goldenGem; // Magical red gem
+            default: return bomb; // Fallback to bomb image for undefined values
         }
     }
 
@@ -207,9 +209,6 @@ public class Ball {
             drawMagicalCircle(g2dCopy, x + offsetX, y + offsetY, renderSize);
         }
     
-        // Remove this line to stop drawing the value text
-        // drawMagicalText(g2dCopy, x + ballSize/2, y + ballSize/2, String.valueOf(value));
-    
         g2dCopy.dispose();
     }
 
@@ -264,30 +263,6 @@ public class Ball {
         g2d.drawOval(x, y, size, size);
     }
 
-    // Metode ini tidak lagi digunakan karena nilai bola ditampilkan sebagai gambar
-    // private void drawMagicalText(Graphics2D g2d, int centerX, int centerY, String text) {
-    //     // Text glow effect
-    //     g2d.setColor(new Color(255, 255, 255, (int)(150 * glowIntensity)));
-    //     for (int i = 1; i <= 3; i++) {
-    //         int textWidth = g2d.getFontMetrics().stringWidth(text);
-    //         int textHeight = g2d.getFontMetrics().getAscent();
-    //         g2d.drawString(text, 
-    //                       centerX - textWidth/2 + i, 
-    //                       centerY + textHeight/2 + i);
-    //         g2d.drawString(text, 
-    //                       centerX - textWidth/2 - i, 
-    //                       centerY + textHeight/2 - i);
-    //     }
-        
-    //     // Main text
-    //     g2d.setColor(Color.BLACK);
-    //     int textWidth = g2d.getFontMetrics().stringWidth(text);
-    //     int textHeight = g2d.getFontMetrics().getAscent();
-    //     g2d.drawString(text, 
-    //                   centerX - textWidth/2, 
-    //                   centerY + textHeight/2);
-    // }
-
     public Rectangle getBounds() {
         return new Rectangle(x, y, GameConstants.BALL_SIZE, GameConstants.BALL_SIZE);
     }
@@ -329,8 +304,9 @@ public class Ball {
         transitioningToBasket = false;
 
         // Logika game over untuk bom tetap di sini
-        if (value == 10) { // Jika bola adalah bom (value 10)
-            GameConstants.GAME_OVER = true;
-        }
+        // Baris di bawah ini dihapus karena penanganan Game Over sudah di ViewModel
+        // if (value == 10) { // Jika bola adalah bom (value 10)
+        //     GameConstants.GAME_OVER = true;
+        // }
     }
 }

@@ -1,10 +1,10 @@
 package viewmodel;
 
-import model.Database; // Pastikan ini mengacu pada database.Database jika sudah dipindahkan
+import model.Database;
 import model.GameData;
 import view.components.Ball;
 import view.components.Lasso;
-import view.components.Character; // Pastikan ini mengacu pada view.components.Character
+import view.components.Character;
 
 import utils.GameConstants;
 
@@ -70,7 +70,7 @@ public class GameViewModel {
      * Update game state - main game loop logic
      */
     public void update() {
-        if (!gameData.isGameRunning() || gameData.isGamePaused()) {
+        if (!gameData.isGameRunning() || gameData.isGamePaused() || gameData.isGameOver()) { // Tambahkan gameData.isGameOver()
             return;
         }
 
@@ -90,7 +90,7 @@ public class GameViewModel {
         Ball caughtBall = lasso.checkCollision(balls.toArray(new Ball[0]));
         if (caughtBall != null) {
             if (caughtBall.getValue() == 10) { // Jika bola adalah bom
-                GameConstants.GAME_OVER = true; // Set game over flag
+                gameData.setGameOver(true); // Ganti ini
             } else {
                 // Tambahkan skor dan jumlah bola jika bukan bom
                 currentScore += caughtBall.getValue();
@@ -114,7 +114,7 @@ public class GameViewModel {
 
         if (timeRemaining <= 0) {
             timeRemaining = 0;
-            stopGame();
+            stopGame(); // stopGame akan mengatur gameData.setGameOver(true)
         }
     }
 
@@ -218,7 +218,7 @@ public class GameViewModel {
      * Handle mouse click for lasso
      */
     public void handleMouseClick(int mouseX, int mouseY) {
-        if (!gameData.isGameRunning() || gameData.isGamePaused() || lasso.isActive()) {
+        if (!gameData.isGameRunning() || gameData.isGamePaused() || gameData.isGameOver() || lasso.isActive()) { // Tambahkan gameData.isGameOver()
             return;
         }
 
@@ -237,7 +237,7 @@ public class GameViewModel {
         // Space key to pause/unpause
         if (keyCode == 32) { // Space
             if (gameData.isGamePaused()) {
-                gameData.startGame();
+                gameData.startGame(); // Ini juga akan mengatur gameData.setGameOver(false)
             } else {
                 gameData.pauseGame();
             }
@@ -289,7 +289,7 @@ public class GameViewModel {
      * Reset game
      */
     public void resetGame() {
-        gameData.resetGame(); // Reset data game
+        gameData.resetGame(); // Reset data game, termasuk game over
         initializeGameElements(); // Inisialisasi ulang elemen game
         ballSpawnTimer = 0; // Reset timer spawn bola
         keyPressed = new boolean[256]; // Reset input
@@ -317,7 +317,7 @@ public class GameViewModel {
     
     public boolean isGameRunning() { return gameData.isGameRunning(); }
     public boolean isGamePaused() { return gamePaused; }
-    public int getCurrentScore() { return currentScore; }
+    public int getCurrentScore() { return gameData.getCurrentScore(); }
     public int getCurrentCount() { return gameData.getCurrentCount(); }
     public String getCurrentUsername() { return gameData.getCurrentUsername(); }
 

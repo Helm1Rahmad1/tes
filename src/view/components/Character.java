@@ -3,8 +3,8 @@ package view.components;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 import utils.GameConstants;
+import utils.AssetLoader; // Tambahkan import ini
 
 /**
  * Character - Komponen visual untuk karakter utama game dengan sprite animation
@@ -48,36 +48,37 @@ public class Character {
      * Load all character sprites
      */
     private void loadSprites() {
-        try {
-            // Load down sprites (frames 1-4)
-            downSprites[0] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F1.png"));
-            downSprites[1] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F2.png"));
-            downSprites[2] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F3.png"));
-            downSprites[3] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F4.png"));
-            
-            // Load up sprites (frames 5-8)
-            upSprites[0] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F5.png"));
-            upSprites[1] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F6.png"));
-            upSprites[2] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F7.png"));
-            upSprites[3] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F8.png"));
-            
-            // Load left sprites (frames 9-12)
-            leftSprites[0] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F9.png"));
-            leftSprites[1] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F10.png"));
-            leftSprites[2] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F11.png"));
-            leftSprites[3] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F12.png"));
-            
-            // Load right sprites (frames 13-16)
-            rightSprites[0] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F13.png"));
-            rightSprites[1] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F14.png"));
-            rightSprites[2] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F15.png"));
-            rightSprites[3] = ImageIO.read(getClass().getResource("/assets/images/Character/MainCharacter_LW_F16.png"));
-            
+        // Ganti string literal dengan konstanta dari AssetLoader
+        downSprites[0] = AssetLoader.loadImage(AssetLoader.CHAR_DOWN_F1);
+        downSprites[1] = AssetLoader.loadImage(AssetLoader.CHAR_DOWN_F2);
+        downSprites[2] = AssetLoader.loadImage(AssetLoader.CHAR_DOWN_F3);
+        downSprites[3] = AssetLoader.loadImage(AssetLoader.CHAR_DOWN_F4);
+        
+        upSprites[0] = AssetLoader.loadImage(AssetLoader.CHAR_UP_F1);
+        upSprites[1] = AssetLoader.loadImage(AssetLoader.CHAR_UP_F2);
+        upSprites[2] = AssetLoader.loadImage(AssetLoader.CHAR_UP_F3);
+        upSprites[3] = AssetLoader.loadImage(AssetLoader.CHAR_UP_F4);
+        
+        leftSprites[0] = AssetLoader.loadImage(AssetLoader.CHAR_LEFT_F1);
+        leftSprites[1] = AssetLoader.loadImage(AssetLoader.CHAR_LEFT_F2);
+        leftSprites[2] = AssetLoader.loadImage(AssetLoader.CHAR_LEFT_F3);
+        leftSprites[3] = AssetLoader.loadImage(AssetLoader.CHAR_LEFT_F4);
+        
+        rightSprites[0] = AssetLoader.loadImage(AssetLoader.CHAR_RIGHT_F1);
+        rightSprites[1] = AssetLoader.loadImage(AssetLoader.CHAR_RIGHT_F2);
+        rightSprites[2] = AssetLoader.loadImage(AssetLoader.CHAR_RIGHT_F3);
+        rightSprites[3] = AssetLoader.loadImage(AssetLoader.CHAR_RIGHT_F4);
+        
+        boolean allLoaded = true;
+        for (BufferedImage sprite : downSprites) if (sprite == null) allLoaded = false;
+        for (BufferedImage sprite : upSprites) if (sprite == null) allLoaded = false;
+        for (BufferedImage sprite : leftSprites) if (sprite == null) allLoaded = false;
+        for (BufferedImage sprite : rightSprites) if (sprite == null) allLoaded = false;
+
+        if (allLoaded) {
             System.out.println("Character sprites loaded successfully!");
-            
-        } catch (Exception e) {
-            System.err.println("Error loading character sprites: " + e.getMessage());
-            e.printStackTrace();
+        } else {
+            System.err.println("Error: Some character sprites failed to load.");
         }
     }
 

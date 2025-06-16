@@ -6,54 +6,43 @@ import java.awt.Color;
  * GameConstants - Konstanta untuk konfigurasi game
  */
 public class GameConstants {
-    // Window dimensions
-    public static final int WINDOW_WIDTH = 1400;
-    public static final int WINDOW_HEIGHT = 900;
-    public static final int GAME_AREA_HEIGHT = 500;
+    // Dimensi jendela
+    public static final int WINDOW_WIDTH = 1400; // Lebar jendela
+    public static final int WINDOW_HEIGHT = 900; // Tinggi jendela
+    public static final int GAME_AREA_HEIGHT = 500; // Tinggi area permainan
     
+    // Pengaturan karakter
+    public static final int CHARACTER_SIZE = 64; // Ukuran karakter
+    public static final int CHARACTER_SPEED = 5; // Kecepatan karakter
+    public static final int CHARACTER_START_X = WINDOW_WIDTH / 2; // Posisi awal karakter (X)
+    public static final int CHARACTER_START_Y = WINDOW_HEIGHT / 2; // Posisi awal karakter (Y)
     
-    // Character settings
-    public static final int CHARACTER_SIZE = 64; // Increased size
-    public static final int CHARACTER_SPEED = 5;
-    public static final int CHARACTER_START_X = WINDOW_WIDTH / 2;
-    public static final int CHARACTER_START_Y = WINDOW_HEIGHT / 2;
+    // Pengaturan bola
+    public static final int BALL_SIZE = 40; // Ukuran bola
+    public static final int BALL_SPEED = 1; // Kecepatan bola
+    public static final int MAX_BALLS = 20; // Jumlah maksimum bola
+    public static final int INITIAL_BALL_COUNT = 5; // Jumlah bola saat permainan dimulai
     
-    // Ball settings
-    public static final int BALL_SIZE = 40; // Increased size
-    public static final int BALL_SPEED = 1; // Reduced speed
-    public static final int MAX_BALLS = 20;
-    public static final int INITIAL_BALL_COUNT = 5; // Number of balls at the start
+    // Pengaturan lasso
+    public static final int LASSO_SPEED = 8; // Kecepatan lasso
     
-    // Lasso settings
-    public static final int LASSO_MAX_LENGTH = 100;
-    public static final int LASSO_SPEED = 8;
-    
-    // Basket settings
-    public static final int BASKET_WIDTH = 80;
-    public static final int BASKET_HEIGHT = 40;
-    public static final int BASKET_X = WINDOW_WIDTH - BASKET_WIDTH - 20; // Adjust if needed
-    public static final int BASKET_Y = WINDOW_HEIGHT - BASKET_HEIGHT - 100; // Adjust if needed
+    // Pengaturan keranjang
+    public static final int BASKET_WIDTH = 80; // Lebar keranjang
+    public static final int BASKET_HEIGHT = 40; // Tinggi keranjang
+    public static final int BASKET_X = WINDOW_WIDTH - BASKET_WIDTH - 20; // Posisi keranjang (X)
+    public static final int BASKET_Y = WINDOW_HEIGHT - BASKET_HEIGHT - 100; // Posisi keranjang (Y)
 
+    // Warna
+    public static final Color CHARACTER_COLOR = Color.RED; // Warna karakter
     
-    // Colors
-    public static final Color BACKGROUND_COLOR = new Color(135, 206, 235); // Sky blue
-    public static final Color CHARACTER_COLOR = Color.RED;
-    public static final Color BALL_COLOR = Color.YELLOW;
-    public static final Color BASKET_COLOR = new Color(139, 69, 19); // Brown
-    public static final Color LASSO_COLOR = new Color(160, 82, 45); // Saddle brown
-    public static final Color SCORE_COLOR = Color.BLACK;
+    // Mekanisme permainan
+    public static final int FRAME_RATE = 60; // Frame per detik
+    public static final int FRAME_DELAY = 1000 / FRAME_RATE; // Delay per frame dalam milidetik
     
-    // Game mechanics
-    public static final int FRAME_RATE = 60; // Frames per second
-    public static final int FRAME_DELAY = 1000 / FRAME_RATE; // Delay per frame in milliseconds
-    
-    // Ball spawn settings
-    public static final int BALL_SPAWN_DELAY = 100; // Delay between ball spawns
-    public static final int INITIAL_TIME = 60; // Initial game time in seconds
+    // Pengaturan spawn bola
+    public static final int BALL_SPAWN_DELAY = 100; // Delay antar bola yang muncul
+    public static final int INITIAL_TIME = 60; // Waktu awal permainan dalam detik
     public static final int[] BALL_VALUES = {
-        10, 20, 30, 50, 70, 90, 100 // Consistent values for gems
+        10, 10, 10, 10, 20, 20, 20, 30, 30, 40, 50, 60, 70, 80, 90 // Nilai bola (gems)
     };
-    
-    // Game state
-    public static boolean GAME_OVER = false;
 }

@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import javax.imageio.ImageIO;
+import utils.AssetLoader; // Tambahkan import ini
 
 /**
  * GameView - Tampilan game utama dengan tema sihir
@@ -61,10 +61,9 @@ public class GameView extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    GameConstants.GAME_OVER = true;
-                    gameRunning = false;
+                    viewModel.stopGame(); // Memanggil stopGame di ViewModel untuk menangani logika game over dan saving
+                    gameRunning = false; // Menghentikan loop di View
                     gamePanel.repaint();
-                    saveGameResult();
                     SwingUtilities.invokeLater(() -> {
                         drawGameOverOverlay(gamePanel.getGraphics());
                         try {
@@ -124,10 +123,9 @@ public class GameView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (gameRunning) {
-                    if (GameConstants.GAME_OVER) {
+                    if (viewModel.getGameData().isGameOver()) {
                         gameRunning = false;
                         gamePanel.repaint();
-                        saveGameResult();
                         SwingUtilities.invokeLater(() -> {
                             drawGameOverOverlay(gamePanel.getGraphics());
                             try {
@@ -149,25 +147,23 @@ public class GameView extends JFrame {
     }
 
     private void saveGameResult() {
-        String username = viewModel.getCurrentUsername();
-        int score = viewModel.getCurrentScore();
-        int count = viewModel.getCurrentCount();
-
-        if (username != null && !username.trim().isEmpty() && score >= 0) {
-            viewModel.saveGameResult(username, score, count);
-            System.out.println("Magical score saved: Username = " + username + ", Score = " + score + ", Count = " + count);
-        } else {
-            System.err.println("Failed to save magical score: Invalid data.");
-        }
+        // Metode ini sekarang kosong karena saving sudah dipindahkan ke ViewModel.stopGame()
+        // dan dipicu saat game berakhir.
     }
 
     private void playGameMusic() {
         try {
             System.out.println("Playing magical music...");
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(getClass().getResource("/assets/sounds/game_music.wav"));
-            gameMusic = AudioSystem.getClip();
-            gameMusic.open(audioStream);
-            gameMusic.loop(Clip.LOOP_CONTINUOUSLY);
+            // Ganti string literal dengan konstanta dari AssetLoader
+            AudioInputStream audioStream = AssetLoader.loadAudio(AssetLoader.AUDIO_GAME_MUSIC);
+            
+            if (audioStream != null) {
+                gameMusic = AudioSystem.getClip();
+                gameMusic.open(audioStream);
+                gameMusic.loop(Clip.LOOP_CONTINUOUSLY);
+            } else {
+                System.err.println("Error playing magical music: Audio stream is null.");
+            }
         } catch (Exception e) {
             System.err.println("Error playing magical music: " + e.getMessage());
         }
@@ -188,7 +184,6 @@ public class GameView extends JFrame {
         }
         
         viewModel.resetGame();
-        GameConstants.GAME_OVER = false;
         
         mainMenuView.showMainMenu();
         dispose();
@@ -215,7 +210,7 @@ public class GameView extends JFrame {
         g2d.drawString(gameOverText, x, y);
 
         g2d.setFont(new Font("Serif", Font.BOLD, 24));
-        String scoreText = "✨ Final Score: " + viewModel.getGameData().getCurrentScore() + " ✨";
+        String scoreText = "✨ Final Score: " + viewModel.getCurrentScore() + " ✨";
         fm = g2d.getFontMetrics();
         x = (getWidth() - fm.stringWidth(scoreText)) / 2;
         g2d.drawString(scoreText, x, y + 60);
@@ -300,7 +295,7 @@ public class GameView extends JFrame {
                 drawMagicalPauseOverlay(g2d);
             }
 
-            if (!viewModel.isGameRunning()) {
+            if (viewModel.getGameData().isGameOver()) {
                 drawMagicalGameOverOverlay(g2d);
             }
         }
@@ -347,7 +342,7 @@ public class GameView extends JFrame {
             g2d.setColor(Color.WHITE);
             g2d.setFont(new Font("Serif", Font.BOLD, 18));
             
-            String scoreText = "✨ Score: " + viewModel.getGameData().getCurrentScore();
+            String scoreText = "✨ Score: " + viewModel.getCurrentScore();
             g2d.drawString(scoreText, 20, 35);
             
             String timeText = "⏰ Time: " + viewModel.getTimeRemaining() + "s";
@@ -379,24 +374,26 @@ public class GameView extends JFrame {
             // Gem rankings with images
             g2d.setFont(new Font("Serif", Font.PLAIN, 12));
             Object[][] gemInfo = {
-                {"/assets/images/Gems/gem_emas.png", "Golden Gem: 100pts"}, // Golden
-                {"/assets/images/Gems/gem_ungu.png", "Purple Gem: 90pts"}, // Magical purple
-                {"/assets/images/Gems/gem_merah.png", "Ruby Gem: 70pts"}, // Magical red
-                {"/assets/images/Gems/gem_hijautosca.png", "Cyan Gem: 50pts"}, // Magical cyan
-                {"/assets/images/Gems/gem_biru.png", "Sapphire Gem: 30pts"}, // Magical blue
-                {"/assets/images/Gems/gem_hijau.png", "Emerald Gem: 20pts"}, // Magical green
-                {"/assets/images/Gems/gem_oren.png", "Orange Gem: 10pts"}, // Orange
-                {"/assets/images/Gems/bom.png", "Black Gem: Bomb"} // Dark for bomb
+                {AssetLoader.GOLDEN_GEM, "Golden Gem: 90"}, // Ganti string literal dengan konstanta
+                {AssetLoader.FROST_GEM, "Frost Gem: 80pts"},
+                {AssetLoader.PURPLE_GEM, "Purple Gem: 70pts"},
+                {AssetLoader.RUBY_GEM, "Ruby Gem: 60pts"},
+                {AssetLoader.CYAN_GEM, "Cyan Gem: 50pts"},
+                {AssetLoader.SAPPHIRE_GEM, "Sapphire Gem: 40pts"},
+                {AssetLoader.EMERALD_GEM, "Emerald Gem: 30pts"},
+                {AssetLoader.ORANGE_GEM, "Orange Gem: 20pts"},
+                {AssetLoader.BLACK_GEM, "Black Gem: Bomb"}
             };
 
             int yPos = panelY + 40;
             for (Object[] info : gemInfo) {
                 if (yPos > panelY + panelH - 15) break; // Prevent overflow
-                try {
-                    BufferedImage gemImage = ImageIO.read(getClass().getResource((String) info[0]));
+                BufferedImage gemImage = AssetLoader.loadImage((String) info[0]);
+                
+                if (gemImage != null) {
                     g2d.drawImage(gemImage, panelX + 10, yPos, 20, 20, null);
-                } catch (Exception e) {
-                    System.err.println("Failed to load gem image: " + e.getMessage());
+                } else {
+                    System.err.println("Failed to load gem image for: " + info[1]);
                 }
                 g2d.drawString((String) info[1], panelX + 40, yPos + 15);
                 yPos += 30; // Adjust spacing for images
@@ -469,7 +466,7 @@ public class GameView extends JFrame {
 
             // Score display
             g2d.setFont(new Font("Serif", Font.BOLD, 28));
-            String scoreText = "✨ Final Score: " + viewModel.getGameData().getCurrentScore() + " ✨";
+            String scoreText = "✨ Final Score: " + viewModel.getCurrentScore() + " ✨";
             fm = g2d.getFontMetrics();
             x = (getWidth() - fm.stringWidth(scoreText)) / 2;
             g2d.setColor(new Color(255, 215, 0));

@@ -11,19 +11,19 @@ import model.Player;
  */
 public class Database {
     // Konfigurasi database MySQL
-    private static final String DB_HOST = "localhost";
-    private static final String DB_PORT = "3306";
-    private static final String DB_NAME = "game_scores_db";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = ""; // Kosongkan jika tidak ada password
-    
+    private static final String DB_HOST = "localhost"; // Host database
+    private static final String DB_PORT = "3306"; // Port database
+    private static final String DB_NAME = "game_scores_db"; // Nama database
+    private static final String DB_USERNAME = "root"; // Username database
+    private static final String DB_PASSWORD = ""; // Password database (kosong jika tidak ada)
+
     private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME 
                                         + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     
     private static Connection connection;
 
     /**
-     * Initialize database dan buat tabel jika belum ada
+     * Inisialisasi database dan buat tabel jika belum ada
      */
     public static synchronized void initializeDatabase() {
         if (connection != null) {
@@ -39,8 +39,8 @@ public class Database {
             System.out.println("Username: " + DB_USERNAME);
             
             connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-            createTableIfNotExists();
-            insertSampleData();
+            createTableIfNotExists(); // Membuat tabel jika belum ada
+            insertSampleData(); // Menambahkan data contoh
             
             System.out.println("Database MySQL berhasil diinisialisasi");
         } catch (ClassNotFoundException e) {
@@ -60,6 +60,7 @@ public class Database {
      * Buat tabel thasil jika belum ada
      */
     private static void createTableIfNotExists() throws SQLException {
+        // SQL untuk membuat tabel jika belum ada
         String sql = "CREATE TABLE IF NOT EXISTS thasil (" +
                      "id INT AUTO_INCREMENT PRIMARY KEY, " +
                      "username VARCHAR(50) NOT NULL UNIQUE, " +
@@ -76,7 +77,7 @@ public class Database {
     }
 
     /**
-     * Insert sample data untuk demo
+     * Insert data contoh untuk demo
      */
     private static void insertSampleData() throws SQLException {
         String checkSql = "SELECT COUNT(*) FROM thasil";
@@ -84,7 +85,7 @@ public class Database {
              ResultSet rs = stmt.executeQuery(checkSql)) {
 
             if (rs.next() && rs.getInt(1) == 0) {
-                // Insert sample data jika tabel kosong
+                // Insert data contoh jika tabel kosong
                 insertOrUpdatePlayer("NalarJalan", 1000, 100);
                 insertOrUpdatePlayer("UseYourLogic", 800, 80);
                 insertOrUpdatePlayer("NoJudgement", 700, 40);
@@ -110,7 +111,7 @@ public class Database {
             selectStmt.setString(1, username);
             try (ResultSet rs = selectStmt.executeQuery()) {
                 if (rs.next()) {
-                    // Player exists, update dengan nilai baru (tambahkan ke existing)
+                    // Player sudah ada, update dengan nilai baru
                     int existingScore = rs.getInt("skor");
                     int existingCount = rs.getInt("count");
 
@@ -124,7 +125,7 @@ public class Database {
                         }
                     }
                 } else {
-                    // Player doesn't exist, insert new
+                    // Player belum ada, insert baru
                     try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
                         insertStmt.setString(1, username);
                         insertStmt.setInt(2, score);
@@ -142,7 +143,7 @@ public class Database {
     }
 
     /**
-     * Get all players sorted by score descending
+     * Get semua player, diurutkan berdasarkan skor (descending)
      */
     public static List<Player> getAllPlayers() {
         List<Player> players = new ArrayList<>();
@@ -171,7 +172,7 @@ public class Database {
     }
 
     /**
-     * Get player by username
+     * Get player berdasarkan username
      */
     public static Player getPlayerByUsername(String username) {
         if (connection == null) {
@@ -198,7 +199,7 @@ public class Database {
     }
 
     /**
-     * Test database connection
+     * Test koneksi database
      */
     public static boolean testConnection() {
         try {
@@ -215,7 +216,7 @@ public class Database {
     }
 
     /**
-     * Close database connection
+     * Tutup koneksi database
      */
     public static void closeConnection() {
         if (connection == null) {
