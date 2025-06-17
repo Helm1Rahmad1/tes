@@ -7,25 +7,25 @@ import utils.GameConstants;
 import utils.AssetLoader; // Tambahkan import ini
 
 /**
- * Character - Komponen visual untuk karakter utama game dengan sprite animation
- * Bagian dari View layer dalam MVVM pattern
+ * Character - Komponen visual untuk karakter utama game dengan animasi sprite
+ * Bagian dari lapisan View dalam pola MVVM
  */
 public class Character {
     private int x, y;
     private int targetX, targetY;
     private boolean moving;
     
-    // Animation variables
-    private BufferedImage[] downSprites = new BufferedImage[4];   // Frames 1-4 (down)
-    private BufferedImage[] upSprites = new BufferedImage[4];     // Frames 5-8 (up)
-    private BufferedImage[] leftSprites = new BufferedImage[4];   // Frames 9-12 (left)
-    private BufferedImage[] rightSprites = new BufferedImage[4];  // Frames 13-16 (right)
+    // Variabel animasi
+    private BufferedImage[] downSprites = new BufferedImage[4];   // Frame 1-4 (bawah)
+    private BufferedImage[] upSprites = new BufferedImage[4];     // Frame 5-8 (atas)
+    private BufferedImage[] leftSprites = new BufferedImage[4];   // Frame 9-12 (kiri)
+    private BufferedImage[] rightSprites = new BufferedImage[4];  // Frame 13-16 (kanan)
     
     private int currentFrame = 0;
     private int animationCounter = 0;
-    private static final int ANIMATION_SPEED = 8; // Controls animation speed
+    private static final int ANIMATION_SPEED = 8; // Mengontrol kecepatan animasi
     
-    // Direction constants
+    // Konstanta arah
     private static final int DIRECTION_DOWN = 0;
     private static final int DIRECTION_UP = 1;
     private static final int DIRECTION_LEFT = 2;
@@ -45,7 +45,7 @@ public class Character {
     }
 
     /**
-     * Load all character sprites
+     * Memuat semua sprite karakter
      */
     private void loadSprites() {
         // Ganti string literal dengan konstanta dari AssetLoader
@@ -76,34 +76,34 @@ public class Character {
         for (BufferedImage sprite : rightSprites) if (sprite == null) allLoaded = false;
 
         if (allLoaded) {
-            System.out.println("Character sprites loaded successfully!");
+            System.out.println("Sprite karakter berhasil dimuat!");
         } else {
-            System.err.println("Error: Some character sprites failed to load.");
+            System.err.println("Error: Beberapa sprite karakter gagal dimuat.");
         }
     }
 
     /**
-     * Update posisi karakter dengan smooth movement dan animasi
+     * Memperbarui posisi karakter dengan pergerakan halus dan animasi
      */
     public void update() {
-        // Always update animation counter for smooth animation
+        // Selalu perbarui penghitung animasi untuk animasi yang halus
         updateAnimation();
         
         if (moving) {
-            // Smooth movement towards target
+            // Pergerakan halus menuju target
             int dx = targetX - x;
             int dy = targetY - y;
             
-            // Determine movement direction for animation
+            // Menentukan arah pergerakan untuk animasi
             if (Math.abs(dx) > Math.abs(dy)) {
-                // Horizontal movement is dominant
+                // Pergerakan horizontal lebih dominan
                 if (dx > 0) {
                     currentDirection = DIRECTION_RIGHT;
                 } else {
                     currentDirection = DIRECTION_LEFT;
                 }
             } else if (Math.abs(dy) > 0) {
-                // Vertical movement is dominant
+                // Pergerakan vertikal lebih dominan
                 if (dy > 0) {
                     currentDirection = DIRECTION_DOWN;
                 } else {
@@ -111,7 +111,7 @@ public class Character {
                 }
             }
             
-            // Smooth movement with smaller steps
+            // Pergerakan halus dengan langkah yang lebih kecil
             int moveSpeed = GameConstants.CHARACTER_SPEED;
             
             if (Math.abs(dx) > moveSpeed) {
@@ -126,54 +126,54 @@ public class Character {
                 y = targetY;
             }
             
-            // Stop moving when target reached
+            // Berhenti bergerak saat target tercapai
             if (x == targetX && y == targetY) {
                 moving = false;
-                lastDirection = currentDirection; // Store last direction
+                lastDirection = currentDirection; // Simpan arah terakhir
             }
         } else {
-            // When not moving, use the last direction for idle animation
+            // Saat tidak bergerak, gunakan arah terakhir untuk animasi diam
             currentDirection = lastDirection;
-            currentFrame = 0; // Use first frame as idle
+            currentFrame = 0; // Gunakan frame pertama sebagai diam
         }
     }
 
     /**
-     * Update animation frame
+     * Memperbarui frame animasi karakter
      */
     private void updateAnimation() {
         if (moving) {
-            // Only animate when actually moving
+            // Animasi hanya berjalan saat karakter bergerak
             animationCounter++;
             if (animationCounter >= ANIMATION_SPEED) {
-                currentFrame = (currentFrame + 1) % 4; // Cycle through 4 frames
+                currentFrame = (currentFrame + 1) % 4; // Siklus melalui 4 frame
                 animationCounter = 0;
             }
         } else {
-            // Reset animation when not moving
+            // Reset animasi saat karakter tidak bergerak
             currentFrame = 0;
             animationCounter = 0;
         }
     }
 
     /**
-     * Move karakter ke arah tertentu dengan direct movement
+     * Memindahkan karakter ke arah tertentu dengan pergerakan langsung
      */
     public void moveDirectly(int dx, int dy) {
         int newX = x + dx;
         int newY = y + dy;
 
-        // Boundary checking
+        // Pemeriksaan batas
         newX = Math.max(0, Math.min(GameConstants.WINDOW_WIDTH - GameConstants.CHARACTER_SIZE, newX));
         newY = Math.max(0, Math.min(GameConstants.WINDOW_HEIGHT - GameConstants.CHARACTER_SIZE, newY));
 
-        // Set position directly for smoother movement
+        // Atur posisi langsung untuk pergerakan yang lebih halus
         x = newX;
         y = newY;
         targetX = x;
         targetY = y;
         
-        // Set direction for animation
+        // Atur arah untuk animasi
         if (Math.abs(dx) > Math.abs(dy)) {
             if (dx > 0) {
                 currentDirection = DIRECTION_RIGHT;
@@ -188,7 +188,7 @@ public class Character {
             }
         }
         
-        // Set moving state for animation
+        // Atur status bergerak untuk animasi
         moving = (dx != 0 || dy != 0);
         if (moving) {
             lastDirection = currentDirection;
@@ -196,22 +196,22 @@ public class Character {
     }
 
     /**
-     * Set target position untuk smooth movement
+     * Mengatur posisi target untuk pergerakan halus
      */
     public void setTarget(int targetX, int targetY) {
-        System.out.println("Setting target position: (" + targetX + ", " + targetY + ")");
+        System.out.println("Mengatur posisi target: (" + targetX + ", " + targetY + ")");
         this.targetX = targetX;
         this.targetY = targetY;
         this.moving = true;
         
-        // Store the last direction when starting to move
+        // Simpan arah terakhir saat mulai bergerak
         if (!moving) {
             lastDirection = currentDirection;
         }
     }
 
     /**
-     * Move karakter langsung ke posisi tertentu
+     * Memindahkan karakter langsung ke posisi tertentu
      */
     public void setPosition(int x, int y) {
         this.x = Math.max(0, Math.min(GameConstants.WINDOW_WIDTH - GameConstants.CHARACTER_SIZE, x));
@@ -223,23 +223,24 @@ public class Character {
     }
 
     /**
-     * Render karakter dengan sprite animation
+     * Merender karakter dengan animasi sprite
+     * @param g2d Graphics2D untuk menggambar
      */
     public void render(Graphics2D g2d) {
         BufferedImage currentSprite = getCurrentSprite();
         
         if (currentSprite != null) {
-            // Draw the sprite at the character's position
+            // Gambar sprite pada posisi karakter
             g2d.drawImage(currentSprite, x, y, GameConstants.CHARACTER_SIZE, GameConstants.CHARACTER_SIZE, null);
         } else {
-            // Fallback to simple rectangle if sprites fail to load
+            // Fallback ke persegi sederhana jika sprite gagal dimuat
             g2d.setColor(GameConstants.CHARACTER_COLOR);
             g2d.fillRect(x, y, GameConstants.CHARACTER_SIZE, GameConstants.CHARACTER_SIZE);
         }
     }
 
     /**
-     * Get current sprite based on direction and animation frame
+     * Mendapatkan sprite saat ini berdasarkan arah dan frame animasi
      */
     private BufferedImage getCurrentSprite() {
         try {
@@ -253,23 +254,23 @@ public class Character {
                 case DIRECTION_RIGHT:
                     return rightSprites[currentFrame];
                 default:
-                    return downSprites[0]; // Default to down facing
+                    return downSprites[0]; // Default ke menghadap bawah
             }
         } catch (Exception e) {
-            System.err.println("Error getting current sprite: " + e.getMessage());
+            System.err.println("Error mendapatkan sprite saat ini: " + e.getMessage());
             return null;
         }
     }
 
     /**
-     * Get collision bounds
+     * Mendapatkan batas tabrakan
      */
     public Rectangle getBounds() {
         return new Rectangle(x, y, GameConstants.CHARACTER_SIZE, GameConstants.CHARACTER_SIZE);
     }
 
     /**
-     * Get center point of character
+     * Mendapatkan titik tengah karakter
      */
     public int getCenterX() {
         return x + GameConstants.CHARACTER_SIZE / 2;
@@ -279,12 +280,12 @@ public class Character {
         return y + GameConstants.CHARACTER_SIZE / 2;
     }
 
-    // Getters
+    // Getter
     public int getX() { return x; }
     public int getY() { return y; }
     public boolean isMoving() { return moving; }
 
-    // Reset character to starting position
+    // Mengatur ulang karakter ke posisi awal
     public void reset() {
         setPosition(GameConstants.CHARACTER_START_X, GameConstants.CHARACTER_START_Y);
         currentDirection = DIRECTION_DOWN;

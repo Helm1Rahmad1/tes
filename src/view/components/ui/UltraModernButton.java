@@ -1,6 +1,5 @@
 package view.components.ui;
 
-
 import view.constants.ButtonStyle;
 import view.constants.ColorConstants;
 import view.constants.FontConstants;
@@ -11,27 +10,46 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * Ultra-modern button with multiple styles and animations
+ * Ultra-modern button dengan berbagai gaya dan animasi
  */
 public class UltraModernButton extends JButton {
+    // Warna dasar tombol
     private Color baseColor;
+    // Gaya tombol
     private ButtonStyle style;
+    // Status hover tombol
     private boolean isHovered = false;
+    // Status tombol ditekan
     private boolean isPressed = false;
+    // Status loading tombol
     private boolean isLoading = false;
+    // Status animasi spinning
     private boolean isSpinning = false;
+    // Timer untuk animasi hover
     private Timer hoverTimer;
+    // Timer untuk animasi loading
     private Timer loadingTimer;
+    // Timer untuk animasi spinning
     private Timer spinTimer;
+    // Nilai animasi hover
     private float hoverAnimation = 0.0f;
+    // Nilai animasi loading
     private float loadingAnimation = 0.0f;
+    // Nilai animasi spinning
     private float spinAnimation = 0.0f;
 
+    /**
+     * Konstruktor tombol ultra-modern
+     * @param text Teks tombol
+     * @param baseColor Warna dasar tombol
+     * @param style Gaya tombol
+     */
     public UltraModernButton(String text, Color baseColor, ButtonStyle style) {
         super(text);
         this.baseColor = baseColor;
         this.style = style;
         
+        // Mengatur font, warna, dan properti tombol
         setFont(style == ButtonStyle.ICON ? FontConstants.FONT_HEADING : FontConstants.FONT_SUBHEADING);
         setForeground(ColorConstants.TEXT_PRIMARY);
         setBorder(BorderFactory.createEmptyBorder());
@@ -39,6 +57,7 @@ public class UltraModernButton extends JButton {
         setFocusPainted(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         
+        // Menambahkan listener untuk event mouse
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -70,6 +89,10 @@ public class UltraModernButton extends JButton {
         });
     }
     
+    /**
+     * Memulai animasi hover
+     * @param entering Apakah mouse masuk ke area tombol
+     */
     private void startHoverAnimation(boolean entering) {
         if (hoverTimer != null) hoverTimer.stop();
         
@@ -88,6 +111,10 @@ public class UltraModernButton extends JButton {
         hoverTimer.start();
     }
     
+    /**
+     * Mengatur status loading tombol
+     * @param loading Apakah tombol dalam status loading
+     */
     public void setLoadingState(boolean loading) {
         this.isLoading = loading;
         if (loading) {
@@ -97,6 +124,9 @@ public class UltraModernButton extends JButton {
         }
     }
     
+    /**
+     * Memulai animasi loading
+     */
     private void startLoadingAnimation() {
         loadingTimer = new Timer(50, e -> {
             loadingAnimation += 0.2f;
@@ -106,6 +136,9 @@ public class UltraModernButton extends JButton {
         loadingTimer.start();
     }
     
+    /**
+     * Menghentikan animasi loading
+     */
     private void stopLoadingAnimation() {
         if (loadingTimer != null) {
             loadingTimer.stop();
@@ -114,6 +147,9 @@ public class UltraModernButton extends JButton {
         }
     }
     
+    /**
+     * Memulai animasi spinning
+     */
     public void startSpinAnimation() {
         isSpinning = true;
         spinTimer = new Timer(16, e -> {
@@ -124,6 +160,9 @@ public class UltraModernButton extends JButton {
         spinTimer.start();
     }
     
+    /**
+     * Menghentikan animasi spinning
+     */
     public void stopSpinAnimation() {
         isSpinning = false;
         if (spinTimer != null) {
@@ -133,6 +172,10 @@ public class UltraModernButton extends JButton {
         }
     }
 
+    /**
+     * Melukis komponen tombol
+     * @param g Objek grafis
+     */
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -142,18 +185,18 @@ public class UltraModernButton extends JButton {
         int width = getWidth();
         int height = getHeight();
         
-        // Calculate animation effects
+        // Menghitung efek animasi
         float scale = isPressed ? 0.95f : (1.0f + hoverAnimation * 0.05f);
         float opacity = isLoading ? 0.7f : 1.0f;
         
-        // Apply scaling transform
+        // Menerapkan transformasi skala
         g2d.translate(width / 2, height / 2);
         g2d.scale(scale, scale);
         g2d.translate(-width / 2, -height / 2);
         
-        // Background with gradient and glow
+        // Latar belakang dengan gradien dan efek glow
         if (style != ButtonStyle.ICON) {
-            // Glow effect
+            // Efek glow
             if (hoverAnimation > 0) {
                 Color glowColor = new Color(baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 
                                          (int)(hoverAnimation * 100));
@@ -164,7 +207,7 @@ public class UltraModernButton extends JButton {
                 }
             }
             
-            // Main background
+            // Latar belakang utama
             GradientPaint gradient = new GradientPaint(
                 0, 0, new Color(baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 
                                (int)(opacity * (style == ButtonStyle.PRIMARY ? 255 : 100))),
@@ -180,7 +223,7 @@ public class UltraModernButton extends JButton {
             g2d.drawRoundRect(0, 0, width - 1, height - 1, 15, 15);
         }
         
-        // Icon button background
+        // Latar belakang tombol ikon
         if (style == ButtonStyle.ICON) {
             Color iconBg = new Color(baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 
                                    (int)(opacity * (50 + hoverAnimation * 100)));
@@ -188,7 +231,7 @@ public class UltraModernButton extends JButton {
             g2d.fillRoundRect(0, 0, width, height, 12, 12);
         }
         
-        // Loading animation
+        // Animasi loading
         if (isLoading) {
             g2d.setColor(new Color(255, 255, 255, 100));
             int dotSize = 4;
@@ -202,14 +245,14 @@ public class UltraModernButton extends JButton {
                 g2d.fillOval(startX + i * spacing, y, dotSize, dotSize);
             }
         }
-        // Spin animation for refresh button
+        // Animasi spinning untuk tombol refresh
         else if (isSpinning && style == ButtonStyle.ICON) {
             g2d.translate(width / 2, height / 2);
             g2d.rotate(spinAnimation);
             g2d.translate(-width / 2, -height / 2);
         }
         
-        // Button text
+        // Teks tombol
         if (!isLoading) {
             g2d.setColor(getForeground());
             g2d.setFont(getFont());

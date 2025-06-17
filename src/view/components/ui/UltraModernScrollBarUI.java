@@ -9,25 +9,27 @@ import java.awt.*;
 public class UltraModernScrollBarUI extends BasicScrollBarUI {
     @Override
     protected void configureScrollBarColors() {
+        // Mengatur warna thumb (bagian yang bisa digeser)
         thumbColor = new Color(ColorConstants.ACCENT_BLUE.getRed(), ColorConstants.ACCENT_BLUE.getGreen(), ColorConstants.ACCENT_BLUE.getBlue(), 100);
         thumbHighlightColor = new Color(ColorConstants.ACCENT_BLUE.getRed(), ColorConstants.ACCENT_BLUE.getGreen(), ColorConstants.ACCENT_BLUE.getBlue(), 150);
         thumbLightShadowColor = new Color(ColorConstants.ACCENT_BLUE.getRed(), ColorConstants.ACCENT_BLUE.getGreen(), ColorConstants.ACCENT_BLUE.getBlue(), 50);
         thumbDarkShadowColor = new Color(ColorConstants.ACCENT_BLUE.getRed(), ColorConstants.ACCENT_BLUE.getGreen(), ColorConstants.ACCENT_BLUE.getBlue(), 30);
-        trackColor = new Color(0, 0, 0, 0);
+        trackColor = new Color(0, 0, 0, 0); // Track transparan
         trackHighlightColor = new Color(0, 0, 0, 0);
     }
     
     @Override
     protected JButton createDecreaseButton(int orientation) {
-        return createInvisibleButton();
+        return createInvisibleButton(); // Tombol decrease tidak terlihat
     }
     
     @Override
     protected JButton createIncreaseButton(int orientation) {
-        return createInvisibleButton();
+        return createInvisibleButton(); // Tombol increase tidak terlihat
     }
     
     private JButton createInvisibleButton() {
+        // Membuat tombol yang tidak terlihat
         JButton button = new JButton();
         button.setPreferredSize(new Dimension(0, 0));
         button.setMinimumSize(new Dimension(0, 0));
@@ -37,6 +39,7 @@ public class UltraModernScrollBarUI extends BasicScrollBarUI {
     
     @Override
     protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
+        // Menggambar thumb dengan sudut membulat
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
@@ -49,6 +52,6 @@ public class UltraModernScrollBarUI extends BasicScrollBarUI {
     
     @Override
     protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
-        // Transparent track
+        // Track transparan, tidak digambar
     }
 }

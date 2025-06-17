@@ -34,9 +34,7 @@ public class MainMenuViewModel {
         return players;
     }
 
-    /**
-     * Start game dengan username tertentu
-     */
+    
     public boolean startGame(String username) {
         if (username == null || username.trim().isEmpty()) {
             return false;
@@ -55,12 +53,15 @@ public class MainMenuViewModel {
     }
 
     /**
-     * Save game result ke database
+     * Menyimpan hasil game ke database.
+     * @param username Username pemain.
+     * @param score Skor yang diperoleh.
+     * @param count Jumlah bola yang ditangkap.
      */
     public void saveGameResult(String username, int score, int count) {
         if (username != null && !username.trim().isEmpty() && score > 0) {
             Database.insertOrUpdatePlayer(username.trim(), score, count);
-            loadPlayers(); // Refresh data
+            loadPlayers(); // Refresh data pemain
         }
     }
 

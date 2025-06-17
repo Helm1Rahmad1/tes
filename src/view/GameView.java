@@ -16,17 +16,18 @@ import java.util.HashMap;
 import utils.AssetLoader; // Tambahkan import ini
 
 /**
- * GameView - Tampilan game utama dengan tema sihir
- * Bagian dari View layer dalam MVVM pattern
+ * GameView - Tampilan utama game dengan tema sihir
+ * Bagian dari lapisan View dalam pola MVVM
  */
 public class GameView extends JFrame {
+    // Deklarasi variabel
     private GameViewModel viewModel;
     private MainMenuView mainMenuView;
     private GamePanel gamePanel;
     private Timer gameTimer;
     private boolean gameRunning;
 
-    // Magic theme elements
+    // Elemen tema sihir
     private float magicParticleTimer = 0.0f;
     private BufferedImage backgroundImage;
     private Clip gameMusic; // Deklarasi gameMusic di sini
@@ -43,6 +44,7 @@ public class GameView extends JFrame {
     }
 
     private void initializeComponents() {
+        // Inisialisasi komponen GUI
         setTitle("🔮 Collect The Magical Gems - " + viewModel.getCurrentUsername() + " 🔮");
         setSize(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -57,11 +59,13 @@ public class GameView extends JFrame {
     }
 
     private void setupEventHandlers() {
+        // Menambahkan event handler untuk input keyboard
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                // Tangani tombol spasi untuk mengakhiri permainan
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    viewModel.stopGame(); // Memanggil stopGame di ViewModel untuk menangani logika game over dan saving
+                    viewModel.stopGame(); // Memanggil stopGame di ViewModel untuk logika game over dan penyimpanan
                     gameRunning = false; // Menghentikan loop di View
                     gamePanel.repaint();
                     SwingUtilities.invokeLater(() -> {
@@ -81,20 +85,23 @@ public class GameView extends JFrame {
 
             @Override
             public void keyReleased(KeyEvent e) {
+                // Tangani pelepasan tombol
                 viewModel.handleKeyRelease(e.getKeyCode());
             }
         });
 
+        // Menambahkan event handler untuk klik mouse
         gamePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    System.out.println("Magic spell cast at: (" + e.getX() + ", " + e.getY() + ")");
+                    System.out.println("Sihir dilempar ke: (" + e.getX() + ", " + e.getY() + ")");
                     viewModel.handleMouseClick(e.getX(), e.getY());
                 }
             }
         });
 
+        // Menambahkan event handler untuk penutupan jendela
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -102,6 +109,7 @@ public class GameView extends JFrame {
             }
         });
 
+        // Menambahkan event handler untuk fokus jendela
         addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -120,6 +128,7 @@ public class GameView extends JFrame {
     }
 
     private void startGameLoop() {
+        // Memulai loop permainan
         gameTimer = new Timer(GameConstants.FRAME_DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -147,14 +156,10 @@ public class GameView extends JFrame {
         gameTimer.start();
     }
 
-    private void saveGameResult() {
-        // Metode ini sekarang kosong karena saving sudah dipindahkan ke ViewModel.stopGame()
-        // dan dipicu saat game berakhir.
-    }
-
     private void playGameMusic() {
+        // Memutar musik latar permainan
         try {
-            System.out.println("Playing magical music...");
+            System.out.println("Memutar musik sihir...");
             AudioInputStream audioStream = AssetLoader.loadAudio(AssetLoader.AUDIO_GAME_MUSIC);
 
             if (audioStream != null) {
@@ -162,14 +167,15 @@ public class GameView extends JFrame {
                 gameMusic.open(audioStream);
                 gameMusic.loop(Clip.LOOP_CONTINUOUSLY);
             } else {
-                System.err.println("Error playing magical music: Audio stream is null.");
+                System.err.println("Kesalahan memutar musik sihir: Audio stream kosong.");
             }
         } catch (Exception e) {
-            System.err.println("Error playing magical music: " + e.getMessage());
+            System.err.println("Kesalahan memutar musik sihir: " + e.getMessage());
         }
     }
 
     private void stopGameMusic() {
+        // Menghentikan musik latar permainan
         if (gameMusic != null && gameMusic.isRunning()) {
             gameMusic.stop();
             gameMusic.close();
@@ -177,6 +183,7 @@ public class GameView extends JFrame {
     }
 
     private void returnToMainMenu() {
+        // Kembali ke menu utama
         stopGameMusic();
         gameRunning = false;
         if (gameTimer != null) {
@@ -189,22 +196,19 @@ public class GameView extends JFrame {
         dispose();
     }
 
-    // Metode ini dihapus karena fungsionalitasnya sudah ada di GamePanel.drawMagicalGameOverOverlay
-    // private void drawGameOverOverlay(Graphics graphics) {
-    //    // Dihapus
-    // }
-
     /**
-     * Game Panel dengan tema sihir
+     * Panel permainan dengan tema sihir
      */
     private class GamePanel extends JPanel {
         public GamePanel() {
-            setBackground(new Color(25, 25, 50)); // Dark magical background
+            // Mengatur latar belakang panel
+            setBackground(new Color(25, 25, 50)); // Latar belakang gelap dengan tema sihir
             setPreferredSize(new Dimension(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT));
         }
 
         @Override
         protected void paintComponent(Graphics g) {
+            // Menggambar komponen panel
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g.create();
 
@@ -217,7 +221,7 @@ public class GameView extends JFrame {
         }
 
         private void drawMagicalBackground(Graphics2D g2d) {
-            // Gradient background
+            // Menggambar latar belakang dengan efek sihir
             GradientPaint bgGradient = new GradientPaint(
                 0, 0, new Color(15, 15, 40),
                 0, getHeight(), new Color(40, 15, 60)
@@ -225,16 +229,17 @@ public class GameView extends JFrame {
             g2d.setPaint(bgGradient);
             g2d.fillRect(0, 0, getWidth(), getHeight());
 
-            // Floating magical particles
+            // Partikel sihir melayang
             drawMagicalParticles(g2d);
 
-            // Magical border
+            // Bingkai sihir
             g2d.setColor(new Color(100, 50, 200, 100));
             g2d.setStroke(new BasicStroke(3));
             g2d.drawRect(10, 10, getWidth() - 20, getHeight() - 20);
         }
 
         private void drawMagicalParticles(Graphics2D g2d) {
+            // Menggambar partikel sihir
             g2d.setColor(new Color(255, 255, 255, 50));
 
             for (int i = 0; i < 20; i++) {
@@ -246,7 +251,7 @@ public class GameView extends JFrame {
 
                 g2d.fillOval(x, y, 3, 3);
 
-                // Sparkle effect
+                // Efek kilauan
                 g2d.setColor(new Color(255, 255, 255, 30));
                 g2d.drawLine(x - 5, y, x + 5, y);
                 g2d.drawLine(x, y - 5, x, y + 5);
@@ -255,6 +260,7 @@ public class GameView extends JFrame {
         }
 
         private void drawGame(Graphics2D g2d) {
+            // Menggambar elemen permainan
             List<Ball> balls = viewModel.getBalls();
             for (Ball ball : balls) {
                 ball.render(g2d);
@@ -277,17 +283,17 @@ public class GameView extends JFrame {
         }
 
         private void drawMagicalBasket(Graphics2D g2d) {
-            // Magical basket with glow effect
+            // Keranjang sihir dengan efek kilauan
             int basketX = GameConstants.BASKET_X;
             int basketY = GameConstants.BASKET_Y;
             int basketW = GameConstants.BASKET_WIDTH;
             int basketH = GameConstants.BASKET_HEIGHT;
 
-            // Glow effect
+            // Efek kilauan
             g2d.setColor(new Color(255, 215, 0, 50));
             g2d.fillRect(basketX - 10, basketY - 10, basketW + 20, basketH + 20);
 
-            // Main basket with gradient
+            // Keranjang utama dengan gradien
             GradientPaint basketGradient = new GradientPaint(
                 basketX, basketY, new Color(139, 69, 19),
                 basketX + basketW, basketY + basketH, new Color(160, 82, 45)
@@ -295,19 +301,19 @@ public class GameView extends JFrame {
             g2d.setPaint(basketGradient);
             g2d.fillRect(basketX, basketY, basketW, basketH);
 
-            // Magical border
+            // Bingkai sihir
             g2d.setColor(new Color(255, 215, 0));
             g2d.setStroke(new BasicStroke(3));
             g2d.drawRect(basketX, basketY, basketW, basketH);
 
-            // Magical symbol on basket
+            // Simbol sihir pada keranjang
             g2d.setColor(new Color(255, 215, 0, 150));
             g2d.setFont(new Font("Serif", Font.BOLD, 16));
             g2d.drawString("✨", basketX + basketW/2 - 8, basketY + basketH/2 + 5);
         }
 
         private void drawMagicalUI(Graphics2D g2d) {
-            // Magical UI panel
+            // Panel UI sihir
             g2d.setColor(new Color(0, 0, 0, 100));
             g2d.fillRoundRect(10, 10, 250, 80, 15, 15);
 
@@ -318,22 +324,22 @@ public class GameView extends JFrame {
             g2d.setColor(Color.WHITE);
             g2d.setFont(new Font("Serif", Font.BOLD, 18));
 
-            String scoreText = "✨ Score: " + viewModel.getCurrentScore();
+            String scoreText = "✨ Skor: " + viewModel.getCurrentScore();
             g2d.drawString(scoreText, 20, 35);
 
-            String timeText = "⏰ Time: " + viewModel.getTimeRemaining() + "s";
+            String timeText = "⏰ Waktu: " + viewModel.getTimeRemaining() + "s";
             g2d.drawString(timeText, 20, 60);
 
-            String gemText = "💎 Gems: " + viewModel.getCurrentCount();
+            String gemText = "💎 Permata: " + viewModel.getCurrentCount();
             g2d.drawString(gemText, 20, 80);
         }
 
         private void drawGemLeaderboard(Graphics2D g2d) {
-            // Gem leaderboard panel
+            // Panel papan peringkat permata
             int panelX = getWidth() - 200;
             int panelY = 10;
             int panelW = 180;
-            int panelH = 300; // Adjust height to fit images
+            int panelH = 300; // Sesuaikan tinggi untuk gambar
 
             g2d.setColor(new Color(0, 0, 0, 120));
             g2d.fillRoundRect(panelX, panelY, panelW, panelH, 15, 15);
@@ -342,135 +348,134 @@ public class GameView extends JFrame {
             g2d.setStroke(new BasicStroke(2));
             g2d.drawRoundRect(panelX, panelY, panelW, panelH, 15, 15);
 
-            // Title
+            // Judul
             g2d.setColor(Color.YELLOW);
             g2d.setFont(new Font("Serif", Font.BOLD, 14));
-            g2d.drawString("🏆 Gem Values 🏆", panelX + 10, panelY + 20);
+            g2d.drawString("🏆 Nilai Permata 🏆", panelX + 10, panelY + 20);
 
-            // Gem rankings with images
+            // Peringkat permata dengan gambar
             g2d.setFont(new Font("Serif", Font.PLAIN, 12));
             Object[][] gemInfo = {
-                {AssetLoader.GOLDEN_GEM, "Golden Gem: 90"}, // Ganti string literal dengan konstanta
-                {AssetLoader.FROST_GEM, "Frost Gem: 80pts"},
-                {AssetLoader.PURPLE_GEM, "Purple Gem: 70pts"},
-                {AssetLoader.RUBY_GEM, "Ruby Gem: 60pts"},
-                {AssetLoader.CYAN_GEM, "Cyan Gem: 50pts"},
-                {AssetLoader.SAPPHIRE_GEM, "Sapphire Gem: 40pts"},
-                {AssetLoader.EMERALD_GEM, "Emerald Gem: 30pts"},
-                {AssetLoader.ORANGE_GEM, "Orange Gem: 20pts"},
-                {AssetLoader.BLACK_GEM, "Black Gem: Bomb"}
+                {AssetLoader.GOLDEN_GEM, "Permata Emas: 90"}, // Ganti string literal dengan konstanta
+                {AssetLoader.FROST_GEM, "Permata Es: 80pts"},
+                {AssetLoader.PURPLE_GEM, "Permata Ungu: 70pts"},
+                {AssetLoader.RUBY_GEM, "Permata Ruby: 60pts"},
+                {AssetLoader.CYAN_GEM, "Permata Cyan: 50pts"},
+                {AssetLoader.SAPPHIRE_GEM, "Permata Safir: 40pts"},
+                {AssetLoader.EMERALD_GEM, "Permata Zamrud: 30pts"},
+                {AssetLoader.ORANGE_GEM, "Permata Oranye: 20pts"},
+                {AssetLoader.BLACK_GEM, "Permata Hitam: Bom"}
             };
 
             int yPos = panelY + 40;
             for (Object[] info : gemInfo) {
-                if (yPos > panelY + panelH - 15) break; // Prevent overflow
+                if (yPos > panelY + panelH - 15) break; // Mencegah overflow
                 BufferedImage gemImage = AssetLoader.loadImage((String) info[0]);
 
                 if (gemImage != null) {
                     g2d.drawImage(gemImage, panelX + 10, yPos, 20, 20, null);
                 } else {
-                    System.err.println("Failed to load gem image for: " + info[1]);
+                    System.err.println("Gagal memuat gambar permata untuk: " + info[1]);
                 }
                 g2d.drawString((String) info[1], panelX + 40, yPos + 15);
-                yPos += 30; // Adjust spacing for images
+                yPos += 30; // Sesuaikan jarak untuk gambar
             }
         }
 
         private void drawMagicalPauseOverlay(Graphics2D g2d) {
-            // Semi-transparent overlay
+            // Overlay semi-transparan
             g2d.setColor(new Color(0, 0, 0, 150));
             g2d.fillRect(0, 0, getWidth(), getHeight());
 
-            // Magical pause border
+            // Bingkai sihir
             g2d.setColor(new Color(255, 215, 0, 100));
             g2d.setStroke(new BasicStroke(5));
             g2d.drawRect(100, 100, getWidth() - 200, getHeight() - 200);
 
-            // Pause text with magical styling
+            // Teks jeda dengan gaya sihir
             g2d.setColor(Color.YELLOW);
             g2d.setFont(new Font("Serif", Font.BOLD, 48));
-            String pauseText = "⏸️ PAUSED ⏸️";
+            String pauseText = "⏸️ DIJEDA ⏸️";
             FontMetrics fm = g2d.getFontMetrics();
             int x = (getWidth() - fm.stringWidth(pauseText)) / 2;
             int y = getHeight() / 2;
 
-            // Text shadow effect
+            // Efek bayangan teks
             g2d.setColor(new Color(0, 0, 0, 100));
             g2d.drawString(pauseText, x + 3, y + 3);
 
-            // Main text
+            // Teks utama
             g2d.setColor(Color.YELLOW);
             g2d.drawString(pauseText, x, y);
 
-            // Subtitle
+            // Subjudul
             g2d.setFont(new Font("Serif", Font.BOLD, 20));
-            String subtitleText = "✨ Click to resume your magical journey ✨";
+            String subtitleText = "✨ Klik untuk melanjutkan perjalanan sihir Anda ✨";
             fm = g2d.getFontMetrics();
             x = (getWidth() - fm.stringWidth(subtitleText)) / 2;
             g2d.drawString(subtitleText, x, y + 60);
         }
 
-        // --- Perubahan dimulai di sini ---
         private void drawMagicalGameOverOverlay(Graphics2D g2d) {
-            // Semi-transparent magical overlay
+            // Overlay semi-transparan sihir
             g2d.setColor(new Color(20, 20, 60, 180));
             g2d.fillRect(0, 0, getWidth(), getHeight());
 
-            // Magical border effect with animation
+            // Bingkai sihir dengan animasi
             g2d.setColor(new Color(255, 215, 0, (int)(100 + 50 * Math.sin(magicParticleTimer))));
             g2d.setStroke(new BasicStroke(8));
             g2d.drawRect(50, 50, getWidth() - 100, getHeight() - 100);
 
-            // Inner magical border
+            // Bingkai sihir bagian dalam
             g2d.setColor(new Color(138, 43, 226, 150));
             g2d.setStroke(new BasicStroke(4));
             g2d.drawRect(70, 70, getWidth() - 140, getHeight() - 140);
 
-            // Game Over title with glow effect (sekarang sebagai shadow yang benar)
+            // Judul Game Over dengan efek kilauan
             g2d.setFont(new Font("Serif", Font.BOLD, 42));
-            String gameOverText = "🔮 Magical Journey Ends 🔮";
+            String gameOverText = "🔮 Perjalanan Sihir Berakhir 🔮";
             FontMetrics fm = g2d.getFontMetrics();
             int x = (getWidth() - fm.stringWidth(gameOverText)) / 2;
             int y = getHeight() / 2 - 80;
 
-            // Gambar shadow terlebih dahulu
-            g2d.setColor(new Color(0, 0, 0, 100)); // Warna shadow (hitam transparan)
-            g2d.drawString(gameOverText, x + 3, y + 3); // Gambar shadow sedikit bergeser
+            // Gambar bayangan terlebih dahulu
+            g2d.setColor(new Color(0, 0, 0, 100));
+            g2d.drawString(gameOverText, x + 3, y + 3);
 
-            // Gambar teks utama di atas shadow
+            // Gambar teks utama di atas bayangan
             g2d.setColor(Color.YELLOW);
             g2d.drawString(gameOverText, x, y);
 
-            // Score display
+            // Tampilan skor
             g2d.setFont(new Font("Serif", Font.BOLD, 28));
-            String scoreText = "✨ Final Score: " + viewModel.getCurrentScore() + " ✨";
+            String scoreText = "✨ Skor Akhir: " + viewModel.getCurrentScore() + " ✨";
             fm = g2d.getFontMetrics();
             x = (getWidth() - fm.stringWidth(scoreText)) / 2;
             g2d.setColor(new Color(255, 215, 0));
             g2d.drawString(scoreText, x, y + 70);
 
-            // Gems collected display
+            // Tampilan permata yang dikumpulkan
             g2d.setFont(new Font("Serif", Font.BOLD, 24));
-            String gemsText = "💎 Magical Gems Collected: " + viewModel.getCurrentCount() + " 💎";
+            String gemsText = "💎 Permata Sihir yang Dikumpulkan: " + viewModel.getCurrentCount() + " 💎";
             fm = g2d.getFontMetrics();
             x = (getWidth() - fm.stringWidth(gemsText)) / 2;
             g2d.setColor(new Color(255, 192, 203));
             g2d.drawString(gemsText, x, y + 110);
 
-            // Return message
+            // Pesan kembali
             g2d.setFont(new Font("Serif", Font.ITALIC, 18));
-            String returnText = "🌟 Returning to the Magical Realm... 🌟";
+            String returnText = "🌟 Kembali ke Alam Sihir... 🌟";
             fm = g2d.getFontMetrics();
             x = (getWidth() - fm.stringWidth(returnText)) / 2;
             g2d.setColor(Color.WHITE);
             g2d.drawString(returnText, x, y + 160);
 
-            // Animated sparkles around the text
+            // Partikel kilauan animasi di sekitar teks
             drawGameOverSparkles(g2d, x, y);
         }
-        // --- Perubahan berakhir di sini ---
 
         private void drawGameOverSparkles(Graphics2D g2d, int centerX, int centerY) {
+            // Menggambar kilauan animasi
             g2d.setColor(new Color(255, 255, 255, (int)(150 + 100 * Math.sin(magicParticleTimer * 2))));
 
             for (int i = 0; i < 12; i++) {
@@ -478,14 +483,14 @@ public class GameView extends JFrame {
                 int sparkleX = (int)(centerX + Math.cos(angle) * (80 + 20 * Math.sin(magicParticleTimer + i)));
                 int sparkleY = (int)(centerY + Math.sin(angle) * (60 + 15 * Math.cos(magicParticleTimer + i)));
 
-                // Ensure sparkles stay within bounds
+                // Pastikan kilauan tetap dalam batas
                 sparkleX = Math.max(20, Math.min(getWidth() - 20, sparkleX));
                 sparkleY = Math.max(20, Math.min(getHeight() - 20, sparkleY));
 
-                // Draw sparkle
+                // Menggambar kilauan
                 g2d.fillOval(sparkleX - 2, sparkleY - 2, 4, 4);
 
-                // Draw sparkle rays
+                // Menggambar sinar kilauan
                 g2d.setStroke(new BasicStroke(1));
                 g2d.drawLine(sparkleX - 6, sparkleY, sparkleX + 6, sparkleY);
                 g2d.drawLine(sparkleX, sparkleY - 6, sparkleX, sparkleY + 6);
@@ -495,8 +500,9 @@ public class GameView extends JFrame {
         }
     }
 
-    // Public methods for external access
+    // Metode publik untuk akses eksternal
     public void pauseGame() {
+        // Menjeda permainan
         if (gameRunning) {
             viewModel.pauseGame();
             gamePanel.repaint();
@@ -504,9 +510,10 @@ public class GameView extends JFrame {
     }
 
     public void resumeGame() {
+        // Melanjutkan permainan
         if (gameRunning) {
             viewModel.resumeGame();
-            requestFocus(); // Ensure the game window has focus
+            requestFocus(); // Memastikan jendela permainan memiliki fokus
         }
     }
 
@@ -518,7 +525,7 @@ public class GameView extends JFrame {
         return viewModel;
     }
 
-    // Clean up resources when game ends
+    // Membersihkan sumber daya saat permainan berakhir
     @Override
     public void dispose() {
         stopGameMusic();

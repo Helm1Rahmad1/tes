@@ -37,21 +37,21 @@ import utils.AssetLoader;
 
 /**
  * MainMenuView - Ultra Modern Game Menu Interface
- * Features: Neumorphism design, particle effects, advanced animations
- * * Enhancements:
- * - Neumorphism/Glassmorphism hybrid design
- * - Animated particle system background
- * - Advanced hover effects and micro-interactions
- * - Modern card-based layout
- * - Enhanced visual hierarchy
- * - Smooth transitions and spring animations
+ * Fitur: Desain Neumorphism, efek partikel, animasi canggih
+ * * Peningkatan:
+ * - Desain hybrid Neumorphism/Glassmorphism
+ * - Sistem partikel animasi latar belakang
+ * - Efek hover canggih dan mikro-interaksi
+ * - Tata letak berbasis kartu modern
+ * - Hierarki visual yang ditingkatkan
+ * - Transisi halus dan animasi pegas
  */
 public class MainMenuView extends JFrame {
 
-    // Animation constants
+    // Konstanta animasi
     private static final int PARTICLE_COUNT = 50;
 
-    // Core components
+    // Komponen inti
     private MainMenuViewModel viewModel;
     private JTable scoreTable;
     private DefaultTableModel tableModel;
@@ -62,7 +62,7 @@ public class MainMenuView extends JFrame {
     private Clip backgroundMusic;
     private BufferedImage backgroundImage;
 
-    // Animation and effects
+    // Animasi dan efek
     private Timer particleTimer;
     private java.util.List<Particle> particles;
     private Timer fadeTimer;
@@ -82,7 +82,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Initialize particle system for background effects
+     * Inisialisasi sistem partikel untuk efek latar belakang
      */
     private void initializeParticleSystem() {
         particles = new ArrayList<>();
@@ -100,40 +100,37 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Load resources with fallback system
+     * Memuat sumber daya dengan sistem cadangan
      */
     private void loadResources() {
         backgroundImage = AssetLoader.loadImage(AssetLoader.BG_MENU_IMAGE);
         
         if (backgroundImage != null) {
-            System.out.println("✨ Background image loaded successfully");
+            System.out.println("✨ Gambar latar belakang berhasil dimuat");
         } else {
-            System.err.println("⚠ Failed to load background image.");
+            System.err.println("⚠ Gagal memuat gambar latar belakang.");
         }
     }
 
     /**
-     * Initialize components with ultra-modern styling
+     * Inisialisasi komponen dengan gaya ultra-modern
      */
     private void initializeComponents() {
-        // Window configuration
-        setTitle("⚡ COLLECT THE SKILL BALLS - Ultra Edition");
+        // Konfigurasi jendela
+        setTitle("🔮 Collect The Magical Gems 🔮");
         setSize(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
 
-        // Enable advanced graphics
+        // Aktifkan grafik canggih
         System.setProperty("awt.useSystemAAFontSettings", "on");
         System.setProperty("swing.aatext", "true");
 
-        // Remove the setOpacity call to avoid IllegalComponentStateException
+
         try {
-            // if (!isUndecorated()) { // Baris ini atau yang serupa memicu pesan
-            //    System.err.println("Transparency effects are not supported on decorated frames.");
-            // }
         } catch (UnsupportedOperationException e) {
-            System.err.println("Advanced transparency not supported.");
+            System.err.println("Transparansi canggih tidak didukung.");
         }
 
         initializeTable();
@@ -142,7 +139,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Initialize ultra-modern table with advanced styling
+     * Inisialisasi tabel ultra-modern dengan gaya canggih
      */
     private void initializeTable() {
         String[] columnHeaders = {"🎯 Player", "🏆 High Score", "🎮 Games"};
@@ -164,7 +161,7 @@ public class MainMenuView extends JFrame {
         scoreTable.setShowGrid(false);
         scoreTable.setIntercellSpacing(new Dimension(0, 0));
 
-        // Ultra-modern table styling
+        // Gaya tabel ultra-modern
         scoreTable.setBackground(new Color(0, 0, 0, 0));
         scoreTable.setOpaque(false);
         scoreTable.setForeground(ColorConstants.TEXT_PRIMARY);
@@ -172,24 +169,22 @@ public class MainMenuView extends JFrame {
         scoreTable.setSelectionBackground(new Color(ColorConstants.ACCENT_BLUE.getRed(), ColorConstants.ACCENT_BLUE.getGreen(), ColorConstants.ACCENT_BLUE.getBlue(), 40));
         scoreTable.setSelectionForeground(ColorConstants.TEXT_PRIMARY);
 
-        // MODIFIKASI INI UNTUK MEMASTIKAN PERATAAN DATA SEL
         // Setel UltraModernTableRenderer untuk setiap kolom secara eksplisit.
         for (int i = 0; i < columnHeaders.length; i++) {
             scoreTable.getColumnModel().getColumn(i).setCellRenderer(new UltraModernTableRenderer());
         }
 
-        // Custom modern header
+        // Header modern kustom
         JTableHeader header = scoreTable.getTableHeader();
         header.setOpaque(false);
-        header.setBackground(new Color(147, 0, 211, 90)); // Bright purple
+        header.setBackground(new Color(147, 0, 211, 90)); // Ungu cerah
         header.setForeground(ColorConstants.TEXT_PRIMARY);
         header.setFont(FontConstants.FONT_SUBHEADING);
         header.setReorderingAllowed(false);
         header.setPreferredSize(new Dimension(0, 55));
         header.setBorder(BorderFactory.createEmptyBorder());
 
-
-        // Optimized column widths
+        // Lebar kolom yang dioptimalkan
         scoreTable.getColumnModel().getColumn(0).setPreferredWidth(400);
         scoreTable.getColumnModel().getColumn(1).setPreferredWidth(250);
         scoreTable.getColumnModel().getColumn(2).setPreferredWidth(200);
@@ -197,18 +192,18 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Initialize modern input components
+     * Inisialisasi komponen input modern
      */
     private void initializeInputComponents() {
-        usernameField = new ModernTextField("Enter your player name...");
+        usernameField = new ModernTextField("Masukkan nama pemain Anda...");
     }
 
     /**
-     * Initialize ultra-modern buttons
+     * Inisialisasi tombol ultra-modern
      */
     private void initializeButtons() {
-        playButton = new UltraModernButton("START GAME", ColorConstants.ACCENT_GREEN, ButtonStyle.PRIMARY);
-        quitButton = new UltraModernButton("EXIT", ColorConstants.ACCENT_RED, ButtonStyle.SECONDARY);
+        playButton = new UltraModernButton("MULAI GAME", ColorConstants.ACCENT_GREEN, ButtonStyle.PRIMARY);
+        quitButton = new UltraModernButton("KELUAR", ColorConstants.ACCENT_RED, ButtonStyle.SECONDARY);
         refreshButton = new UltraModernButton("🔄", ColorConstants.ACCENT_BLUE, ButtonStyle.ICON);
 
         playButton.setPreferredSize(new Dimension(200, 60));
@@ -217,23 +212,23 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Setup ultra-modern layout system
+     * Atur sistem tata letak ultra-modern
      */
     private void setupLayout() {
         setLayout(new BorderLayout());
 
-        // Main container with particle background
+        // Kontainer utama dengan latar belakang partikel
         JPanel mainContainer = new ParticleBackgroundPanel(backgroundImage, particles, () -> isInitialized, () -> globalOpacity);
         mainContainer.setLayout(new BorderLayout(0, 30));
         mainContainer.setBorder(BorderFactory.createEmptyBorder(40, 50, 40, 50));
 
-        // Hero section
+        // Bagian hero
         JPanel heroSection = createHeroSection();
 
-        // Stats section (table)
+        // Bagian statistik (tabel)
         JPanel statsSection = createStatsSection();
 
-        // Control section (input & buttons)
+        // Bagian kontrol (input & tombol)
         JPanel controlSection = createControlSection();
 
         mainContainer.add(heroSection, BorderLayout.NORTH);
@@ -244,14 +239,14 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Create hero section with animated title
+     * Buat bagian hero dengan judul animasi
      */
     private JPanel createHeroSection() {
         JPanel hero = new TransparentPanel();
         hero.setLayout(new BorderLayout());
         hero.setPreferredSize(new Dimension(0, 120));
 
-        // Animated title with glow effect
+        // Judul animasi dengan efek glow
         JLabel titleLabel = new JLabel("⚡ COLLECT THE SKILL BALLS", SwingConstants.CENTER) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -259,7 +254,7 @@ public class MainMenuView extends JFrame {
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-                // Glow effect
+                // Efek glow
                 g2d.setColor(new Color(ColorConstants.ACCENT_BLUE.getRed(), ColorConstants.ACCENT_BLUE.getGreen(), ColorConstants.ACCENT_BLUE.getBlue(), 50));
                 g2d.setFont(getFont());
                 FontMetrics fm = g2d.getFontMetrics();
@@ -271,7 +266,7 @@ public class MainMenuView extends JFrame {
                     g2d.drawString(getText(), x - i, y - i);
                 }
 
-                // Main text
+                // Teks utama
                 g2d.setColor(ColorConstants.TEXT_PRIMARY);
                 g2d.drawString(getText(), x, y);
 
@@ -286,18 +281,18 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Create stats section with glassmorphism card
+     * Buat bagian statistik dengan kartu glassmorphism
      */
     private JPanel createStatsSection() {
         JPanel statsContainer = new TransparentPanel();
         statsContainer.setLayout(new BorderLayout());
 
-        // Glass card container
+        // Kontainer kartu kaca
         JPanel glassCard = new GlassmorphismCard();
         glassCard.setLayout(new BorderLayout(20, 20));
         glassCard.setBorder(BorderFactory.createEmptyBorder(30, 35, 30, 35));
 
-        // Header with refresh button
+        // Header dengan tombol refresh
         JPanel headerPanel = new TransparentPanel();
         headerPanel.setLayout(new BorderLayout());
 
@@ -312,14 +307,14 @@ public class MainMenuView extends JFrame {
         headerPanel.add(statsTitle, BorderLayout.WEST);
         headerPanel.add(refreshPanel, BorderLayout.EAST);
 
-        // Table container with custom scroll
+        // Kontainer tabel dengan scroll kustom
         JScrollPane scrollPane = new JScrollPane(scoreTable);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.setPreferredSize(new Dimension(0, 300));
 
-        // Ultra-modern scrollbar
+        // Scrollbar ultra-modern
         scrollPane.getVerticalScrollBar().setUI(new UltraModernScrollBarUI());
         scrollPane.getHorizontalScrollBar().setUI(new UltraModernScrollBarUI());
 
@@ -331,18 +326,18 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Create control section with modern input and buttons
+     * Buat bagian kontrol dengan input modern dan tombol
      */
     private JPanel createControlSection() {
         JPanel controlContainer = new TransparentPanel();
         controlContainer.setLayout(new BorderLayout());
         controlContainer.setPreferredSize(new Dimension(0, 180));
 
-        // Input card
+        // Kartu input
         JPanel inputCard = new GlassmorphismCard();
         inputCard.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 25));
 
-        // Player name section
+        // Bagian nama pemain
         JPanel nameSection = new TransparentPanel();
         nameSection.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 0));
 
@@ -353,7 +348,7 @@ public class MainMenuView extends JFrame {
         nameSection.add(nameLabel);
         nameSection.add(usernameField);
 
-        // Button section
+        // Bagian tombol
         JPanel buttonSection = new TransparentPanel();
         buttonSection.setLayout(new FlowLayout(FlowLayout.CENTER, 25, 0));
         buttonSection.add(playButton);
@@ -367,7 +362,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Setup enhanced event handling
+     * Atur penanganan event yang ditingkatkan
      */
     private void setupEventHandlers() {
         playButton.addActionListener(e -> handlePlayButtonWithAnimation());
@@ -398,7 +393,7 @@ public class MainMenuView extends JFrame {
             }
         });
 
-        // TAMBAHKAN BLOK KODE INI UNTUK MENDUKUNG KLIK SATU KALI
+        // Tambahkan blok kode ini untuk mendukung klik satu kali
         scoreTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -415,7 +410,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Enhanced play button handler with spring animation
+     * Penanganan tombol play yang ditingkatkan dengan animasi pegas
      */
     private void handlePlayButtonWithAnimation() {
         String username = usernameField.getCleanText();
@@ -432,7 +427,7 @@ public class MainMenuView extends JFrame {
             return;
         }
 
-        // Animated loading state
+        // Status loading animasi
         playButton.setLoadingState(true);
 
         Timer loadingTimer = new Timer(1200, e -> {
@@ -453,7 +448,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Enhanced quit handler with confirmation
+     * Penanganan tombol keluar yang ditingkatkan dengan konfirmasi
      */
     private void handleQuitButtonWithAnimation() {
         int choice = ConfirmationDialog.showModernConfirmDialog(
@@ -469,7 +464,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Enhanced refresh handler
+     * Penanganan tombol refresh yang ditingkatkan
      */
     private void handleRefreshButtonWithAnimation() {
         refreshButton.startSpinAnimation();
@@ -484,7 +479,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Load and refresh data
+     * Memuat dan menyegarkan data
      */
     private void loadData() {
         viewModel.refreshData();
@@ -492,7 +487,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Update table with staggered animation
+     * Perbarui tabel dengan animasi bertahap
      */
     private void updateTableWithAnimation() {
         tableModel.setRowCount(0);
@@ -529,7 +524,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Get medal emoji for player ranking
+     * Dapatkan emoji medali untuk peringkat pemain
      */
     private String getMedalForRank(int rank) {
         switch (rank) {
@@ -543,7 +538,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Enhanced background music
+     * Musik latar belakang yang ditingkatkan
      */
     private void playBackgroundMusic() {
         try {
@@ -553,17 +548,17 @@ public class MainMenuView extends JFrame {
                 backgroundMusic = AudioSystem.getClip();
                 backgroundMusic.open(audioStream);
                 backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
-                System.out.println("🎵 Background music started");
+                System.out.println("🎵 Musik latar belakang dimulai");
             } else {
-                System.err.println("🔇 Background music unavailable: Audio stream is null.");
+                System.err.println("🔇 Musik latar belakang tidak tersedia: Audio stream is null.");
             }
         } catch (Exception e) {
-            System.err.println("🔇 Background music unavailable: " + e.getMessage());
+            System.err.println("🔇 Musik latar belakang tidak tersedia: " + e.getMessage());
         }
     }
 
     /**
-     * Stop background music
+     * Hentikan musik latar belakang
      */
     private void stopBackgroundMusic() {
         if (backgroundMusic != null && backgroundMusic.isRunning()) {
@@ -574,7 +569,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Start entrance animation with spring physics
+     * Mulai animasi masuk dengan fisika pegas
      */
     private void startEntranceAnimation() {
         globalOpacity = 0.0f;
@@ -591,7 +586,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Start exit animation
+     * Mulai animasi keluar
      */
     private void startExitAnimation(Runnable callback) {
         globalOpacity = 1.0f;
@@ -610,7 +605,7 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Show main menu with entrance animation
+     * Tampilkan menu utama dengan animasi masuk
      */
     public void showMainMenu() {
         playBackgroundMusic();
@@ -622,14 +617,14 @@ public class MainMenuView extends JFrame {
     }
 
     /**
-     * Get current username
+     * Dapatkan nama pengguna saat ini
      */
     public String getCurrentUsername() {
         return usernameField.getCleanText();
     }
 
     /**
-     * Cleanup resources
+     * Bersihkan sumber daya
      */
     @Override
     public void dispose() {

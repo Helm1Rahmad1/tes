@@ -7,8 +7,8 @@ import java.util.List;
 import utils.GameConstants;
 
 /**
- * Magical Lasso - Enhanced visual component with magical effects
- * Part of View layer in MVVM pattern
+ * Lasso Ajaib - Komponen visual yang ditingkatkan dengan efek ajaib
+ * Bagian dari lapisan View dalam pola MVVM
  */
 public class Lasso {
     private int startX, startY;
@@ -18,15 +18,15 @@ public class Lasso {
     private boolean active;
     private Ball caughtBall;
     
-    // Magical enhancement properties
+    // Properti peningkatan ajaib
     private float animationTimer = 0.0f;
     private List<MagicalParticle> particles;
     private Color[] magicalColors;
     private float glowIntensity = 0.0f;
     private boolean sparkleEffect = false;
-    private int chargeLevel = 0; // 0-100, builds up when extending
+    private int chargeLevel = 0; // 0-100, meningkat saat memperpanjang
     
-    // Lasso chain effect
+    // Efek rantai lasso
     private List<ChainLink> chainLinks;
     private static final int CHAIN_SEGMENT_SIZE = 8;
 
@@ -38,34 +38,34 @@ public class Lasso {
         this.particles = new ArrayList<>();
         this.chainLinks = new ArrayList<>();
         
-        // Initialize magical colors
+        // Inisialisasi warna ajaib
         this.magicalColors = new Color[] {
-            new Color(255, 215, 0, 200),    // Gold
-            new Color(138, 43, 226, 200),   // Purple
-            new Color(0, 191, 255, 200),    // Deep Sky Blue
-            new Color(255, 20, 147, 200),   // Deep Pink
-            new Color(50, 205, 50, 200)     // Lime Green
+            new Color(255, 215, 0, 200),    // Emas
+            new Color(138, 43, 226, 200),   // Ungu
+            new Color(0, 191, 255, 200),    // Biru Langit
+            new Color(255, 20, 147, 200),   // Merah Muda
+            new Color(50, 205, 50, 200)     // Hijau Lime
         };
     }
 
     /**
-     * Start magical lasso from character position to target
+     * Mulai lasso ajaib dari posisi karakter ke target
      */
     public void start(int characterX, int characterY, int targetX, int targetY) {
         this.startX = characterX;
         this.startY = characterY;
         
-        // Calculate direction with magical precision
+        // Hitung arah dengan presisi ajaib
         int dx = targetX - characterX;
         int dy = targetY - characterY;
         double distance = Math.sqrt(dx * dx + dy * dy);
 
-        System.out.println("🔮 Magical Lasso Cast! Distance: " + distance);
+        System.out.println("🔮 Lasso Ajaib Diluncurkan! Jarak: " + distance);
 
         if (distance > 0) {
             this.endX = targetX;
             this.endY = targetY;
-            System.out.println("✨ Target locked: (" + endX + ", " + endY + ")");
+            System.out.println("✨ Target terkunci: (" + endX + ", " + endY + ")");
         } else {
             this.endX = characterX;
             this.endY = characterY;
@@ -80,15 +80,15 @@ public class Lasso {
         this.sparkleEffect = true;
         this.chargeLevel = 0;
         
-        // Initialize chain links
+        // Inisialisasi rantai
         initializeChainLinks();
         
-        // Create initial magical particles
+        // Buat partikel ajaib awal
         createInitialParticles();
     }
 
     /**
-     * Initialize chain links for the lasso rope effect
+     * Inisialisasi rantai untuk efek tali lasso
      */
     private void initializeChainLinks() {
         chainLinks.clear();
@@ -103,7 +103,7 @@ public class Lasso {
     }
 
     /**
-     * Create initial magical particles
+     * Buat partikel ajaib awal
      */
     private void createInitialParticles() {
         particles.clear();
@@ -113,7 +113,7 @@ public class Lasso {
     }
 
     /**
-     * Update start position based on character movement
+     * Perbarui posisi awal berdasarkan pergerakan karakter
      */
     public void updateStartPosition(int characterX, int characterY) {
         if (active) {
@@ -123,7 +123,7 @@ public class Lasso {
     }
 
     /**
-     * Enhanced lasso update with magical effects
+     * Perbarui lasso dengan efek ajaib
      */
     public void update() {
         if (!active) return;
@@ -134,7 +134,7 @@ public class Lasso {
             currentLength += GameConstants.LASSO_SPEED;
             chargeLevel = Math.min(100, chargeLevel + 2);
             
-            // Calculate max length to target
+            // Hitung panjang maksimum ke target
             int dx = endX - startX;
             int dy = endY - startY;
             int maxLength = (int)Math.sqrt(dx * dx + dy * dy);
@@ -145,15 +145,15 @@ public class Lasso {
                 sparkleEffect = false;
             }
             
-            // Add particles while extending
+            // Tambahkan partikel saat memperpanjang
             if (Math.random() < 0.3) {
                 int tipX = getCurrentTipX();
                 int tipY = getCurrentTipY();
                 particles.add(new MagicalParticle(tipX, tipY));
             }
         } else {
-            // Retracting with magical effect
-            currentLength -= GameConstants.LASSO_SPEED * 1.5; // Faster retraction
+            // Menarik kembali dengan efek ajaib
+            currentLength -= GameConstants.LASSO_SPEED * 1.5; // Penarikan lebih cepat
             chargeLevel = Math.max(0, chargeLevel - 3);
             
             if (currentLength <= 0) {
@@ -161,7 +161,7 @@ public class Lasso {
                 active = false;
                 glowIntensity = 0.0f;
                 
-                // Magical collection effect
+                // Efek pengumpulan ajaib
                 if (caughtBall != null) {
                     createCollectionEffect();
                     caughtBall.startTransitionFromCharacterToBasket();
@@ -170,18 +170,18 @@ public class Lasso {
             }
         }
         
-        // Update magical particles
+        // Perbarui partikel ajaib
         updateParticles();
         
-        // Update chain links
+        // Perbarui rantai
         updateChainLinks();
         
-        // Update glow intensity
+        // Perbarui intensitas cahaya
         glowIntensity = 0.7f + 0.3f * (float)Math.sin(animationTimer * 3);
     }
 
     /**
-     * Update magical particles
+     * Perbarui partikel ajaib
      */
     private void updateParticles() {
         particles.removeIf(particle -> {
@@ -191,7 +191,7 @@ public class Lasso {
     }
 
     /**
-     * Update chain links for rope animation
+     * Perbarui rantai untuk animasi tali
      */
     private void updateChainLinks() {
         if (chainLinks.isEmpty()) return;
@@ -217,7 +217,7 @@ public class Lasso {
     }
 
     /**
-     * Create magical collection effect
+     * Buat efek pengumpulan ajaib
      */
     private void createCollectionEffect() {
         int tipX = getCurrentTipX();
@@ -231,7 +231,7 @@ public class Lasso {
     }
 
     /**
-     * Enhanced collision detection
+     * Deteksi tabrakan yang ditingkatkan
      */
     public Ball checkCollision(Ball[] balls) {
         if (!active || !extending || caughtBall != null) return null;
@@ -241,19 +241,19 @@ public class Lasso {
         
         for (Ball ball : balls) {
             if (ball != null && ball.isActive() && !ball.isTransitioningToBasket()) {
-                // Enhanced collision detection with magical radius
+                // Deteksi tabrakan yang ditingkatkan dengan radius ajaib
                 int ballCenterX = ball.getX() + GameConstants.BALL_SIZE / 2;
                 int ballCenterY = ball.getY() + GameConstants.BALL_SIZE / 2;
                 double distance = Math.sqrt(Math.pow(tipX - ballCenterX, 2) + Math.pow(tipY - ballCenterY, 2));
                 
-                if (distance <= GameConstants.BALL_SIZE / 2 + 5) { // +5 for magical reach
+                if (distance <= GameConstants.BALL_SIZE / 2 + 5) { // +5 untuk jangkauan ajaib
                     caughtBall = ball;
                     extending = false;
                     
-                    // Create capture effect
+                    // Buat efek penangkapan
                     createCaptureEffect(tipX, tipY);
                     
-                    System.out.println("✨ Magical gem captured! ✨");
+                    System.out.println("✨ Permata ajaib tertangkap! ✨");
                     return ball;
                 }
             }
@@ -263,7 +263,7 @@ public class Lasso {
     }
 
     /**
-     * Create magical capture effect
+     * Buat efek penangkapan ajaib
      */
     private void createCaptureEffect(int x, int y) {
         for (int i = 0; i < 20; i++) {
@@ -274,7 +274,7 @@ public class Lasso {
     }
 
     /**
-     * Get current tip position
+     * Dapatkan posisi ujung saat ini
      */
     public int getCurrentTipX() {
         if (currentLength == 0) return startX;
@@ -303,52 +303,53 @@ public class Lasso {
     }
 
     /**
-     * Enhanced magical rendering
+     * Render lasso dengan efek ajaib
      */
     public void render(Graphics2D g2d) {
         if (!active || currentLength <= 0) return;
         
-        // Enable antialiasing for smooth rendering
+        // Aktifkan antialiasing untuk rendering yang halus
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
-        // Render magical chain
+        // Render rantai ajaib
         renderMagicalChain(g2d);
         
-        // Render main lasso line with glow effect
+        // Render garis utama lasso dengan efek cahaya
         renderMainLasso(g2d);
         
-        // Render magical tip
+        // Render ujung lasso dengan efek yang ditingkatkan
         renderMagicalTip(g2d);
         
-        // Render caught ball if any
+        // Render bola yang tertangkap jika ada
         renderCaughtBall(g2d);
         
-        // Render magical particles
+        // Render partikel ajaib
         renderParticles(g2d);
         
-        // Render charge indicator
+        // Render indikator pengisian daya
         if (extending && chargeLevel > 20) {
             renderChargeIndicator(g2d);
         }
     }
 
     /**
-     * Render magical chain links
+     * Render rantai sihir pada lasso
+     * @param g2d Graphics2D untuk menggambar
      */
     private void renderMagicalChain(Graphics2D g2d) {
         for (ChainLink link : chainLinks) {
             if (!link.active) continue;
             
-            // Chain link with sway effect
+            // Posisi rantai dengan efek ayunan
             int linkX = link.x + (int)link.sway;
             int linkY = link.y;
             
-            // Gradient for chain link
+            // Gradien untuk rantai
             Color chainColor = new Color(255, 215, 0, 180);
             g2d.setColor(chainColor);
             g2d.fillOval(linkX - 2, linkY - 2, 4, 4);
             
-            // Small sparkle on each link
+            // Kilauan kecil pada setiap rantai
             if (Math.random() < 0.1) {
                 g2d.setColor(Color.WHITE);
                 g2d.fillOval(linkX - 1, linkY - 1, 2, 2);
@@ -357,13 +358,14 @@ public class Lasso {
     }
 
     /**
-     * Render main lasso with glow effect
+     * Render garis utama lasso dengan efek cahaya
+     * @param g2d Graphics2D untuk menggambar
      */
     private void renderMainLasso(Graphics2D g2d) {
         int tipX = getCurrentTipX();
         int tipY = getCurrentTipY();
         
-        // Glow effect layers
+        // Lapisan efek cahaya
         for (int i = 6; i >= 1; i--) {
             float alpha = glowIntensity * (7 - i) / 6.0f * 0.3f;
             Color glowColor = new Color(255, 215, 0, (int)(alpha * 255));
@@ -372,7 +374,7 @@ public class Lasso {
             g2d.drawLine(startX, startY, tipX, tipY);
         }
         
-        // Main lasso line with magical color cycling
+        // Garis utama lasso dengan siklus warna sihir
         Color mainColor = magicalColors[(int)(animationTimer * 2) % magicalColors.length];
         g2d.setColor(mainColor);
         g2d.setStroke(new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
@@ -380,35 +382,35 @@ public class Lasso {
     }
 
     /**
-     * Render magical tip with enhanced effects
+     * Render ujung lasso dengan efek yang ditingkatkan
      */
     private void renderMagicalTip(Graphics2D g2d) {
         int tipX = getCurrentTipX();
         int tipY = getCurrentTipY();
         
-        // Outer glow
+        // Cahaya luar
         for (int i = 8; i >= 1; i--) {
             float alpha = glowIntensity * (9 - i) / 8.0f * 0.4f;
             g2d.setColor(new Color(255, 255, 255, (int)(alpha * 255)));
             g2d.fillOval(tipX - i, tipY - i, i * 2, i * 2);
         }
         
-        // Core tip
+        // Ujung inti
         g2d.setColor(new Color(255, 255, 255, 220));
         g2d.fillOval(tipX - 4, tipY - 4, 8, 8);
         
-        // Inner core
+        // Inti dalam
         g2d.setColor(new Color(255, 215, 0));
         g2d.fillOval(tipX - 2, tipY - 2, 4, 4);
         
-        // Sparkle effect around tip
+        // Efek kilauan di sekitar ujung
         if (sparkleEffect) {
             renderTipSparkles(g2d, tipX, tipY);
         }
     }
 
     /**
-     * Render sparkles around the tip
+     * Render kilauan di sekitar ujung
      */
     private void renderTipSparkles(Graphics2D g2d, int tipX, int tipY) {
         g2d.setStroke(new BasicStroke(1));
@@ -425,21 +427,21 @@ public class Lasso {
     }
 
     /**
-     * Render caught ball with magical binding effect
+     * Render bola yang tertangkap dengan efek pengikatan ajaib
      */
     private void renderCaughtBall(Graphics2D g2d) {
         if (caughtBall != null && !extending) {
             int tipX = getCurrentTipX();
             int tipY = getCurrentTipY();
             
-            // Magical binding circle around ball
+            // Lingkaran pengikatan ajaib di sekitar bola
             g2d.setColor(new Color(255, 215, 0, 100));
             g2d.setStroke(new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             float bindingRadius = 20 + 5 * (float)Math.sin(animationTimer * 4);
             g2d.drawOval(tipX - (int)bindingRadius, tipY - (int)bindingRadius, 
                         (int)bindingRadius * 2, (int)bindingRadius * 2);
             
-            // Update ball position
+            // Perbarui posisi bola
             caughtBall.setX(tipX - GameConstants.BALL_SIZE / 2);
             caughtBall.setY(tipY - GameConstants.BALL_SIZE / 2);
             caughtBall.render(g2d);
@@ -447,7 +449,7 @@ public class Lasso {
     }
 
     /**
-     * Render magical particles
+     * Render partikel ajaib
      */
     private void renderParticles(Graphics2D g2d) {
         for (MagicalParticle particle : particles) {
@@ -456,7 +458,7 @@ public class Lasso {
     }
 
     /**
-     * Render charge indicator
+     * Render indikator pengisian daya
      */
     private void renderChargeIndicator(Graphics2D g2d) {
         int barWidth = 60;
@@ -464,11 +466,11 @@ public class Lasso {
         int barX = startX - barWidth / 2;
         int barY = startY - 20;
         
-        // Background
+        // Latar belakang
         g2d.setColor(new Color(0, 0, 0, 100));
         g2d.fillRoundRect(barX, barY, barWidth, barHeight, 4, 4);
         
-        // Charge fill
+        // Isi pengisian daya
         int fillWidth = (int)(barWidth * chargeLevel / 100.0);
         Color chargeColor = chargeLevel > 80 ? Color.RED : 
                            chargeLevel > 50 ? Color.YELLOW : Color.GREEN;
@@ -488,7 +490,7 @@ public class Lasso {
     public int getCurrentLength() { return currentLength; }
 
     /**
-     * Force stop magical lasso
+     * Paksa hentikan lasso ajaib
      */
     public void stop() {
         active = false;
@@ -499,18 +501,18 @@ public class Lasso {
         glowIntensity = 0.0f;
         particles.clear();
         chainLinks.clear();
-        System.out.println("🔮 Magical lasso dispelled");
+        System.out.println("🔮 Lasso ajaib dihentikan");
     }
 
     /**
-     * Check if lasso has completed its magical cycle
+     * Periksa apakah lasso telah menyelesaikan siklus ajaibnya
      */
     public boolean isComplete() {
         return !active && currentLength == 0;
     }
 
     /**
-     * Inner class for magical particles
+     * Kelas dalam untuk partikel ajaib
      */
     private class MagicalParticle {
         float x, y;
@@ -556,12 +558,12 @@ public class Lasso {
             y += vy;
             life--;
             
-            // Gravity effect for some particles
+            // Efek gravitasi untuk beberapa partikel
             if (!isCollectionEffect && !isCaptureEffect) {
                 vy += 0.1f;
             }
             
-            // Fade velocity
+            // Kecepatan memudar
             vx *= 0.98f;
             vy *= 0.98f;
         }
@@ -579,7 +581,7 @@ public class Lasso {
             int size = isCaptureEffect ? 4 : 2;
             g2d.fillOval((int)x - size/2, (int)y - size/2, size, size);
             
-            // Sparkle effect for capture particles
+            // Efek kilauan untuk partikel penangkapan
             if (isCaptureEffect && Math.random() < 0.3) {
                 g2d.setColor(Color.WHITE);
                 g2d.drawLine((int)x - 3, (int)y, (int)x + 3, (int)y);
@@ -593,7 +595,7 @@ public class Lasso {
     }
 
     /**
-     * Inner class for chain links
+     * Kelas dalam untuk rantai
      */
     private class ChainLink {
         int x, y;

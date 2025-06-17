@@ -175,6 +175,10 @@ public class Ball {
         sparkleTimer++;
     }
 
+    /**
+     * Render bola dengan efek visual sihir
+     * @param g2d Graphics2D untuk menggambar
+     */
     public void render(Graphics2D g2d) {
         if (!active) return;
     
@@ -185,30 +189,30 @@ public class Ball {
         int offsetX = (ballSize - renderSize) / 2;
         int offsetY = (ballSize - renderSize) / 2;
     
-        // Draw magical glow effect
+        // Gambar efek cahaya sihir
         drawMagicalGlow(g2dCopy, x + offsetX, y + offsetY, renderSize);
     
-        // Draw sparkles for high-value gems
+        // Gambar kilauan untuk bola bernilai tinggi
         if (value >= 50 && sparkleTimer % 10 == 0) {
             drawSparkles(g2dCopy, x + ballSize/2, y + ballSize/2);
         }
     
-        // Apply rotation for magical effect
+        // Terapkan rotasi untuk efek sihir
         if (value >= 70) {
             g2dCopy.rotate(Math.toRadians(rotation), x + ballSize/2.0, y + ballSize/2.0);
         }
     
-        // Draw gem image
+        // Gambar gambar permata
         BufferedImage gemImage = getGemImageByValue(value);
         if (gemImage != null) {
-            // Add magical shimmer effect
+            // Tambahkan efek shimmer sihir
             if (value >= 50) {
                 g2dCopy.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f + glowIntensity * 0.2f));
             }
             g2dCopy.drawImage(gemImage, x + offsetX, y + offsetY, renderSize, renderSize, null);
             g2dCopy.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         } else {
-            // Fallback magical circle
+            // Gambar lingkaran sihir sebagai fallback
             drawMagicalCircle(g2dCopy, x + offsetX, y + offsetY, renderSize);
         }
     

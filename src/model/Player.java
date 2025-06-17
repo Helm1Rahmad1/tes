@@ -41,7 +41,6 @@ public class Player {
         this.count = count;
     }
 
-    // Add to existing score and count
     public void addScore(int scoreToAdd) {
         this.score += scoreToAdd;
     }

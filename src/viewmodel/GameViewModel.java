@@ -77,20 +77,20 @@ public class GameViewModel {
         // Update character (this will handle sprite animation)
         character.update();
 
-        // Update lasso's starting position based on character's movement
+        // Perbarui posisi awal lasso berdasarkan pergerakan karakter
         lasso.updateStartPosition(character.getCenterX(), character.getCenterY());
 
-        // Handle input with smooth movement
+        // Tangani input dengan pergerakan yang lebih halus
         handleInputSmooth();
 
-        // Update lasso
+        // Perbarui lasso
         lasso.update();
 
-        // Check lasso collision with balls
+        // Periksa tabrakan lasso dengan bola
         Ball caughtBall = lasso.checkCollision(balls.toArray(new Ball[0]));
         if (caughtBall != null) {
             if (caughtBall.getValue() == 10) { // Jika bola adalah bom
-                gameData.setGameOver(true); // Ganti ini
+                gameData.setGameOver(true); // Atur status game over
             } else {
                 // Tambahkan skor dan jumlah bola jika bukan bom
                 currentScore += caughtBall.getValue();
@@ -99,13 +99,13 @@ public class GameViewModel {
             }
         }
 
-        // Update balls
+        // Perbarui bola
         updateBalls();
 
-        // Spawn new balls
+        // Spawn bola baru
         spawnBalls();
 
-        // Update time remaining
+        // Perbarui waktu yang tersisa
         timeAccumulator += GameConstants.FRAME_DELAY / 1000.0;
         if (timeAccumulator >= 1.0) {
             timeRemaining--;
@@ -119,32 +119,32 @@ public class GameViewModel {
     }
 
     /**
-     * Handle keyboard input with direct movement for smoother animation
+     * Tangani input keyboard dengan pergerakan langsung untuk animasi yang lebih halus
      */
     private void handleInputSmooth() {
         int moveSpeed = GameConstants.CHARACTER_SPEED;
         boolean moved = false;
         int dx = 0, dy = 0;
         
-        // Accumulate movement
-        if (keyPressed[37]) { // Left
+        // Akumulasi pergerakan
+        if (keyPressed[37]) { // Kiri
             dx -= moveSpeed;
             moved = true;
         }
-        if (keyPressed[39]) { // Right
+        if (keyPressed[39]) { // Kanan
             dx += moveSpeed;
             moved = true;
         }
-        if (keyPressed[38]) { // Up
+        if (keyPressed[38]) { // Atas
             dy -= moveSpeed;
             moved = true;
         }
-        if (keyPressed[40]) { // Down
+        if (keyPressed[40]) { // Bawah
             dy += moveSpeed;
             moved = true;
         }
         
-        // Apply movement if any keys are pressed
+        // Terapkan pergerakan jika ada tombol yang ditekan
         if (moved) {
             character.moveDirectly(dx, dy);
         }
@@ -215,25 +215,27 @@ public class GameViewModel {
     }
 
     /**
-     * Handle key press
+     * Tangani event ketika tombol keyboard ditekan.
+     * @param keyCode Kode tombol yang ditekan.
      */
     public void handleKeyPress(int keyCode) {
         if (keyCode < keyPressed.length) {
             keyPressed[keyCode] = true;
         }
 
-        // Space key to pause/unpause
-        if (keyCode == 32) { // Space
+        // Tombol spasi untuk pause/unpause game
+        if (keyCode == 32) { // Spasi
             if (gameData.isGamePaused()) {
-                gameData.startGame(); // Ini juga akan mengatur gameData.setGameOver(false)
+                gameData.startGame(); // Melanjutkan game (juga mengatur gameData.setGameOver(false))
             } else {
-                gameData.pauseGame();
+                gameData.pauseGame(); // Pause game
             }
         }
     }
 
     /**
-     * Handle key release
+     * Tangani event ketika tombol keyboard dilepas.
+     * @param keyCode Kode tombol yang dilepas.
      */
     public void handleKeyRelease(int keyCode) {
         if (keyCode < keyPressed.length) {
