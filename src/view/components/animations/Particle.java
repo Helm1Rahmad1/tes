@@ -3,8 +3,6 @@ package view.components.animations;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import javax.swing.text.StyleConstants.ColorConstants;
-
 public class Particle {
     private float x, y, vx, vy, size, alpha, life;
     private Color color;

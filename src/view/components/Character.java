@@ -293,8 +293,4 @@ public class Character {
         animationCounter = 0;
     }
 
-    public void move(int i, int j) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
-    }
 }

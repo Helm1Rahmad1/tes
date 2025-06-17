@@ -25,17 +25,17 @@ public class GameView extends JFrame {
     private GamePanel gamePanel;
     private Timer gameTimer;
     private boolean gameRunning;
-    private Clip gameMusic;
-    
+
     // Magic theme elements
     private float magicParticleTimer = 0.0f;
     private BufferedImage backgroundImage;
+    private Clip gameMusic; // Deklarasi gameMusic di sini
 
     public GameView(String username, MainMenuView mainMenuView) {
         this.viewModel = new GameViewModel(username);
         this.mainMenuView = mainMenuView;
         this.gameRunning = true;
-        
+
         initializeComponents();
         setupEventHandlers();
         playGameMusic();
@@ -65,7 +65,8 @@ public class GameView extends JFrame {
                     gameRunning = false; // Menghentikan loop di View
                     gamePanel.repaint();
                     SwingUtilities.invokeLater(() -> {
-                        drawGameOverOverlay(gamePanel.getGraphics());
+                        // Tidak perlu memanggil drawGameOverOverlay secara manual di sini lagi,
+                        // karena paintComponent akan dipanggil oleh repaint()
                         try {
                             Thread.sleep(2000);
                         } catch (InterruptedException ex) {
@@ -127,7 +128,7 @@ public class GameView extends JFrame {
                         gameRunning = false;
                         gamePanel.repaint();
                         SwingUtilities.invokeLater(() -> {
-                            drawGameOverOverlay(gamePanel.getGraphics());
+                            // Tidak perlu memanggil drawGameOverOverlay secara manual di sini lagi
                             try {
                                 Thread.sleep(2000);
                             } catch (InterruptedException ex) {
@@ -154,9 +155,8 @@ public class GameView extends JFrame {
     private void playGameMusic() {
         try {
             System.out.println("Playing magical music...");
-            // Ganti string literal dengan konstanta dari AssetLoader
             AudioInputStream audioStream = AssetLoader.loadAudio(AssetLoader.AUDIO_GAME_MUSIC);
-            
+
             if (audioStream != null) {
                 gameMusic = AudioSystem.getClip();
                 gameMusic.open(audioStream);
@@ -182,41 +182,17 @@ public class GameView extends JFrame {
         if (gameTimer != null) {
             gameTimer.stop();
         }
-        
+
         viewModel.resetGame();
-        
+
         mainMenuView.showMainMenu();
         dispose();
     }
 
-    private void drawGameOverOverlay(Graphics graphics) {
-        Graphics2D g2d = (Graphics2D) graphics.create();
-
-        // Magical game over overlay
-        g2d.setColor(new Color(20, 20, 60, 180));
-        g2d.fillRect(0, 0, getWidth(), getHeight());
-
-        // Magical border effect
-        g2d.setColor(new Color(255, 215, 0, 100));
-        g2d.setStroke(new BasicStroke(5));
-        g2d.drawRect(50, 50, getWidth() - 100, getHeight() - 100);
-
-        g2d.setColor(Color.YELLOW);
-        g2d.setFont(new Font("Serif", Font.BOLD, 36));
-        String gameOverText = "🔮 Magical Journey Ends 🔮";
-        FontMetrics fm = g2d.getFontMetrics();
-        int x = (getWidth() - fm.stringWidth(gameOverText)) / 2;
-        int y = getHeight() / 2 - 50;
-        g2d.drawString(gameOverText, x, y);
-
-        g2d.setFont(new Font("Serif", Font.BOLD, 24));
-        String scoreText = "✨ Final Score: " + viewModel.getCurrentScore() + " ✨";
-        fm = g2d.getFontMetrics();
-        x = (getWidth() - fm.stringWidth(scoreText)) / 2;
-        g2d.drawString(scoreText, x, y + 60);
-
-        g2d.dispose();
-    }
+    // Metode ini dihapus karena fungsionalitasnya sudah ada di GamePanel.drawMagicalGameOverOverlay
+    // private void drawGameOverOverlay(Graphics graphics) {
+    //    // Dihapus
+    // }
 
     /**
      * Game Panel dengan tema sihir
@@ -231,12 +207,12 @@ public class GameView extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g.create();
-            
+
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            
+
             drawMagicalBackground(g2d);
             drawGame(g2d);
-            
+
             g2d.dispose();
         }
 
@@ -248,10 +224,10 @@ public class GameView extends JFrame {
             );
             g2d.setPaint(bgGradient);
             g2d.fillRect(0, 0, getWidth(), getHeight());
-            
+
             // Floating magical particles
             drawMagicalParticles(g2d);
-            
+
             // Magical border
             g2d.setColor(new Color(100, 50, 200, 100));
             g2d.setStroke(new BasicStroke(3));
@@ -260,16 +236,16 @@ public class GameView extends JFrame {
 
         private void drawMagicalParticles(Graphics2D g2d) {
             g2d.setColor(new Color(255, 255, 255, 50));
-            
+
             for (int i = 0; i < 20; i++) {
                 int x = (int)(Math.sin(magicParticleTimer + i) * 50 + getWidth() / 2 + i * 30);
                 int y = (int)(Math.cos(magicParticleTimer * 0.7 + i * 0.5) * 30 + getHeight() / 2 + i * 20);
-                
+
                 x = Math.max(0, Math.min(getWidth(), x));
                 y = Math.max(0, Math.min(getHeight(), y));
-                
+
                 g2d.fillOval(x, y, 3, 3);
-                
+
                 // Sparkle effect
                 g2d.setColor(new Color(255, 255, 255, 30));
                 g2d.drawLine(x - 5, y, x + 5, y);
@@ -306,11 +282,11 @@ public class GameView extends JFrame {
             int basketY = GameConstants.BASKET_Y;
             int basketW = GameConstants.BASKET_WIDTH;
             int basketH = GameConstants.BASKET_HEIGHT;
-            
+
             // Glow effect
             g2d.setColor(new Color(255, 215, 0, 50));
             g2d.fillRect(basketX - 10, basketY - 10, basketW + 20, basketH + 20);
-            
+
             // Main basket with gradient
             GradientPaint basketGradient = new GradientPaint(
                 basketX, basketY, new Color(139, 69, 19),
@@ -323,7 +299,7 @@ public class GameView extends JFrame {
             g2d.setColor(new Color(255, 215, 0));
             g2d.setStroke(new BasicStroke(3));
             g2d.drawRect(basketX, basketY, basketW, basketH);
-            
+
             // Magical symbol on basket
             g2d.setColor(new Color(255, 215, 0, 150));
             g2d.setFont(new Font("Serif", Font.BOLD, 16));
@@ -334,20 +310,20 @@ public class GameView extends JFrame {
             // Magical UI panel
             g2d.setColor(new Color(0, 0, 0, 100));
             g2d.fillRoundRect(10, 10, 250, 80, 15, 15);
-            
+
             g2d.setColor(new Color(255, 215, 0));
             g2d.setStroke(new BasicStroke(2));
             g2d.drawRoundRect(10, 10, 250, 80, 15, 15);
-            
+
             g2d.setColor(Color.WHITE);
             g2d.setFont(new Font("Serif", Font.BOLD, 18));
-            
+
             String scoreText = "✨ Score: " + viewModel.getCurrentScore();
             g2d.drawString(scoreText, 20, 35);
-            
+
             String timeText = "⏰ Time: " + viewModel.getTimeRemaining() + "s";
             g2d.drawString(timeText, 20, 60);
-            
+
             String gemText = "💎 Gems: " + viewModel.getCurrentCount();
             g2d.drawString(gemText, 20, 80);
         }
@@ -389,7 +365,7 @@ public class GameView extends JFrame {
             for (Object[] info : gemInfo) {
                 if (yPos > panelY + panelH - 15) break; // Prevent overflow
                 BufferedImage gemImage = AssetLoader.loadImage((String) info[0]);
-                
+
                 if (gemImage != null) {
                     g2d.drawImage(gemImage, panelX + 10, yPos, 20, 20, null);
                 } else {
@@ -404,12 +380,12 @@ public class GameView extends JFrame {
             // Semi-transparent overlay
             g2d.setColor(new Color(0, 0, 0, 150));
             g2d.fillRect(0, 0, getWidth(), getHeight());
-            
+
             // Magical pause border
             g2d.setColor(new Color(255, 215, 0, 100));
             g2d.setStroke(new BasicStroke(5));
             g2d.drawRect(100, 100, getWidth() - 200, getHeight() - 200);
-            
+
             // Pause text with magical styling
             g2d.setColor(Color.YELLOW);
             g2d.setFont(new Font("Serif", Font.BOLD, 48));
@@ -417,15 +393,15 @@ public class GameView extends JFrame {
             FontMetrics fm = g2d.getFontMetrics();
             int x = (getWidth() - fm.stringWidth(pauseText)) / 2;
             int y = getHeight() / 2;
-            
+
             // Text shadow effect
             g2d.setColor(new Color(0, 0, 0, 100));
             g2d.drawString(pauseText, x + 3, y + 3);
-            
+
             // Main text
             g2d.setColor(Color.YELLOW);
             g2d.drawString(pauseText, x, y);
-            
+
             // Subtitle
             g2d.setFont(new Font("Serif", Font.BOLD, 20));
             String subtitleText = "✨ Click to resume your magical journey ✨";
@@ -434,6 +410,7 @@ public class GameView extends JFrame {
             g2d.drawString(subtitleText, x, y + 60);
         }
 
+        // --- Perubahan dimulai di sini ---
         private void drawMagicalGameOverOverlay(Graphics2D g2d) {
             // Semi-transparent magical overlay
             g2d.setColor(new Color(20, 20, 60, 180));
@@ -443,24 +420,24 @@ public class GameView extends JFrame {
             g2d.setColor(new Color(255, 215, 0, (int)(100 + 50 * Math.sin(magicParticleTimer))));
             g2d.setStroke(new BasicStroke(8));
             g2d.drawRect(50, 50, getWidth() - 100, getHeight() - 100);
-            
+
             // Inner magical border
             g2d.setColor(new Color(138, 43, 226, 150));
             g2d.setStroke(new BasicStroke(4));
             g2d.drawRect(70, 70, getWidth() - 140, getHeight() - 140);
 
-            // Game Over title with glow effect
-            g2d.setColor(new Color(255, 255, 255, 100));
+            // Game Over title with glow effect (sekarang sebagai shadow yang benar)
             g2d.setFont(new Font("Serif", Font.BOLD, 42));
             String gameOverText = "🔮 Magical Journey Ends 🔮";
             FontMetrics fm = g2d.getFontMetrics();
             int x = (getWidth() - fm.stringWidth(gameOverText)) / 2;
             int y = getHeight() / 2 - 80;
-            
-            // Glow effect
-            g2d.drawString(gameOverText, x + 2, y + 2);
-            
-            // Main title
+
+            // Gambar shadow terlebih dahulu
+            g2d.setColor(new Color(0, 0, 0, 100)); // Warna shadow (hitam transparan)
+            g2d.drawString(gameOverText, x + 3, y + 3); // Gambar shadow sedikit bergeser
+
+            // Gambar teks utama di atas shadow
             g2d.setColor(Color.YELLOW);
             g2d.drawString(gameOverText, x, y);
 
@@ -487,26 +464,27 @@ public class GameView extends JFrame {
             x = (getWidth() - fm.stringWidth(returnText)) / 2;
             g2d.setColor(Color.WHITE);
             g2d.drawString(returnText, x, y + 160);
-            
+
             // Animated sparkles around the text
             drawGameOverSparkles(g2d, x, y);
         }
-        
+        // --- Perubahan berakhir di sini ---
+
         private void drawGameOverSparkles(Graphics2D g2d, int centerX, int centerY) {
             g2d.setColor(new Color(255, 255, 255, (int)(150 + 100 * Math.sin(magicParticleTimer * 2))));
-            
+
             for (int i = 0; i < 12; i++) {
                 double angle = (magicParticleTimer + i * 0.5) * 0.8;
                 int sparkleX = (int)(centerX + Math.cos(angle) * (80 + 20 * Math.sin(magicParticleTimer + i)));
                 int sparkleY = (int)(centerY + Math.sin(angle) * (60 + 15 * Math.cos(magicParticleTimer + i)));
-                
+
                 // Ensure sparkles stay within bounds
                 sparkleX = Math.max(20, Math.min(getWidth() - 20, sparkleX));
                 sparkleY = Math.max(20, Math.min(getHeight() - 20, sparkleY));
-                
+
                 // Draw sparkle
                 g2d.fillOval(sparkleX - 2, sparkleY - 2, 4, 4);
-                
+
                 // Draw sparkle rays
                 g2d.setStroke(new BasicStroke(1));
                 g2d.drawLine(sparkleX - 6, sparkleY, sparkleX + 6, sparkleY);

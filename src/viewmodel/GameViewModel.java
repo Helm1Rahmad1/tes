@@ -150,18 +150,6 @@ public class GameViewModel {
         }
     }
 
-    /**
-     * Handle keyboard input (legacy method kept for compatibility)
-     */
-    private void handleInput() {
-        int moveSpeed = GameConstants.CHARACTER_SPEED * 2;
-
-        // Arrow key movement
-        if (keyPressed[37]) character.move(-moveSpeed, 0); // Left
-        if (keyPressed[39]) character.move(moveSpeed, 0);  // Right
-        if (keyPressed[38]) character.move(0, -moveSpeed); // Up
-        if (keyPressed[40]) character.move(0, moveSpeed);  // Down
-    }
 
     /**
      * Update all balls

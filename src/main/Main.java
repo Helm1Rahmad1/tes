@@ -34,14 +34,9 @@ public class Main {
 
 
 //      * Assets Character - https://opengameart.org/content/witchmagicianmagemagi#
-//      * Assets Lasso - https://opengameart.org/content/icicle-spell
 
 //      * Assets Ball Cristal - https://opengameart.org/content/gem-jewel-diamond-glass
 
-//      * Assets Basket - 
-//      * Assets Cloud - 
-//      * Assets Background - 
-//      * Assets Sound Effects Menu - https://opengameart.org/content/magic-space
+//      * Assets Background - https://opengameart.org/content/fantasy-background
+//      * Assets Music  Menu - https://opengameart.org/content/magic-space
 //      * Assets Music Game - https://opengameart.org/content/mystical-caverns
-//      * Assets Music Menu - 
-//      * Assets Font - 

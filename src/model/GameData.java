@@ -10,7 +10,7 @@ public class GameData {
     private int currentCount;
     private boolean gameRunning;
     private boolean gamePaused;
-    private boolean gameOver; // Tambahkan ini
+    private boolean gameOver; 
 
     public GameData() {
         this.currentUsername = "";
@@ -18,7 +18,7 @@ public class GameData {
         this.currentCount = 0;
         this.gameRunning = false;
         this.gamePaused = false;
-        this.gameOver = false; // Inisialisasi
+        this.gameOver = false; 
     }
 
     public GameData(String username) {
@@ -27,7 +27,7 @@ public class GameData {
         this.currentCount = 0;
         this.gameRunning = false;
         this.gamePaused = false;
-        this.gameOver = false; // Inisialisasi
+        this.gameOver = false; 
     }
 
     // Getters
@@ -51,7 +51,7 @@ public class GameData {
         return gamePaused;
     }
 
-    public boolean isGameOver() { // Getter baru
+    public boolean isGameOver() { 
         return gameOver;
     }
 
@@ -76,7 +76,7 @@ public class GameData {
         this.gamePaused = gamePaused;
     }
 
-    public void setGameOver(boolean gameOver) { // Setter baru
+    public void setGameOver(boolean gameOver) { 
         this.gameOver = gameOver;
     }
 
@@ -94,13 +94,13 @@ public class GameData {
         this.currentCount = 0;
         this.gameRunning = false;
         this.gamePaused = false;
-        this.gameOver = false; // Reset status game over
+        this.gameOver = false; 
     }
 
     public void startGame() {
         this.gameRunning = true;
         this.gamePaused = false;
-        this.gameOver = false; // Pastikan game over false saat mulai
+        this.gameOver = false; 
     }
 
     public void pauseGame() {
@@ -110,6 +110,6 @@ public class GameData {
     public void stopGame() {
         this.gameRunning = false;
         this.gamePaused = false;
-        this.gameOver = true; // Set game over saat game berhenti
+        this.gameOver = true; 
     }
 }

@@ -67,15 +67,18 @@ public class Ball {
 
     private Color generateColorByValue(int value) {
         switch (value) {
-            case 10: return new Color(255, 165, 0); // Orange for 10 points (bomb) - PERUBAHAN
-            case 20: return new Color(50, 200, 50); // Magical green
-            case 30: return new Color(50, 100, 255); // Magical blue for 30 points - PERUBAHAN
-            case 50: return new Color(50, 200, 200); // Magical cyan for 50 points - PERUBAHAN (swap dengan 30)
-            case 70: return new Color(255, 50, 100); // Magical red
-            case 90: return new Color(200, 50, 255); // Magical purple
-            case 100: return new Color(255, 215, 0); // Golden
-            default: return Color.WHITE; // Fallback to white for undefined values - PERUBAHAN
+            case 10: return new Color(255, 69, 0);    // Red-Orange (bomb/danger)
+            case 20: return new Color(34, 139, 34);   // Forest Green (low value)
+            case 30: return new Color(30, 144, 255);  // Dodger Blue (medium-low)
+            case 40: return new Color(138, 43, 226);  // Blue Violet (medium)
+            case 50: return new Color(255, 140, 0);   // Dark Orange (medium-high)
+            case 60: return new Color(220, 20, 60);   // Crimson (high value)
+            case 70: return new Color(255, 215, 0);   // Gold (very high)
+            case 80: return new Color(148, 0, 211);   // Dark Violet (premium)
+            case 90: return new Color(255, 20, 147);  // Deep Pink (rare/special)
+            default: return new Color(192, 192, 192); // Light Gray (neutral)
         }
+    
     }
 
     private BufferedImage getGemImageByValue(int value) {
@@ -303,10 +306,5 @@ public class Ball {
         transitioningFromCharacterToBasket = true;
         transitioningToBasket = false;
 
-        // Logika game over untuk bom tetap di sini
-        // Baris di bawah ini dihapus karena penanganan Game Over sudah di ViewModel
-        // if (value == 10) { // Jika bola adalah bom (value 10)
-        //     GameConstants.GAME_OVER = true;
-        // }
     }
 }

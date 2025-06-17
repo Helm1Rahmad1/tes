@@ -2,7 +2,6 @@ package view.components.animations;
 
 import view.components.panels.TransparentPanel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;

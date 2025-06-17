@@ -52,6 +52,7 @@ public class AssetLoader {
     // --- Audio Asset Paths ---
     public static final String AUDIO_MENU_MUSIC = "/assets/sounds/menu_music.wav";
     public static final String AUDIO_GAME_MUSIC = "/assets/sounds/game_music.wav";
+    public static final String AUDIO_GAME_OVER = "/assets/sounds/game_over.wav";
 
 
     /**
@@ -59,6 +60,7 @@ public class AssetLoader {
      * @param path Jalur ke sumber daya gambar (misalnya "/assets/images/Background/BackgroundMenu.png").
      * @return BufferedImage yang dimuat, atau null jika gagal.
      */
+
     public static BufferedImage loadImage(String path) {
         try {
             URL imageUrl = AssetLoader.class.getResource(path);
@@ -78,6 +80,7 @@ public class AssetLoader {
      * @param path Jalur ke sumber daya audio (misalnya "/assets/sounds/menu_music.wav").
      * @return AudioInputStream yang dimuat, atau null jika gagal.
      */
+
     public static AudioInputStream loadAudio(String path) {
         try {
             URL audioUrl = AssetLoader.class.getResource(path);
@@ -95,5 +98,4 @@ public class AssetLoader {
         }
     }
 
-    // Anda bisa menambahkan metode lain di sini untuk memuat jenis aset lain (misalnya font, teks, dll.)
 }

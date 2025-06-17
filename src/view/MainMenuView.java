@@ -108,46 +108,8 @@ public class MainMenuView extends JFrame {
         if (backgroundImage != null) {
             System.out.println("✨ Background image loaded successfully");
         } else {
-            System.err.println("⚠ Creating fallback background: Failed to load background image.");
-            backgroundImage = createUltraModernBackground();
+            System.err.println("⚠ Failed to load background image.");
         }
-    }
-
-    /**
-     * Create ultra-modern gradient background with noise texture
-     */
-    private BufferedImage createUltraModernBackground() {
-        BufferedImage bg = new BufferedImage(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = bg.createGraphics();
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // Multi-layer gradient background
-        GradientPaint gradient1 = new GradientPaint(
-            0, 0, ColorConstants.PRIMARY_DARK,
-            GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT, new Color(30, 41, 59)
-        );
-        g2d.setPaint(gradient1);
-        g2d.fillRect(0, 0, GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT);
-
-        // Add radial highlight
-        RadialGradientPaint radial = new RadialGradientPaint(
-            GameConstants.WINDOW_WIDTH / 2, GameConstants.WINDOW_HEIGHT / 3, 600,
-            new float[]{0.0f, 1.0f},
-            new Color[]{new Color(ColorConstants.ACCENT_BLUE.getRed(), ColorConstants.ACCENT_BLUE.getGreen(), ColorConstants.ACCENT_BLUE.getBlue(), 30), new Color(ColorConstants.ACCENT_BLUE.getRed(), ColorConstants.ACCENT_BLUE.getGreen(), ColorConstants.ACCENT_BLUE.getBlue(), 0)}
-        );
-        g2d.setPaint(radial);
-        g2d.fillRect(0, 0, GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT);
-
-        // Add geometric pattern overlay
-        g2d.setColor(new Color(255, 255, 255, 3));
-        for (int i = 0; i < GameConstants.WINDOW_WIDTH; i += 100) {
-            for (int j = 0; j < GameConstants.WINDOW_HEIGHT; j += 100) {
-                g2d.drawRect(i, j, 100, 100);
-            }
-        }
-
-        g2d.dispose();
-        return bg;
     }
 
     /**
@@ -226,8 +188,6 @@ public class MainMenuView extends JFrame {
         header.setPreferredSize(new Dimension(0, 55));
         header.setBorder(BorderFactory.createEmptyBorder());
 
-        // Ultra-modern cell renderer
-        scoreTable.setDefaultRenderer(Object.class, new UltraModernTableRenderer());
 
         // Optimized column widths
         scoreTable.getColumnModel().getColumn(0).setPreferredWidth(400);
@@ -247,8 +207,8 @@ public class MainMenuView extends JFrame {
      * Initialize ultra-modern buttons
      */
     private void initializeButtons() {
-        playButton = new UltraModernButton("🚀 START GAME", ColorConstants.ACCENT_GREEN, ButtonStyle.PRIMARY);
-        quitButton = new UltraModernButton("👋 EXIT", ColorConstants.ACCENT_RED, ButtonStyle.SECONDARY);
+        playButton = new UltraModernButton("START GAME", ColorConstants.ACCENT_GREEN, ButtonStyle.PRIMARY);
+        quitButton = new UltraModernButton("EXIT", ColorConstants.ACCENT_RED, ButtonStyle.SECONDARY);
         refreshButton = new UltraModernButton("🔄", ColorConstants.ACCENT_BLUE, ButtonStyle.ICON);
 
         playButton.setPreferredSize(new Dimension(200, 60));
