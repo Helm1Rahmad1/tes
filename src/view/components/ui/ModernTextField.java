@@ -11,15 +11,10 @@ import java.awt.event.FocusEvent;
 // Kelas ModernTextField adalah komponen UI yang merupakan turunan dari JTextField
 // dengan tampilan modern dan animasi fokus.
 public class ModernTextField extends JTextField {
-    // Placeholder untuk teks yang ditampilkan saat field kosong.
     private String placeholder;
-    // Menyimpan status apakah field sedang fokus atau tidak.
     private boolean focused = false;
-    // Warna yang digunakan untuk animasi fokus.
     private Color focusColor = ColorConstants.ACCENT_BLUE;
-    // Timer untuk mengatur animasi fokus.
     private Timer focusTimer;
-    // Nilai animasi fokus, dari 0.0 hingga 1.0.
     private float focusAnimation = 0.0f;
 
     // Konstruktor untuk membuat ModernTextField dengan placeholder.

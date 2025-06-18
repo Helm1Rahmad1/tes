@@ -27,6 +27,6 @@ public class GlassmorphismCard extends JPanel {
         g2d.setColor(new Color(255, 255, 255, 5));
         g2d.drawRoundRect(1, 1, getWidth() - 3, getHeight() - 3, 18, 18);
 
-        g2d.dispose(); // Membersihkan resource Graphics2D
+        g2d.dispose(); 
     }
 }

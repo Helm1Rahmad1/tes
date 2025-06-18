@@ -177,7 +177,7 @@ public class MainMenuView extends JFrame {
         // Header modern kustom
         JTableHeader header = scoreTable.getTableHeader();
         header.setOpaque(false);
-        header.setBackground(new Color(147, 0, 211, 90)); // Ungu cerah
+        header.setBackground(new Color(147, 0, 211, 90)); 
         header.setForeground(ColorConstants.TEXT_PRIMARY);
         header.setFont(FontConstants.FONT_SUBHEADING);
         header.setReorderingAllowed(false);
@@ -387,8 +387,6 @@ public class MainMenuView extends JFrame {
                     // Hapus karakter medal emoji sebelum mengatur teks
                     username = username.replaceAll("[^\\p{L}\\p{N}\\s]", "").trim();
                     usernameField.setText(username);
-                    // Tambahkan notifikasi jika ingin memberitahu user pemain telah dipilih
-                    // NotificationDialog.showModernNotification(MainMenuView.this, "Player selected: " + usernameField.getCleanText(), NotificationDialog.NotificationType.SUCCESS);
                 }
             }
         });
@@ -401,8 +399,7 @@ public class MainMenuView extends JFrame {
                 if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 1) {
                     int row = scoreTable.rowAtPoint(e.getPoint());
                     if (row >= 0) {
-                        scoreTable.setRowSelectionInterval(row, row); // Atur seleksi baris secara eksplisit
-                        // ListSelectionListener di atas akan menangani pembaruan usernameField
+                        scoreTable.setRowSelectionInterval(row, row); 
                     }
                 }
             }
@@ -456,11 +453,10 @@ public class MainMenuView extends JFrame {
         );
         
         // Perhatikan ini:
-        if (choice == JOptionPane.NO_OPTION) { // <-- Jika sebelumnya diubah ke NO_OPTION
+        if (choice == JOptionPane.NO_OPTION) { 
             stopBackgroundMusic();
             startExitAnimation(() -> System.exit(0));
         }
-        // Jika tidak masuk ke IF, maka aplikasi akan melanjutkan (tidak keluar)
     }
 
     /**

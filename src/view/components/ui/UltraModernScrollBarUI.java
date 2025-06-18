@@ -20,12 +20,12 @@ public class UltraModernScrollBarUI extends BasicScrollBarUI {
     
     @Override
     protected JButton createDecreaseButton(int orientation) {
-        return createInvisibleButton(); // Tombol decrease tidak terlihat
+        return createInvisibleButton(); 
     }
     
     @Override
     protected JButton createIncreaseButton(int orientation) {
-        return createInvisibleButton(); // Tombol increase tidak terlihat
+        return createInvisibleButton(); 
     }
     
     private JButton createInvisibleButton() {
@@ -52,6 +52,5 @@ public class UltraModernScrollBarUI extends BasicScrollBarUI {
     
     @Override
     protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
-        // Track transparan, tidak digambar
     }
 }

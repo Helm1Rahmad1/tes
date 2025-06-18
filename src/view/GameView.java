@@ -30,7 +30,7 @@ public class GameView extends JFrame {
     // Elemen tema sihir
     private float magicParticleTimer = 0.0f;
     private BufferedImage backgroundImage;
-    private Clip gameMusic; // Deklarasi gameMusic di sini
+    private Clip gameMusic; 
 
     public GameView(String username, MainMenuView mainMenuView) {
         this.viewModel = new GameViewModel(username);
@@ -65,12 +65,11 @@ public class GameView extends JFrame {
             public void keyPressed(KeyEvent e) {
                 // Tangani tombol spasi untuk mengakhiri permainan
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    viewModel.stopGame(); // Memanggil stopGame di ViewModel untuk logika game over dan penyimpanan
-                    gameRunning = false; // Menghentikan loop di View
+                    viewModel.stopGame(); 
+                    gameRunning = false; 
                     gamePanel.repaint();
                     SwingUtilities.invokeLater(() -> {
-                        // Tidak perlu memanggil drawGameOverOverlay secara manual di sini lagi,
-                        // karena paintComponent akan dipanggil oleh repaint()
+
                         try {
                             Thread.sleep(2000);
                         } catch (InterruptedException ex) {
@@ -202,7 +201,7 @@ public class GameView extends JFrame {
     private class GamePanel extends JPanel {
         public GamePanel() {
             // Mengatur latar belakang panel
-            setBackground(new Color(25, 25, 50)); // Latar belakang gelap dengan tema sihir
+            setBackground(new Color(25, 25, 50)); 
             setPreferredSize(new Dimension(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT));
         }
 
@@ -356,7 +355,7 @@ public class GameView extends JFrame {
             // Peringkat permata dengan gambar
             g2d.setFont(new Font("Serif", Font.PLAIN, 12));
             Object[][] gemInfo = {
-                {AssetLoader.GOLDEN_GEM, "Permata Emas: 90"}, // Ganti string literal dengan konstanta
+                {AssetLoader.GOLDEN_GEM, "Permata Emas: 90"}, 
                 {AssetLoader.FROST_GEM, "Permata Es: 80pts"},
                 {AssetLoader.PURPLE_GEM, "Permata Ungu: 70pts"},
                 {AssetLoader.RUBY_GEM, "Permata Ruby: 60pts"},
@@ -369,7 +368,7 @@ public class GameView extends JFrame {
 
             int yPos = panelY + 40;
             for (Object[] info : gemInfo) {
-                if (yPos > panelY + panelH - 15) break; // Mencegah overflow
+                if (yPos > panelY + panelH - 15) break; 
                 BufferedImage gemImage = AssetLoader.loadImage((String) info[0]);
 
                 if (gemImage != null) {
@@ -378,7 +377,7 @@ public class GameView extends JFrame {
                     System.err.println("Gagal memuat gambar permata untuk: " + info[1]);
                 }
                 g2d.drawString((String) info[1], panelX + 40, yPos + 15);
-                yPos += 30; // Sesuaikan jarak untuk gambar
+                yPos += 30; 
             }
         }
 
@@ -513,7 +512,7 @@ public class GameView extends JFrame {
         // Melanjutkan permainan
         if (gameRunning) {
             viewModel.resumeGame();
-            requestFocus(); // Memastikan jendela permainan memiliki fokus
+            requestFocus(); 
         }
     }
 

@@ -34,7 +34,7 @@ public class GameViewModel {
     private boolean isMovingHorizontally = false;
     private boolean isMovingVertically = false;
     private long lastMoveTime = 0;
-    private static final long MOVE_DELAY = 50; // Milliseconds between moves for smooth animation
+    private static final long MOVE_DELAY = 50; 
 
     public GameViewModel(String username) {
         this.gameData = new GameData(username);
@@ -49,9 +49,8 @@ public class GameViewModel {
     private void initializeGameElements() {
         // Initialize balls
         balls = new ArrayList<>();
-        // Inisialisasi awal bola juga perlu disesuaikan dengan logika spawn baru
         for (int i = 0; i < GameConstants.INITIAL_BALL_COUNT; i++) {
-            spawnSingleBall(); // Gunakan metode spawn tunggal yang sudah diatur
+            spawnSingleBall(); 
         }
 
         // Initialize character
@@ -70,20 +69,13 @@ public class GameViewModel {
      * Update game state - main game loop logic
      */
     public void update() {
-        if (!gameData.isGameRunning() || gameData.isGamePaused() || gameData.isGameOver()) { // Tambahkan gameData.isGameOver()
+        if (!gameData.isGameRunning() || gameData.isGamePaused() || gameData.isGameOver()) { 
             return;
         }
 
-        // Update character (this will handle sprite animation)
         character.update();
-
-        // Perbarui posisi awal lasso berdasarkan pergerakan karakter
         lasso.updateStartPosition(character.getCenterX(), character.getCenterY());
-
-        // Tangani input dengan pergerakan yang lebih halus
         handleInputSmooth();
-
-        // Perbarui lasso
         lasso.update();
 
         // Periksa tabrakan lasso dengan bola
@@ -114,7 +106,7 @@ public class GameViewModel {
 
         if (timeRemaining <= 0) {
             timeRemaining = 0;
-            stopGame(); // stopGame akan mengatur gameData.setGameOver(true)
+            stopGame(); 
         }
     }
 
@@ -180,20 +172,13 @@ public class GameViewModel {
     private void spawnSingleBall() {
         int x, y, direction;
         
-        // Tentukan apakah muncul dari atas atau bawah (50/50 chance)
-        if (random.nextBoolean()) { // Muncul dari atas (kanan ke kiri), di atas posisi Y karakter
+        // Tentukan apakah muncul dari atas atau bawah 
+        if (random.nextBoolean()) { 
             x = GameConstants.WINDOW_WIDTH; // Mulai dari sisi kanan
-            // Y acak di area di atas karakter, tapi masih dalam GAME_AREA_HEIGHT
-            // Batas atas: 0
-            // Batas bawah: CHARACTER_START_Y - (GAME_AREA_HEIGHT / 4)
-            // Menggunakan CHARACTER_START_Y sebagai referensi tengah
             y = random.nextInt(GameConstants.CHARACTER_START_Y - GameConstants.BALL_SIZE - 50); // Agar tidak terlalu dekat
             direction = -1; // Bergerak ke kiri
-        } else { // Muncul dari bawah (kiri ke kanan), di bawah posisi Y karakter
-            x = -GameConstants.BALL_SIZE; // Mulai dari sisi kiri (di luar layar)
-            // Y acak di area di bawah karakter, sampai batas bawah layar
-            // Batas atas: CHARACTER_START_Y + CHARACTER_SIZE + 50
-            // Batas bawah: WINDOW_HEIGHT - BALL_SIZE
+        } else { 
+            x = -GameConstants.BALL_SIZE; // Mulai dari sisi kiri 
             y = GameConstants.CHARACTER_START_Y + GameConstants.CHARACTER_SIZE + 50 +
                 random.nextInt(GameConstants.WINDOW_HEIGHT - (GameConstants.CHARACTER_START_Y + GameConstants.CHARACTER_SIZE + 50) - GameConstants.BALL_SIZE);
             direction = 1; // Bergerak ke kanan
@@ -224,11 +209,11 @@ public class GameViewModel {
         }
 
         // Tombol spasi untuk pause/unpause game
-        if (keyCode == 32) { // Spasi
+        if (keyCode == 32) { 
             if (gameData.isGamePaused()) {
-                gameData.startGame(); // Melanjutkan game (juga mengatur gameData.setGameOver(false))
+                gameData.startGame(); 
             } else {
-                gameData.pauseGame(); // Pause game
+                gameData.pauseGame(); 
             }
         }
     }
@@ -279,20 +264,20 @@ public class GameViewModel {
      * Reset game
      */
     public void resetGame() {
-        gameData.resetGame(); // Reset data game, termasuk game over
-        initializeGameElements(); // Inisialisasi ulang elemen game
-        ballSpawnTimer = 0; // Reset timer spawn bola
-        keyPressed = new boolean[256]; // Reset input
-        currentScore = 0; // Reset skor
-        timeRemaining = GameConstants.INITIAL_TIME; // Reset waktu
-        gamePaused = false; // Pastikan game tidak dalam keadaan pause
+        gameData.resetGame(); 
+        initializeGameElements(); 
+        ballSpawnTimer = 0; 
+        keyPressed = new boolean[256]; 
+        currentScore = 0; 
+        timeRemaining = GameConstants.INITIAL_TIME; 
+        gamePaused = false; 
     }
 
     /**
      * Save game result to database
      */
     public void saveGameResult(String username, int score, int count) {
-        if (username != null && !username.trim().isEmpty() && score >= 0) { // Perbaiki validasi skor
+        if (username != null && !username.trim().isEmpty() && score >= 0) { 
             Database.insertOrUpdatePlayer(username.trim(), score, count);
             System.out.println("Game result saved: Username = " + username + ", Score = " + score + ", Count = " + count);
         } else {
@@ -319,7 +304,7 @@ public class GameViewModel {
         return String.valueOf(timeRemaining);
     }
     
-    // Additional getters for movement state (useful for debugging)
+    // Getters untuk pergerakan karakter
     public boolean isCharacterMovingHorizontally() { return isMovingHorizontally; }
     public boolean isCharacterMovingVertically() { return isMovingVertically; }
 }

@@ -80,10 +80,7 @@ public class Lasso {
         this.sparkleEffect = true;
         this.chargeLevel = 0;
         
-        // Inisialisasi rantai
         initializeChainLinks();
-        
-        // Buat partikel ajaib awal
         createInitialParticles();
     }
 
@@ -153,7 +150,7 @@ public class Lasso {
             }
         } else {
             // Menarik kembali dengan efek ajaib
-            currentLength -= GameConstants.LASSO_SPEED * 1.5; // Penarikan lebih cepat
+            currentLength -= GameConstants.LASSO_SPEED * 1.5; 
             chargeLevel = Math.max(0, chargeLevel - 3);
             
             if (currentLength <= 0) {
@@ -170,10 +167,7 @@ public class Lasso {
             }
         }
         
-        // Perbarui partikel ajaib
         updateParticles();
-        
-        // Perbarui rantai
         updateChainLinks();
         
         // Perbarui intensitas cahaya
@@ -246,7 +240,7 @@ public class Lasso {
                 int ballCenterY = ball.getY() + GameConstants.BALL_SIZE / 2;
                 double distance = Math.sqrt(Math.pow(tipX - ballCenterX, 2) + Math.pow(tipY - ballCenterY, 2));
                 
-                if (distance <= GameConstants.BALL_SIZE / 2 + 5) { // +5 untuk jangkauan ajaib
+                if (distance <= GameConstants.BALL_SIZE / 2 + 5) { 
                     caughtBall = ball;
                     extending = false;
                     
@@ -311,22 +305,12 @@ public class Lasso {
         // Aktifkan antialiasing untuk rendering yang halus
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
-        // Render rantai ajaib
         renderMagicalChain(g2d);
-        
-        // Render garis utama lasso dengan efek cahaya
         renderMainLasso(g2d);
-        
-        // Render ujung lasso dengan efek yang ditingkatkan
         renderMagicalTip(g2d);
-        
-        // Render bola yang tertangkap jika ada
         renderCaughtBall(g2d);
-        
-        // Render partikel ajaib
         renderParticles(g2d);
-        
-        // Render indikator pengisian daya
+
         if (extending && chargeLevel > 20) {
             renderChargeIndicator(g2d);
         }

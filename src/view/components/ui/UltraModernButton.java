@@ -13,37 +13,20 @@ import java.awt.event.MouseEvent;
  * Ultra-modern button dengan berbagai gaya dan animasi
  */
 public class UltraModernButton extends JButton {
-    // Warna dasar tombol
     private Color baseColor;
-    // Gaya tombol
     private ButtonStyle style;
-    // Status hover tombol
     private boolean isHovered = false;
-    // Status tombol ditekan
     private boolean isPressed = false;
-    // Status loading tombol
     private boolean isLoading = false;
-    // Status animasi spinning
     private boolean isSpinning = false;
-    // Timer untuk animasi hover
     private Timer hoverTimer;
-    // Timer untuk animasi loading
     private Timer loadingTimer;
-    // Timer untuk animasi spinning
     private Timer spinTimer;
-    // Nilai animasi hover
     private float hoverAnimation = 0.0f;
-    // Nilai animasi loading
     private float loadingAnimation = 0.0f;
-    // Nilai animasi spinning
     private float spinAnimation = 0.0f;
 
-    /**
-     * Konstruktor tombol ultra-modern
-     * @param text Teks tombol
-     * @param baseColor Warna dasar tombol
-     * @param style Gaya tombol
-     */
+    
     public UltraModernButton(String text, Color baseColor, ButtonStyle style) {
         super(text);
         this.baseColor = baseColor;
@@ -257,12 +240,8 @@ public class UltraModernButton extends JButton {
             g2d.setColor(getForeground());
             g2d.setFont(getFont());
             FontMetrics fm = g2d.getFontMetrics();
-            int textX = (width - fm.stringWidth(getText())) / 2; // Rata tengah horizontal
-            
-            // ===== BAGIAN YANG DIPERBAIKI UNTUK PERATAAN TEKS VERTIKAL =====
-            // Rumus standar untuk menengahkan teks vertikal
+            int textX = (width - fm.stringWidth(getText())) / 2; 
             int textY = (height - fm.getHeight()) / 2 + fm.getAscent(); 
-            // =================================================================
             
             g2d.drawString(getText(), textX, textY);
         }

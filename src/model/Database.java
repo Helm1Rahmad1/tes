@@ -11,11 +11,11 @@ import model.Player;
  */
 public class Database {
     // Konfigurasi database MySQL
-    private static final String DB_HOST = "localhost"; // Host database
-    private static final String DB_PORT = "3306"; // Port database
-    private static final String DB_NAME = "game_scores_db"; // Nama database
-    private static final String DB_USERNAME = "root"; // Username database
-    private static final String DB_PASSWORD = ""; // Password database (kosong jika tidak ada)
+    private static final String DB_HOST = "localhost"; 
+    private static final String DB_PORT = "3306"; 
+    private static final String DB_NAME = "game_scores_db"; 
+    private static final String DB_USERNAME = "root"; 
+    private static final String DB_PASSWORD = ""; 
 
     private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME 
                                         + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
@@ -27,7 +27,7 @@ public class Database {
      */
     public static synchronized void initializeDatabase() {
         if (connection != null) {
-            return; // Sudah diinisialisasi
+            return; 
         }
 
         try {
@@ -39,8 +39,8 @@ public class Database {
             System.out.println("Username: " + DB_USERNAME);
             
             connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-            createTableIfNotExists(); // Membuat tabel jika belum ada
-            insertSampleData(); // Menambahkan data contoh
+            createTableIfNotExists(); 
+            insertSampleData(); 
             
             System.out.println("Database MySQL berhasil diinisialisasi");
         } catch (ClassNotFoundException e) {

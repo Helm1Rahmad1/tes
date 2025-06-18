@@ -4,22 +4,22 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Particle {
-    private float x, y, vx, vy, size, alpha, life; // Variabel untuk posisi, kecepatan, ukuran, transparansi, dan umur partikel
-    private Color color; // Warna partikel
+    private float x, y, vx, vy, size, alpha, life; 
+    private Color color; 
 
     public Particle() {
-        reset(); // Menginisialisasi partikel
+        reset(); 
     }
 
     private void reset() {
         // Mengatur ulang posisi, kecepatan, ukuran, transparansi, umur, dan warna partikel
-        x = (float) (Math.random() * 1400); // Posisi X acak dalam lebar jendela
-        y = (float) (Math.random() * 900); // Posisi Y acak dalam tinggi jendela
-        vx = (float) (Math.random() - 0.5) * 0.5f; // Kecepatan X acak
-        vy = (float) (Math.random() - 0.5) * 0.5f; // Kecepatan Y acak
-        size = (float) (Math.random() * 3 + 1); // Ukuran partikel acak
-        alpha = (float) (Math.random() * 0.3 + 0.1); // Transparansi awal acak
-        life = 1.0f; // Umur awal partikel
+        x = (float) (Math.random() * 1400); 
+        y = (float) (Math.random() * 900); 
+        vx = (float) (Math.random() - 0.5) * 0.5f; 
+        vy = (float) (Math.random() - 0.5) * 0.5f; 
+        size = (float) (Math.random() * 3 + 1); 
+        alpha = (float) (Math.random() * 0.3 + 0.1); 
+        life = 1.0f; 
 
         // Warna acak dari daftar warna
         Color[] colors = {Color.BLUE, Color.MAGENTA, Color.GREEN, Color.ORANGE};
@@ -30,7 +30,7 @@ public class Particle {
         // Memperbarui posisi partikel berdasarkan kecepatan
         x += vx;
         y += vy;
-        life -= 0.001f; // Mengurangi umur partikel
+        life -= 0.001f; 
 
         // Mengatur ulang partikel jika keluar dari layar atau umur habis
         if (life <= 0 || x < -size || x > 1400 + size || y < -size || y > 900 + size) {
@@ -41,6 +41,6 @@ public class Particle {
     public void draw(Graphics2D g2d) {
         // Menggambar partikel dengan warna dan transparansi yang sesuai
         g2d.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (alpha * life * 255)));
-        g2d.fillOval((int) x, (int) y, (int) size, (int) size); // Menggambar lingkaran kecil sebagai partikel
+        g2d.fillOval((int) x, (int) y, (int) size, (int) size); 
     }
 }

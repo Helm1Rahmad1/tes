@@ -16,10 +16,10 @@ public class Character {
     private boolean moving;
     
     // Variabel animasi
-    private BufferedImage[] downSprites = new BufferedImage[4];   // Frame 1-4 (bawah)
-    private BufferedImage[] upSprites = new BufferedImage[4];     // Frame 5-8 (atas)
-    private BufferedImage[] leftSprites = new BufferedImage[4];   // Frame 9-12 (kiri)
-    private BufferedImage[] rightSprites = new BufferedImage[4];  // Frame 13-16 (kanan)
+    private BufferedImage[] downSprites = new BufferedImage[4];  
+    private BufferedImage[] upSprites = new BufferedImage[4];    
+    private BufferedImage[] leftSprites = new BufferedImage[4];   
+    private BufferedImage[] rightSprites = new BufferedImage[4];  
     
     private int currentFrame = 0;
     private int animationCounter = 0;
@@ -146,7 +146,7 @@ public class Character {
             // Animasi hanya berjalan saat karakter bergerak
             animationCounter++;
             if (animationCounter >= ANIMATION_SPEED) {
-                currentFrame = (currentFrame + 1) % 4; // Siklus melalui 4 frame
+                currentFrame = (currentFrame + 1) % 4; 
                 animationCounter = 0;
             }
         } else {

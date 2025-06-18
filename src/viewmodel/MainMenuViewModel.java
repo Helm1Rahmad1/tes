@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * MainMenuViewModel - ViewModel untuk main menu
- * Menghandle logic dan data untuk main menu view
- * Bagian dari ViewModel layer dalam MVVM pattern
+ * Mengelola logika dan data untuk tampilan main menu
+ * Bagian dari lapisan ViewModel dalam pola MVVM
  */
 public class MainMenuViewModel {
     private GameData gameData;
@@ -21,20 +21,22 @@ public class MainMenuViewModel {
     }
 
     /**
-     * Load semua players dari database
+     * Memuat semua pemain dari database
      */
     public void loadPlayers() {
         this.players = Database.getAllPlayers();
     }
 
     /**
-     * Get list of all players
+     * Mendapatkan daftar semua pemain
      */
     public List<Player> getPlayers() {
         return players;
     }
 
-    
+    /**
+     * Memulai permainan dengan username tertentu
+     */
     public boolean startGame(String username) {
         if (username == null || username.trim().isEmpty()) {
             return false;
@@ -46,14 +48,14 @@ public class MainMenuViewModel {
     }
 
     /**
-     * Get current game data
+     * Mendapatkan data permainan saat ini
      */
     public GameData getGameData() {
         return gameData;
     }
 
     /**
-     * Menyimpan hasil game ke database.
+     * Menyimpan hasil permainan ke database.
      * @param username Username pemain.
      * @param score Skor yang diperoleh.
      * @param count Jumlah bola yang ditangkap.
@@ -61,12 +63,12 @@ public class MainMenuViewModel {
     public void saveGameResult(String username, int score, int count) {
         if (username != null && !username.trim().isEmpty() && score > 0) {
             Database.insertOrUpdatePlayer(username.trim(), score, count);
-            loadPlayers(); // Refresh data pemain
+            loadPlayers(); 
         }
     }
 
     /**
-     * Get player by username
+     * Mendapatkan pemain berdasarkan username
      */
     public Player getPlayerByUsername(String username) {
         if (players == null) return null;
@@ -78,31 +80,31 @@ public class MainMenuViewModel {
     }
 
     /**
-     * Check if username exists in database
+     * Memeriksa apakah username sudah ada di database
      */
     public boolean usernameExists(String username) {
         return getPlayerByUsername(username) != null;
     }
 
     /**
-     * Get total number of players
+     * Mendapatkan total jumlah pemain
      */
     public int getTotalPlayers() {
         return players != null ? players.size() : 0;
     }
 
     /**
-     * Get top player (highest score)
+     * Mendapatkan pemain dengan skor tertinggi
      */
     public Player getTopPlayer() {
         if (players == null || players.isEmpty()) {
             return null;
         }
-        return players.get(0); // Already sorted by score DESC
+        return players.get(0); 
     }
 
     /**
-     * Refresh data from database
+     * Memperbarui data dari database
      */
     public void refreshData() {
         loadPlayers();
