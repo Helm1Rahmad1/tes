@@ -6,8 +6,10 @@ import java.util.List;
 import model.Player;
 
 /**
- * DatabaseHelper - Utility class untuk operasi database MySQL
- * Menggunakan pattern Singleton untuk koneksi database
+ * Untuk operasi database MySQL
+ * Menggunakan pola Singleton untuk mengelola koneksi database
+ * Bertanggung jawab untuk inisialisasi database, pembuatan tabel,
+ * penyisipan/pembaruan data pemain, dan pengambilan data skor
  */
 public class Database {
     // Konfigurasi database MySQL

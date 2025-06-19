@@ -10,7 +10,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * Ultra-modern button dengan berbagai gaya dan animasi
+ * Tombol yang sangat modern dengan berbagai gaya dan animasi
+ * Mendukung efek hover, loading, dan spinning untuk memberikan pengalaman pengguna yang dinamis
  */
 public class UltraModernButton extends JButton {
     private Color baseColor;

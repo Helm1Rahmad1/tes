@@ -7,8 +7,8 @@ import utils.GameConstants;
 import utils.AssetLoader; // Tambahkan import ini
 
 /**
- * Character - Komponen visual untuk karakter utama game dengan animasi sprite
- * Bagian dari lapisan View dalam pola MVVM
+ * Merepresentasikan komponen visual untuk karakter utama game.
+ * Bertanggung jawab untuk mengelola posisi, pergerakan, dan animasi sprite karakter.
  */
 public class Character {
     private int x, y;

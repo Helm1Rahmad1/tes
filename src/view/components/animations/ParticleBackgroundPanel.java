@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
+/**
+ * Ini adalah panel khusus yang menampilkan gambar latar belakang
+ * dan sistem partikel animasi di atasnya. Panel ini dirancang untuk transparan
+ * dan mendukung opacity global untuk efek fade in/out
+ */
 public class ParticleBackgroundPanel extends TransparentPanel {
     // Gambar latar belakang
     private BufferedImage backgroundImage;

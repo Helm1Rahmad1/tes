@@ -6,6 +6,10 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 
+/**
+ * Untuk tampilan dan nuansa scroll bar 
+ * Ini menyesuaikan warna, menghilangkan tombol panah, dan merender
+ */
 public class UltraModernScrollBarUI extends BasicScrollBarUI {
     @Override
     protected void configureScrollBarColors() {

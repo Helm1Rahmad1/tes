@@ -8,7 +8,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
 /**
- * Renderer sel tabel dengan gaya ultra-modern
+ * Perender sel tabel kustom
+ * dengan gaya modern. Ini menyesuaikan tampilan sel tabel termasuk
  */
 public class UltraModernTableRenderer extends DefaultTableCellRenderer {
     @Override

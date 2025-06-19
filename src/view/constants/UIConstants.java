@@ -1,5 +1,9 @@
 package view.constants;
 
+/**
+ * Konstanta terkait konfigurasi antarmuka pengguna (UI),
+ * seperti durasi animasi, penundaan, dan langkah-langkah untuk efek visual
+ */
 public class UIConstants {
     public static final int ANIMATION_DURATION = 300;
     public static final int FADE_ANIMATION_DELAY_MS = 16;

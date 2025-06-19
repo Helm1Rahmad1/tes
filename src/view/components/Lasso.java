@@ -7,8 +7,9 @@ import java.util.List;
 import utils.GameConstants;
 
 /**
- * Lasso Ajaib - Komponen visual yang ditingkatkan dengan efek ajaib
- * Bagian dari lapisan View dalam pola MVVM
+ * Merepresentasikan komponen visual Lasso Ajaib dalam permainan
+ * Bertanggung jawab untuk merender dan mengelola perilaku lasso, termasuk animasi,
+ * efek sihir (partikel, cahaya), dan deteksi tabrakan dengan bola
  */
 public class Lasso {
     private int startX, startY;

@@ -8,8 +8,10 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-// Kelas ModernTextField adalah komponen UI yang merupakan turunan dari JTextField
-// dengan tampilan modern dan animasi fokus.
+/**
+ * Turunan dari JTextField
+ * dengan tampilan modern 
+ */
 public class ModernTextField extends JTextField {
     private String placeholder;
     private boolean focused = false;

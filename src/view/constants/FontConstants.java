@@ -2,6 +2,10 @@ package view.constants;
 
 import java.awt.Font;
 
+/**
+ * Konstanta font yang digunakan
+ * di seluruh aplikasi untuk memastikan konsistensi tipografi
+ */
 public class FontConstants {
     public static final Font FONT_TITLE = new Font("SF Pro Display", Font.BOLD, 48);
     public static final Font FONT_HEADING = new Font("SF Pro Display", Font.BOLD, 24);

@@ -36,15 +36,11 @@ import java.util.ArrayList;
 import utils.AssetLoader;
 
 /**
- * MainMenuView - Ultra Modern Game Menu Interface
- * Fitur: Desain Neumorphism, efek partikel, animasi canggih
- * * Peningkatan:
- * - Desain hybrid Neumorphism/Glassmorphism
- * - Sistem partikel animasi latar belakang
- * - Efek hover canggih dan mikro-interaksi
- * - Tata letak berbasis kartu modern
- * - Hierarki visual yang ditingkatkan
- * - Transisi halus dan animasi pegas
+ * Kelas ini bertanggung jawab untuk menampilkan antarmuka pengguna (GUI)
+ * untuk menu utama permainan "Collect The Skill Balls"
+ * Ini adalah bagian dari lapisan View dalam pola MVVM 
+ * Kelas ini mengelola interaksi pengguna untuk memulai game, melihat papan peringkat,
+ * dan keluar dari aplikasi, serta menampilkan efek visual modern (Neumorphism, Glassmorphism, partikel)
  */
 public class MainMenuView extends JFrame {
 

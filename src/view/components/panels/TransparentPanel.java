@@ -2,7 +2,11 @@ package view.components.panels;
 
 import javax.swing.*;
 
-// Kelas TransparentPanel adalah turunan dari JPanel yang memiliki properti transparan
+/**
+ * Turunan dari JPanel yang secara default
+ * diatur untuk menjadi transparan, berguna sebagai wadah yang tidak terlihat
+ * untuk elemen UI lain atau sebagai dasar untuk rendering 
+ */
 public class TransparentPanel extends JPanel {
     public TransparentPanel() {
         setOpaque(false); 

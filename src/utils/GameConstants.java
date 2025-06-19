@@ -3,7 +3,9 @@ package utils;
 import java.awt.Color;
 
 /**
- * GameConstants - Konstanta untuk konfigurasi game
+ * Berisi konstanta untuk konfigurasi game
+ * Mendefinisikan dimensi jendela, pengaturan karakter, bola, lasso, keranjang,
+ * warna, mekanisme permainan, dan pengaturan spawn bola
  */
 public class GameConstants {
     // Dimensi jendela

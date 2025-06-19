@@ -5,9 +5,14 @@ import view.constants.ColorConstants;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel khusus yang menampilkan gaya desain Glassmorphism
+ * Ini menciptakan efek visual seperti kaca buram dengan latar belakang transparan,
+ * batas bercahaya, dan efek inner glow
+ */
 public class GlassmorphismCard extends JPanel {
     public GlassmorphismCard() {
-        setOpaque(false); // Panel ini transparan
+        setOpaque(false); 
     }
 
     @Override

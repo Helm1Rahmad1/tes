@@ -9,10 +9,11 @@ import model.Database;
     tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
 *
   
- * Main class - Entry point aplikasi Collect The Skill Balls
- * Menggunakan konsep MVVM (Model-View-ViewModel)
+/**
+ * Titik masuk utama (entry point) untuk aplikasi
+ * permainan "Collect The Skill Balls". Kelas ini bertanggung jawab untuk
+ * menginisialisasi database dan memulai tampilan menu utama permainan
  */
-
 public class Main {
     public static void main(String[] args) {
         try {

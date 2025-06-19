@@ -7,9 +7,10 @@ import model.GameData;
 import java.util.List;
 
 /**
- * MainMenuViewModel - ViewModel untuk main menu
- * Mengelola logika dan data untuk tampilan main menu
- * Bagian dari lapisan ViewModel dalam pola MVVM
+ * ViewModel untuk menu utama permainan
+ * Bertanggung jawab untuk mengelola logika bisnis dan data yang terkait dengan
+ * tampilan menu utama, seperti memuat daftar pemain, memulai permainan,
+ * dan menyimpan hasil game
  */
 public class MainMenuViewModel {
     private GameData gameData;

@@ -1,8 +1,10 @@
 package model;
 
 /**
- * Player - Model class untuk data player
- * Bagian dari Model layer dalam MVVM pattern
+ * Kelas model untuk data pemain
+ * Bertanggung jawab untuk menyimpan informasi dasar pemain seperti username,
+ * skor, dan jumlah bola yang dikumpulkan
+ * Bagian dari lapisan Model dalam pola MVVM
  */
 public class Player {
     private String username;

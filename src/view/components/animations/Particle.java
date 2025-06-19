@@ -3,6 +3,11 @@ package view.components.animations;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+/**
+ * Merepresentasikan objek partikel individual untuk efek visual
+ * Mengelola posisi, kecepatan, ukuran, transparansi, umur, dan warna partikel
+ * Bertanggung jawab untuk memperbarui status dan merender partikel
+ */
 public class Particle {
     private float x, y, vx, vy, size, alpha, life; 
     private Color color; 

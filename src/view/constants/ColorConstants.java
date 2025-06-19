@@ -2,6 +2,10 @@ package view.constants;
 
 import java.awt.Color;
 
+/**
+ * Konstanta warna yang digunakan
+ * di seluruhnya untuk memastikan konsistensi desain visual
+ */
 public class ColorConstants {
     public static final Color PRIMARY_DARK = new Color(13, 17, 23);
     public static final Color PRIMARY_LIGHT = new Color(22, 27, 34);

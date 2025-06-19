@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * GameViewModel - ViewModel untuk game logic dengan sprite animation support
- * Menghandle semua logic gameplay
- * Bagian dari ViewModel layer dalam MVVM pattern
+ /**
+ * ViewModel untuk logika game dengan dukungan animasi sprite
+ * Menangani semua logika gameplay
+ * Bagian dari lapisan ViewModel dalam pola MVVM
  */
 public class GameViewModel {
     private GameData gameData;
@@ -30,7 +30,7 @@ public class GameViewModel {
     private boolean gamePaused;
     private double timeAccumulator = 0;
     
-    // Movement tracking for smooth animation
+    // Pelacakan pergerakan untuk animasi yang halus
     private boolean isMovingHorizontally = false;
     private boolean isMovingVertically = false;
     private long lastMoveTime = 0;
@@ -47,26 +47,26 @@ public class GameViewModel {
     }
 
     private void initializeGameElements() {
-        // Initialize balls
+        // Inisialisasi bola
         balls = new ArrayList<>();
         for (int i = 0; i < GameConstants.INITIAL_BALL_COUNT; i++) {
             spawnSingleBall(); 
         }
 
-        // Initialize character
+        // Inisialisasi karakter
         character = new Character();
 
-        // Initialize lasso
+        // Inisialisasi lasso
         lasso = new Lasso();
 
-        // Initialize other game state variables
+        // Inisialisasi variabel status game lainnya
         currentScore = 0;
         timeRemaining = GameConstants.INITIAL_TIME;
         gamePaused = false;
     }
 
     /**
-     * Update game state - main game loop logic
+     * Memperbarui status game - logika loop game utama.
      */
     public void update() {
         if (!gameData.isGameRunning() || gameData.isGamePaused() || gameData.isGameOver()) { 
@@ -83,12 +83,14 @@ public class GameViewModel {
         if (caughtBall != null) {
             if (caughtBall.getValue() == 10) { // Jika bola adalah bom
                 gameData.setGameOver(true); // Atur status game over
+                stopGame(); // 
             } else {
                 // Tambahkan skor dan jumlah bola jika bukan bom
                 currentScore += caughtBall.getValue();
                 gameData.addScore(caughtBall.getValue());
                 gameData.incrementCount();
             }
+
         }
 
         // Perbarui bola
@@ -111,7 +113,7 @@ public class GameViewModel {
     }
 
     /**
-     * Tangani input keyboard dengan pergerakan langsung untuk animasi yang lebih halus
+     * Tangani input keyboard dengan pergerakan langsung untuk animasi yang lebih halus.
      */
     private void handleInputSmooth() {
         int moveSpeed = GameConstants.CHARACTER_SPEED;
@@ -144,7 +146,7 @@ public class GameViewModel {
 
 
     /**
-     * Update all balls
+     * Perbarui semua bola.
      */
     private void updateBalls() {
         balls.removeIf(ball -> !ball.isActive());
@@ -155,7 +157,7 @@ public class GameViewModel {
     }
 
     /**
-     * Spawn new balls
+     * Hasilkan bola baru.
      */
     private void spawnBalls() {
         ballSpawnTimer++;
@@ -167,7 +169,7 @@ public class GameViewModel {
     }
 
     /**
-     * Logic untuk membuat satu bola baru dengan arah yang ditentukan
+     * Logika untuk membuat satu bola baru dengan arah yang ditentukan.
      */
     private void spawnSingleBall() {
         int x, y, direction;
@@ -188,14 +190,14 @@ public class GameViewModel {
 
 
     /**
-     * Handle mouse click for lasso
+     * Tangani klik mouse untuk lasso.
      */
     public void handleMouseClick(int mouseX, int mouseY) {
         if (!gameData.isGameRunning() || gameData.isGamePaused() || gameData.isGameOver() || lasso.isActive()) { // Tambahkan gameData.isGameOver()
             return;
         }
 
-        // Start lasso from character to mouse position
+        // Mulai lasso dari karakter ke posisi mouse
         lasso.start(character.getCenterX(), character.getCenterY(), mouseX, mouseY);
     }
 
@@ -229,13 +231,13 @@ public class GameViewModel {
     }
 
     /**
-     * Stop game and save result
+     * Hentikan game dan simpan hasilnya.
      */
     public void stopGame() {
         gameData.stopGame();
         
-        // Save to database
-        if (gameData.getCurrentScore() > 0) {
+        
+        if (gameData.getCurrentUsername() != null && !gameData.getCurrentUsername().trim().isEmpty()) {
             Database.insertOrUpdatePlayer(
                 gameData.getCurrentUsername(),
                 gameData.getCurrentScore(),
@@ -245,7 +247,7 @@ public class GameViewModel {
     }
 
     /**
-     * Pause game
+     * Jeda game.
      */
     public void pauseGame() {
         gamePaused = true;
@@ -253,7 +255,7 @@ public class GameViewModel {
     }
 
     /**
-     * Resume game
+     * Lanjutkan game.
      */
     public void resumeGame() {
         gamePaused = false;
@@ -261,7 +263,7 @@ public class GameViewModel {
     }
 
     /**
-     * Reset game
+     * Setel ulang game.
      */
     public void resetGame() {
         gameData.resetGame(); 
@@ -274,14 +276,14 @@ public class GameViewModel {
     }
 
     /**
-     * Save game result to database
+     * Simpan hasil game ke database.
      */
     public void saveGameResult(String username, int score, int count) {
         if (username != null && !username.trim().isEmpty() && score >= 0) { 
             Database.insertOrUpdatePlayer(username.trim(), score, count);
-            System.out.println("Game result saved: Username = " + username + ", Score = " + score + ", Count = " + count);
+            System.out.println("Hasil game disimpan: Username = " + username + ", Skor = " + score + ", Jumlah = " + count);
         } else {
-            System.err.println("Failed to save game result: Invalid username or score.");
+            System.err.println("Gagal menyimpan hasil game: Username atau skor tidak valid.");
         }
     }
 

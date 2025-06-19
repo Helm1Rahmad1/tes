@@ -1,8 +1,9 @@
 package model;
 
 /**
- * GameData - Model untuk menyimpan state game saat ini
- * Bagian dari Model layer dalam MVVM pattern
+ * Untuk menyimpan status game saat ini
+ * Bertanggung jawab untuk melacak username, skor, jumlah bola,
+ * dan status permainan (berjalan, jeda, game over)
  */
 public class GameData {
     private String currentUsername;

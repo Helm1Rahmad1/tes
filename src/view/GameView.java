@@ -16,8 +16,11 @@ import java.util.HashMap;
 import utils.AssetLoader; // Tambahkan import ini
 
 /**
- * GameView - Tampilan utama game dengan tema sihir
- * Bagian dari lapisan View dalam pola MVVM
+ * Kelas ini merepresentasikan tampilan utama (GUI) dari permainan
+ * Bertanggung jawab untuk merender semua elemen visual game seperti karakter, bola, lasso,
+ * antarmuka pengguna (skor, waktu), dan overlay game over/pause
+ * Ini adalah bagian dari lapisan View dalam pola MVVM (Model-View-ViewModel)
+ * Menerima data dari GameViewModel dan menampilkan perubahan status game kepada pengguna
  */
 public class GameView extends JFrame {
     // Deklarasi variabel

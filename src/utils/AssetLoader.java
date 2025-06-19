@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * AssetLoader - Kelas utilitas untuk memuat sumber daya game (gambar, suara, dll.)
- * Memusatkan logika pemuatan aset dan penanganan kesalahan, serta jalur aset.
+ * Memuat sumber daya game (gambar, suara)
+ * Memusatkan logika pemuatan aset dan penanganan kesalahan, serta jalur aset
  */
 public class AssetLoader {
 

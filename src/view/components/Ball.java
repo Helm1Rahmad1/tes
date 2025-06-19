@@ -13,8 +13,8 @@ import utils.GameConstants;
 import utils.AssetLoader;
 
 /**
- * Ball - Komponen visual untuk bola dalam game dengan tema sihir
- * Bagian dari View layer dalam MVVM pattern
+ * Merepresentasikan komponen visual untuk bola dalam game dengan tema sihir
+ * Bertanggung jawab untuk mengelola posisi, nilai, arah, dan efek visual sihir bola
  */
 public class Ball {
     private int x, y;
