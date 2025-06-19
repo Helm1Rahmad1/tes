@@ -19,7 +19,7 @@ import utils.AssetLoader;
 public class Ball {
     private int x, y;
     private int value;
-    private int direction; // 1 = left to right, -1 = right to left
+    private int direction; 
     private Color color;
     private boolean active;
     private static Random random = new Random();

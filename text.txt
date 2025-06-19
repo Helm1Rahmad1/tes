@@ -1,4 +1,5 @@
 compile:
+
 rm -rf bin
 
 javac -d bin -cp "lib/*" src/**/*.java
