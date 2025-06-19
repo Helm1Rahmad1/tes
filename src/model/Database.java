@@ -89,6 +89,13 @@ public class Database {
                 insertOrUpdatePlayer("NalarJalan", 1000, 100);
                 insertOrUpdatePlayer("UseYourLogic", 800, 80);
                 insertOrUpdatePlayer("NoJudgement", 700, 40);
+                insertOrUpdatePlayer("EkoPrasetyo", 950, 95);
+                insertOrUpdatePlayer("Fitriani", 880, 85);
+                insertOrUpdatePlayer("GatotKaca", 750, 70);
+                insertOrUpdatePlayer("DewiSartika", 650, 60);
+                insertOrUpdatePlayer("Cahya", 500, 50);
+                insertOrUpdatePlayer("BayuSamudra", 450, 45);
+                insertOrUpdatePlayer("AnisaRahma", 400, 40);
                 System.out.println("Sample data berhasil diinsert");
             }
         }

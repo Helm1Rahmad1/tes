@@ -16,15 +16,18 @@ import model.Database;
 public class Main {
     public static void main(String[] args) {
         try {
-            // Initialize database
+            // Inisialisasi database
+            // Memastikan bahwa koneksi ke database atau setup awal database dilakukan sebelum aplikasi berjalan
             Database.initializeDatabase();
             
-            // Start application with main menu
+            // Memulai aplikasi dengan menampilkan menu utama
+            // Menggunakan SwingUtilities.invokeLater untuk memastikan GUI berjalan di thread event-dispatching
             javax.swing.SwingUtilities.invokeLater(() -> {
                 new MainMenuView().setVisible(true);
             });
             
         } catch (Exception e) {
+            // Menangkap dan menampilkan error jika terjadi masalah saat memulai aplikasi
             System.err.println("Error starting application: " + e.getMessage());
             e.printStackTrace();
         }
@@ -33,10 +36,4 @@ public class Main {
 
 
 
-//      * Assets Character - https://opengameart.org/content/witchmagicianmagemagi#
 
-//      * Assets Ball Cristal - https://opengameart.org/content/gem-jewel-diamond-glass
-
-//      * Assets Background - https://opengameart.org/content/fantasy-background
-//      * Assets Music  Menu - https://opengameart.org/content/magic-space
-//      * Assets Music Game - https://opengameart.org/content/mystical-caverns

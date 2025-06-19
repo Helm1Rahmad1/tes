@@ -1,0 +1,19 @@
+compile:
+rm -rf bin
+
+javac -d bin -cp "lib/*" src/**/*.java
+
+cp -r src/assets bin/assets
+
+java -cp "bin:lib/*" main.Main
+
+
+
+kredit:
+//      * Assets Character - https://opengameart.org/content/witchmagicianmagemagi#
+
+//      * Assets Ball Cristal - https://opengameart.org/content/gem-jewel-diamond-glass
+
+//      * Assets Background - https://opengameart.org/content/fantasy-background
+//      * Assets Music  Menu - https://opengameart.org/content/magic-space
+//      * Assets Music Game - https://opengameart.org/content/mystical-caverns
