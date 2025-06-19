@@ -4,7 +4,7 @@ import view.MainMenuView;
 import model.Database;
 
 /**
- *  Saya Muhammad Helmi Rahmadi mengerjakan evaluasi Tugas Masa Depan dalam mata kuliah
+ *  Saya Muhammad Helmi Rahmadi dengan NIM 2311574 mengerjakan evaluasi Tugas Masa Depan dalam mata kuliah
     Desain dan Pemrograman Berorientasi Objek untuk keberkahanNya maka saya
     tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
 *
