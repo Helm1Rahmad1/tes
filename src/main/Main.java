@@ -7,7 +7,7 @@ import model.Database;
  *  Saya Muhammad Helmi Rahmadi mengerjakan evaluasi Tugas Masa Depan dalam mata kuliah
     Desain dan Pemrograman Berorientasi Objek untuk keberkahanNya maka saya
     tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
- *
+*
   
  * Main class - Entry point aplikasi Collect The Skill Balls
  * Menggunakan konsep MVVM (Model-View-ViewModel)
