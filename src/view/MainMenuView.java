@@ -380,14 +380,13 @@ public class MainMenuView extends JFrame {
                 int selectedRow = scoreTable.getSelectedRow();
                 if (selectedRow >= 0) {
                     String username = (String) tableModel.getValueAt(selectedRow, 0);
-                    // Hapus karakter medal emoji sebelum mengatur teks
                     username = username.replaceAll("[^\\p{L}\\p{N}\\s]", "").trim();
                     usernameField.setText(username);
                 }
             }
         });
 
-        // Tambahkan blok kode ini untuk mendukung klik satu kali
+        // Tambahkan blok kode ini untuk klik satu kali
         scoreTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -448,7 +447,6 @@ public class MainMenuView extends JFrame {
             this, "Ready to leave the game?", "See you next time! 👋", "Stay & Play", "Exit Game"
         );
         
-        // Perhatikan ini:
         if (choice == JOptionPane.NO_OPTION) { 
             stopBackgroundMusic();
             startExitAnimation(() -> System.exit(0));
@@ -615,9 +613,6 @@ public class MainMenuView extends JFrame {
         return usernameField.getCleanText();
     }
 
-    /**
-     * Bersihkan sumber daya
-     */
     @Override
     public void dispose() {
         stopBackgroundMusic();

@@ -66,7 +66,7 @@ public class GameViewModel {
     }
 
     /**
-     * Memperbarui status game - logika loop game utama.
+     * Status game logika loop game utama.
      */
     public void update() {
         if (!gameData.isGameRunning() || gameData.isGamePaused() || gameData.isGameOver()) { 
@@ -81,8 +81,8 @@ public class GameViewModel {
         // Periksa tabrakan lasso dengan bola
         Ball caughtBall = lasso.checkCollision(balls.toArray(new Ball[0]));
         if (caughtBall != null) {
-            if (caughtBall.getValue() == 10) { // Jika bola adalah bom
-                gameData.setGameOver(true); // Atur status game over
+            if (caughtBall.getValue() == 10) { 
+                gameData.setGameOver(true); 
                 stopGame(); // 
             } else {
                 // Tambahkan skor dan jumlah bola jika bukan bom
@@ -138,7 +138,7 @@ public class GameViewModel {
             moved = true;
         }
         
-        // Terapkan pergerakan jika ada tombol yang ditekan
+        // Pergerakan jika ada tombol yang ditekan
         if (moved) {
             character.moveDirectly(dx, dy);
         }
@@ -177,7 +177,7 @@ public class GameViewModel {
         // Tentukan apakah muncul dari atas atau bawah 
         if (random.nextBoolean()) { 
             x = GameConstants.WINDOW_WIDTH; // Mulai dari sisi kanan
-            y = random.nextInt(GameConstants.CHARACTER_START_Y - GameConstants.BALL_SIZE - 50); // Agar tidak terlalu dekat
+            y = random.nextInt(GameConstants.CHARACTER_START_Y - GameConstants.BALL_SIZE - 50); 
             direction = -1; // Bergerak ke kiri
         } else { 
             x = -GameConstants.BALL_SIZE; // Mulai dari sisi kiri 

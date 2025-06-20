@@ -25,7 +25,7 @@ public class Lasso {
     private Color[] magicalColors;
     private float glowIntensity = 0.0f;
     private boolean sparkleEffect = false;
-    private int chargeLevel = 0; // 0-100, meningkat saat memperpanjang
+    private int chargeLevel = 0; 
     
     // Efek rantai lasso
     private List<ChainLink> chainLinks;

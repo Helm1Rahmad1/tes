@@ -1,172 +1,96 @@
-rm -rf bin
+# Collect The Magical Gems
 
-javac -d bin -cp "lib/*" src/**/*.java
+Sebuah game desktop bertema fantasi sihir modern yang dibangun dengan Java Swing, menampilkan desain UI canggih dan mekanisme gameplay yang menarik.
 
-cp -r src/assets bin/assets
+## Janji
 
-java -cp "bin:lib/*" main.Main
+Saya Muhammad Helmi Rahmadi dengan NIM 2311574 mengerjakan evaluasi Tugas Masa Depan dalam mata kuliah
+Desain dan Pemrograman Berorientasi Objek untuk keberkahanNya maka saya
+tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
 
-# Collect The Skill Balls - Ultra Edition
+## Fitur
 
-A modern fantasy magic-themed desktop game built with Java Swing, featuring advanced UI design and engaging gameplay mechanics.
+### Gameplay
+- **Kontrol Karakter**: Navigasi dan bidik karakter Anda secara strategis.
+- **Mekanisme Lasso**: Tembakkan lasso untuk mengumpulkan bola skill.
+- **Penghindaran Rintangan**: Hindari permata hitam berbahaya (bom).
+- **Sistem Penilaian**: Dapatkan poin dengan mengumpulkan bola skill.
 
-## 📋 Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Installation & Setup](#installation--setup)
-- [Database Configuration](#database-configuration)
-- [Build & Run](#build--run)
-- [Project Structure](#project-structure)
-- [Academic Integrity Statement](#academic-integrity-statement)
-- [Contributing](#contributing)
-- [License](#license)
+### Audio
+**Musik Latar Belakang**: Musik yang imersif untuk menu dan gameplay.
 
-## 🎮 Overview
+## Kredit Aset
+* **Aset Karakter** - [https://opengameart.org/content/witchmagicianmagemagi#](https://opengameart.org/content/witchmagicianmagemagi#)
+* **Aset Bola Kristal** - [https://opengameart.org/content/gem-jewel-diamond-glass](https://opengameart.org/content/gem-jewel-diamond-glass)
+* **Aset Latar Belakang** - [https://opengameart.org/content/fantasy-background](https://opengameart.org/content/fantasy-background)
+* **Aset Musik Menu** - [https://opengameart.org/content/magic-space](https://opengameart.org/content/magic-space)
+* **Aset Musik Game** - [https://opengameart.org/content/mystical-caverns](https://opengameart.org/content/mystical-caverns)
 
-"Collect The Skill Balls - Ultra Edition" is a desktop game that combines fantasy magic themes with modern UI design principles. Players control a character to shoot lassos, collect skill balls for points, and avoid dangerous black gems (bombs). The game features a sophisticated scoring system with persistent leaderboards stored in MySQL database.
+## Arsitektur
 
-## ✨ Features
+Proyek ini mengimplementasikan pola arsitektur **Model-View-ViewModel (MVVM)** untuk pemisahan tanggung jawab yang jelas:
 
-### 🎨 Modern UI Design
-- **Neumorphism & Glassmorphism**: Ultra-modern visual design combining both design trends
-- **Interactive Visual Effects**: Animated particle systems in backgrounds
-- **Smooth Animations**: Physics-based spring animations and seamless transitions
-- **Micro-interactions**: Enhanced user experience with hover effects and responsive elements
+-   **Model**: Penanganan data dan logika bisnis.
+-   **View**: Presentasi antarmuka pengguna.
+-   **ViewModel**: Jembatan antara Model dan View, mengelola status UI dan logika presentasi.
 
-### 🎯 Gameplay
-- **Character Control**: Navigate and aim your character strategically
-- **Lasso Mechanics**: Shoot lassos to collect skill balls
-- **Obstacle Avoidance**: Dodge dangerous black gems (bombs)
-- **Scoring System**: Earn points by collecting skill balls
+## Konfigurasi Database
 
-### 🏆 Progression & Records
-- **Hall of Fame**: Persistent leaderboard system
-- **MySQL Integration**: Scores saved to database
-- **Player Statistics**: Track performance over time
+Aplikasi ini menggunakan database MySQL bernama `game_scores_db`. Pada saat pertama kali dijalankan, aplikasi akan secara otomatis:
 
-### 🔊 Audio Experience
-- **Background Music**: Immersive soundtracks for menu and gameplay
-- **Sound Effects**: Interactive audio feedback
+1.  Membuat database jika belum ada.
+2.  Membuat tabel `thasil` dengan skema berikut:
+    -   `username` (VARCHAR)
+    -   `skor` (INT)
+    -   `count` (INT)
+    -   `created_at` (TIMESTAMP)
+    -   `updated_at` (TIMESTAMP)
+3.  Menyisipkan data contoh jika tabel kosong.
 
-## 🏗️ Architecture
+### Pengaturan Koneksi Database
+Konfigurasi default (modifikasi di `src/model/Database.java` jika diperlukan):
+-   **Host**: `localhost`
+-   **Port**: `3306`
+-   **Pengguna**: `root`
+-   **Kata Sandi**: (kosong)
+-   **Database**: `game_scores_db`
 
-This project implements the **Model-View-ViewModel (MVVM)** architectural pattern for clean separation of concerns:
+## Build & Jalankan
 
-- **Model**: Data handling and business logic
-- **View**: User interface presentation
-- **ViewModel**: Bridge between Model and View, manages UI state and presentation logic
+### Menggunakan Command Line
 
-## 📋 Prerequisites
+1.  **Buat direktori bin**:
+    ```bash
+    mkdir bin
+    ```
 
-Ensure you have the following installed:
+2.  **Kompilasi kode sumber**:
+    ```bash
+    javac -d bin -cp "lib/*" src/**/*.java
+    ```
 
-- **Java Development Kit (JDK)**: Version 11 or higher
-- **MySQL Server**: Running MySQL instance
-- **MySQL Connector/J**: JDBC driver for MySQL (place in `lib/` folder)
+3.  **Salin aset**:
+    ```bash
+    cp -r src/assets bin/assets
+    ```
 
-## 🚀 Installation & Setup
+4.  **Jalankan aplikasi**:
+    ```bash
+    java -cp "bin:lib/*" main.Main
+    ```
 
-1. **Clone the repository** (or extract the project files)
-2. **Ensure MySQL Server is running**
-3. **Place MySQL Connector/J** `.jar` file in the `lib/` directory
+5.  **Bersihkan build sebelumnya** (opsional):
+    ```bash
+    rm -rf bin
+    ```
 
-## 🗄️ Database Configuration
 
-The application uses a MySQL database named `game_scores_db`. On first run, the application will automatically:
+### Skrip Mulai Cepat
 
-1. Create the database if it doesn't exist
-2. Create the `thasil` table with the following schema:
-   - `username` (VARCHAR)
-   - `skor` (INT)
-   - `count` (INT)
-   - `created_at` (TIMESTAMP)
-   - `updated_at` (TIMESTAMP)
-3. Insert sample data if the table is empty
-
-### Database Connection Settings
-Default configuration (modify in `src/model/Database.java` if needed):
-- **Host**: localhost
-- **User**: root
-- **Password**: (empty)
-- **Database**: game_scores_db
-
-## 🔧 Build & Run
-
-### Using Command Line
-
-1. **Clean previous builds** (optional):
-   ```bash
-   rm -rf bin
-   ```
-
-2. **Compile the source code**:
-   ```bash
-   javac -d bin -cp "lib/*" src/**/*.java
-   ```
-
-3. **Copy assets**:
-   ```bash
-   cp -r src/assets bin/assets
-   ```
-
-4. **Run the application**:
-   ```bash
-   java -cp "bin:lib/*" main.Main
-   ```
-
-### Quick Start Script
-You can also create a shell script with all commands:
 ```bash
-#!/bin/bash
-rm -rf bin
+mkdir bin
 javac -d bin -cp "lib/*" src/**/*.java
 cp -r src/assets bin/assets
 java -cp "bin:lib/*" main.Main
-```
 
-## 📁 Project Structure
-
-```
-├── src/
-│   ├── main/                 # Application entry point
-│   ├── model/               # Data models and business logic
-│   │   ├── GameData.java
-│   │   ├── Player.java
-│   │   └── Database.java
-│   ├── view/                # User interface components
-│   │   ├── MainMenuView.java
-│   │   ├── GameView.java
-│   │   └── [custom UI components]
-│   ├── viewmodel/           # Presentation logic
-│   │   ├── MainMenuViewModel.java
-│   │   └── GameViewModel.java
-│   ├── utils/               # Utility classes
-│   │   ├── AssetLoader.java
-│   │   └── GameConstants.java
-│   └── assets/              # Game resources
-│       ├── images/
-│       └── sounds/
-├── lib/                     # External libraries
-│   └── mysql-connector-j-*.jar
-└── bin/                     # Compiled classes (generated)
-```
-
-## 📜 Academic Integrity Statement
-
-**Janji Kejujuran Akademik**
-
-Saya, Muhammad Helmi Rahmadi, mengerjakan evaluasi Tugas Masa Depan dalam mata kuliah Desain dan Pemrograman Berorientasi Objek. Dengan ini saya menyatakan bahwa saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
-
-## 🤝 Contributing
-
-**Primary Developer**: Muhammad Helmi Rahmadi
-
-## 📄 License
-
-This project is developed as part of an academic assignment for Object-Oriented Design and Programming course.
-
----
-
-**Note**: This project demonstrates advanced Java Swing capabilities combined with modern UI design principles and robust architectural patterns. It serves as an excellent example of applying MVVM architecture in desktop application development.
+rm -rf bin

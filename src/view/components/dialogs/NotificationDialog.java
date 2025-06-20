@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * NotificationDialog - Kelas ini menyediakan fungsionalitas untuk menampilkan
+ * Menyediakan fungsionalitas untuk menampilkan
  * notifikasi modern yang mengambang (floating notification) kepada pengguna
  * Notifikasi ini dapat disesuaikan tipenya (sukses, peringatan, error)
  * dengan efek visual dan penutupan otomatis

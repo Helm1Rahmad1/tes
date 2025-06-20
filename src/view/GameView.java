@@ -139,7 +139,6 @@ public class GameView extends JFrame {
                         gameRunning = false;
                         gamePanel.repaint();
                         SwingUtilities.invokeLater(() -> {
-                            // Tidak perlu memanggil drawGameOverOverlay secara manual di sini lagi
                             try {
                                 Thread.sleep(2000);
                             } catch (InterruptedException ex) {
@@ -341,7 +340,7 @@ public class GameView extends JFrame {
             int panelX = getWidth() - 200;
             int panelY = 10;
             int panelW = 180;
-            int panelH = 300; // Sesuaikan tinggi untuk gambar
+            int panelH = 300; 
 
             g2d.setColor(new Color(0, 0, 0, 120));
             g2d.fillRoundRect(panelX, panelY, panelW, panelH, 15, 15);
@@ -394,7 +393,7 @@ public class GameView extends JFrame {
             g2d.setStroke(new BasicStroke(5));
             g2d.drawRect(100, 100, getWidth() - 200, getHeight() - 200);
 
-            // Teks jeda dengan gaya sihir
+            // Teks jeda 
             g2d.setColor(Color.YELLOW);
             g2d.setFont(new Font("Serif", Font.BOLD, 48));
             String pauseText = "⏸️ DIJEDA ⏸️";
@@ -419,7 +418,7 @@ public class GameView extends JFrame {
         }
 
         private void drawMagicalGameOverOverlay(Graphics2D g2d) {
-            // Overlay semi-transparan sihir
+            // Overlay semi transparan sihir
             g2d.setColor(new Color(20, 20, 60, 180));
             g2d.fillRect(0, 0, getWidth(), getHeight());
 
@@ -485,7 +484,7 @@ public class GameView extends JFrame {
                 int sparkleX = (int)(centerX + Math.cos(angle) * (80 + 20 * Math.sin(magicParticleTimer + i)));
                 int sparkleY = (int)(centerY + Math.sin(angle) * (60 + 15 * Math.cos(magicParticleTimer + i)));
 
-                // Pastikan kilauan tetap dalam batas
+                // Membatasi posisi kilauan agar tidak keluar dari batas panel
                 sparkleX = Math.max(20, Math.min(getWidth() - 20, sparkleX));
                 sparkleY = Math.max(20, Math.min(getHeight() - 20, sparkleY));
 
@@ -504,7 +503,7 @@ public class GameView extends JFrame {
 
     // Metode publik untuk akses eksternal
     public void pauseGame() {
-        // Menjeda permainan
+        // Jeda permainan
         if (gameRunning) {
             viewModel.pauseGame();
             gamePanel.repaint();

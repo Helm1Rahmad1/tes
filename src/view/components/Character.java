@@ -134,7 +134,7 @@ public class Character {
         } else {
             // Saat tidak bergerak, gunakan arah terakhir untuk animasi diam
             currentDirection = lastDirection;
-            currentFrame = 0; // Gunakan frame pertama sebagai diam
+            currentFrame = 0; 
         }
     }
 

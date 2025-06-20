@@ -18,11 +18,9 @@ public class Main {
     public static void main(String[] args) {
         try {
             // Inisialisasi database
-            // Memastikan bahwa koneksi ke database atau setup awal database dilakukan sebelum aplikasi berjalan
             Database.initializeDatabase();
             
             // Memulai aplikasi dengan menampilkan menu utama
-            // Menggunakan SwingUtilities.invokeLater untuk memastikan GUI berjalan di thread event-dispatching
             javax.swing.SwingUtilities.invokeLater(() -> {
                 new MainMenuView().setVisible(true);
             });

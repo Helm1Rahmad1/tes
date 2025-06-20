@@ -52,7 +52,6 @@ public class AssetLoader {
     // --- Audio Asset Paths ---
     public static final String AUDIO_MENU_MUSIC = "/assets/sounds/menu_music.wav";
     public static final String AUDIO_GAME_MUSIC = "/assets/sounds/game_music.wav";
-    public static final String AUDIO_GAME_OVER = "/assets/sounds/game_over.wav";
 
 
     /**
